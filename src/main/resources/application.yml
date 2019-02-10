@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    username: sa
+  h2:
+    console:
+      enabled: true
+      path: /h2console
