@@ -5,3 +5,4 @@ spring:
     console:
       enabled: true
       path: /h2console
+      web-allow-others: true
