@@ -1,5 +1,6 @@
 spring:
   datasource:
+    driver-class-name=org: org.H2.Driver
     username: sa
   h2:
     console:
