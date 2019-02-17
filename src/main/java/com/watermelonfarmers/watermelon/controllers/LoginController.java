@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-//@RestController
-//@RequestMapping("/api/login")
-//public class LoginController {
-//
-//    @RequestMapping(method = RequestMethod.GET)
-//    public Principal user(Principal user)
-//    {
-//        return user;
-//    }
-//}
+@RestController
+@RequestMapping("/api/login")
+public class LoginController {
+
+    @RequestMapping(method = RequestMethod.GET)
+    public Principal user(Principal user)
+    {
+        return user;
+    }
+}

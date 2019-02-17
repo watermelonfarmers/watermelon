@@ -3,7 +3,6 @@ package com.watermelonfarmers.watermelon.configuration;
 import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.ResponseEntity;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
@@ -20,7 +19,6 @@ public class SwaggerConfiguration {
     public Docket configureApiView() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .ignoredParameterTypes(Principal.class)
-                .ignoredParameterTypes(ResponseEntity.class)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
