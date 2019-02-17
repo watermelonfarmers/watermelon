@@ -3,7 +3,7 @@ package com.watermelonfarmers.watermelon.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USER_ACCOUNT")
 public class UserEntity {
 
     @Id
