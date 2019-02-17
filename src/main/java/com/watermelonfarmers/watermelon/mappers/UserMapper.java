@@ -1,6 +1,6 @@
 package com.watermelonfarmers.watermelon.mappers;
 
-import com.watermelonfarmers.watermelon.contracts.User;
+import com.watermelonfarmers.watermelon.models.User;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
 
 public class UserMapper {

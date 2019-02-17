@@ -1,4 +1,4 @@
-package com.watermelonfarmers.watermelon.contracts;
+package com.watermelonfarmers.watermelon.models;
 
 import io.swagger.annotations.ApiModelProperty;
 

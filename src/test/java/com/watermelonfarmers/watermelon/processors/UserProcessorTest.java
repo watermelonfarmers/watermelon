@@ -1,6 +1,6 @@
 package com.watermelonfarmers.watermelon.processors;
 
-import com.watermelonfarmers.watermelon.contracts.User;
+import com.watermelonfarmers.watermelon.models.User;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.repositories.UserRepository;
 import org.junit.Before;

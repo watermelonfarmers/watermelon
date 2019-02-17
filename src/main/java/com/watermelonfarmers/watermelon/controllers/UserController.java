@@ -1,12 +1,11 @@
 package com.watermelonfarmers.watermelon.controllers;
 
-import com.watermelonfarmers.watermelon.contracts.User;
+import com.watermelonfarmers.watermelon.models.User;
 import com.watermelonfarmers.watermelon.processors.UserProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
