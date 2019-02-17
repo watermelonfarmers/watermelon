@@ -15,6 +15,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.httpBasic().and()
                 .authorizeRequests()
                 .antMatchers("/api/users/**").permitAll()
+                .antMatchers("/hello").permitAll()
                 .antMatchers("/h2console/**").permitAll()
                 .anyRequest().authenticated();
     }
