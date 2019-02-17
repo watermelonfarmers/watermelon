@@ -6,9 +6,14 @@ spring:
     password: ${JDBC_DATABASE_PASSWORD}
     driverClassName: org.postgresql.Driver
   jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
     properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: update
         temp:
           use_jdbc_metadata_defaults: false
-    hibernate:
-      hbm2ddl:
-        auto: update
