@@ -1,9 +1,7 @@
 package com.watermelonfarmers.watermelon.processors;
 
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
-import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.mappers.RequirementMapper;
-import com.watermelonfarmers.watermelon.mappers.UserMapper;
 import com.watermelonfarmers.watermelon.models.Requirement;
 import com.watermelonfarmers.watermelon.repositories.RequirementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
