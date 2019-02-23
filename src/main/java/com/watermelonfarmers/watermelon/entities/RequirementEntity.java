@@ -1,7 +1,11 @@
 package com.watermelonfarmers.watermelon.entities;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,11 +16,12 @@ public class RequirementEntity {
     @GeneratedValue
     @Column(name = "Id",unique = true)
     private long id;
-    @Column(name = "Created_time")
+//    @Column(name = "Created_time")
+    @CreationTimestamp
     private LocalDateTime created_time;
-    @Column(name = "Last_modified_time")
+//    @Column(name = "Last_modified_time")
+    @UpdateTimestamp
     private LocalDateTime last_modified_time;
-    @Column(name = "Title")
     private String title;
     @Column(name = "Description")
     private String description;
@@ -26,6 +31,12 @@ public class RequirementEntity {
     private String status;
     @Column(name = "Created_by_user")
     private String created_by_user;
+    @Column(name = "isArchived")
+    private Boolean isArchived;
+    @Column(name = "Due_date")
+    private LocalDateTime due_date;
+    @Column(name = "Url")
+    private String url;
 
     //    @ElementCollection
 //    @CollectionTable(name="Nicknames", joinColumns=@JoinColumn(name="user_id"))
@@ -35,26 +46,18 @@ public class RequirementEntity {
 //    @CollectionTable(name = "Members", joinColumns = @JoinColumn(name = "Requirement_Id"))
 //    @Column(name = "Member")
 //    private List<String> members;
-
-    @Column(name = "Due_date")
-    private LocalDateTime due_date;
-
 //    @ElementCollection
 //    @CollectionTable(name = "Check_list", joinColumns = @JoinColumn(name = "Requirement_Id"))
 //    @Column(name = "Check_list")
 //    private List<String> check_list;
-    @Column(name = "isArchived")
-    private Boolean isArchived;
-//    @Column(name = "Comments")
-//    private List<String> comments;
 //    @Column(name = "Activity")
 //    private List<String> activities;
-    @Column(name = "Url")
-    private String url;
+
+    @OneToMany
+    private List<CommentEntity> comments = new ArrayList<>();
 
     public RequirementEntity() {
     }
-
 
     public RequirementEntity(LocalDateTime created_time, LocalDateTime last_modified_time, String title, String description, Integer priority, String status, String created_by_user, LocalDateTime due_date, Boolean isArchived, String url) {
         this.created_time = created_time;
@@ -155,5 +158,17 @@ public class RequirementEntity {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void addComment (CommentEntity comment) {
+        this.comments.add(comment);
+    }
+
+    public void removeComment (CommentEntity comment) {
+        this.comments.remove(comment);
     }
 }
