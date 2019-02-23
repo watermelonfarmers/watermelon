@@ -33,23 +33,23 @@ public class Requirement {
     @ApiModelProperty(value = "created_by_user", example = "Hannibal")
     private String created_by_user;
 
-    @ApiModelProperty(value = "members", example = "Flint, Hannibal, Jack")
-    private List<String> members;
+//    @ApiModelProperty(value = "members", example = "Flint, Hannibal, Jack")
+//    private List<String> members;
 
     @ApiModelProperty(value = "due_date", example = "2019-02-18T20:53:58")
     private LocalDateTime due_date;
 
-    @ApiModelProperty(value = "check_list", example = "XXXXXX")
-    private List<String> check_list;
+//    @ApiModelProperty(value = "check_list", example = "XXXXXX")
+//    private List<String> check_list;
 
     @ApiModelProperty(value = "isArchived", example = "False")
     private Boolean isArchived;
 
-    @ApiModelProperty(value = "comments", example = "Nice job!")
-    private List<String> comments;
+//    @ApiModelProperty(value = "comments", example = "Nice job!")
+//    private List<String> comments;
 
-    @ApiModelProperty(value = "activity", example = "Hannibal added this card to Backlog, Feb 10 at 4:42 PM")
-    private List<String> activity;
+//    @ApiModelProperty(value = "activity", example = "Hannibal added this card to Backlog, Feb 10 at 4:42 PM")
+//    private List<String> activity;
 
     @ApiModelProperty(value = "url", example = "https://www.pivotaltracker.com/story/show/164053311")
     private String url;
@@ -66,12 +66,12 @@ public class Requirement {
         this.priority = priority;
         this.status = status;
         this.created_by_user = created_by_user;
-        this.members = members;
+//        this.members = members;
         this.due_date = due_date;
-        this.check_list = check_list;
+//        this.check_list = check_list;
         this.isArchived = isArchived;
-        this.comments = comments;
-        this.activity = activity;
+//        this.comments = comments;
+//        this.activity = activity;
         this.url = url;
     }
 
@@ -139,14 +139,6 @@ public class Requirement {
         this.created_by_user = created_by_user;
     }
 
-    public List<String> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<String> members) {
-        this.members = members;
-    }
-
     public LocalDateTime getDue_date() {
         return due_date;
     }
@@ -155,36 +147,12 @@ public class Requirement {
         this.due_date = due_date;
     }
 
-    public List<String> getCheck_list() {
-        return check_list;
-    }
-
-    public void setCheck_list(List<String> check_list) {
-        this.check_list = check_list;
-    }
-
     public Boolean getArchived() {
         return isArchived;
     }
 
     public void setArchived(Boolean archived) {
         isArchived = archived;
-    }
-
-    public List<String> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<String> comments) {
-        this.comments = comments;
-    }
-
-    public List<String> getActivity() {
-        return activity;
-    }
-
-    public void setActivity(List<String> activity) {
-        this.activity = activity;
     }
 
     public String getUrl() {

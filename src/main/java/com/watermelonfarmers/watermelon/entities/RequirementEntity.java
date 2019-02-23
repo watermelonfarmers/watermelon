@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "REQUIREMENT")
+@Table(name = "Requirement")
 public class RequirementEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "ID",unique = true)
+    @Column(name = "Id",unique = true)
     private long id;
     @Column(name = "Created_time")
     private LocalDateTime created_time;
@@ -26,26 +26,37 @@ public class RequirementEntity {
     private String status;
     @Column(name = "Created_by_user")
     private String created_by_user;
-    @Column(name = "Members")
-    private List<String> members;
+
+    //    @ElementCollection
+//    @CollectionTable(name="Nicknames", joinColumns=@JoinColumn(name="user_id"))
+//    @Column(name="nickname")
+//    public List<String> getNicknames() { ... }
+//    @ElementCollection
+//    @CollectionTable(name = "Members", joinColumns = @JoinColumn(name = "Requirement_Id"))
+//    @Column(name = "Member")
+//    private List<String> members;
 
     @Column(name = "Due_date")
     private LocalDateTime due_date;
-    @Column(name = "Check_list")
-    private List<String> check_list;
+
+//    @ElementCollection
+//    @CollectionTable(name = "Check_list", joinColumns = @JoinColumn(name = "Requirement_Id"))
+//    @Column(name = "Check_list")
+//    private List<String> check_list;
     @Column(name = "isArchived")
     private Boolean isArchived;
-    @Column(name = "Comments")
-    private List<String> comments;
-    @Column(name = "Activity")
-    private List<String> activity;
+//    @Column(name = "Comments")
+//    private List<String> comments;
+//    @Column(name = "Activity")
+//    private List<String> activities;
     @Column(name = "Url")
     private String url;
 
     public RequirementEntity() {
     }
 
-    public RequirementEntity(LocalDateTime created_time, LocalDateTime last_modified_time, String title, String description, Integer priority, String status, String created_by_user, List<String> members, LocalDateTime due_date, List<String> check_list, Boolean isArchived, List<String> comments, List<String> activity, String url) {
+
+    public RequirementEntity(LocalDateTime created_time, LocalDateTime last_modified_time, String title, String description, Integer priority, String status, String created_by_user, LocalDateTime due_date, Boolean isArchived, String url) {
         this.created_time = created_time;
         this.last_modified_time = last_modified_time;
         this.title = title;
@@ -53,12 +64,8 @@ public class RequirementEntity {
         this.priority = priority;
         this.status = status;
         this.created_by_user = created_by_user;
-        this.members = members;
         this.due_date = due_date;
-        this.check_list = check_list;
         this.isArchived = isArchived;
-        this.comments = comments;
-        this.activity = activity;
         this.url = url;
     }
 
@@ -126,14 +133,6 @@ public class RequirementEntity {
         this.created_by_user = created_by_user;
     }
 
-    public List<String> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<String> members) {
-        this.members = members;
-    }
-
     public LocalDateTime getDue_date() {
         return due_date;
     }
@@ -142,36 +141,12 @@ public class RequirementEntity {
         this.due_date = due_date;
     }
 
-    public List<String> getCheck_list() {
-        return check_list;
-    }
-
-    public void setCheck_list(List<String> check_list) {
-        this.check_list = check_list;
-    }
-
     public Boolean getArchived() {
         return isArchived;
     }
 
     public void setArchived(Boolean archived) {
         isArchived = archived;
-    }
-
-    public List<String> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<String> comments) {
-        this.comments = comments;
-    }
-
-    public List<String> getActivity() {
-        return activity;
-    }
-
-    public void setActivity(List<String> activity) {
-        this.activity = activity;
     }
 
     public String getUrl() {

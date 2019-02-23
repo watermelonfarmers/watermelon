@@ -16,11 +16,12 @@ public class RequirementMapper {
         requirementEntity.setLast_modified_time(request.getLast_modified_time());
         requirementEntity.setPriority(request.getPriority());
         requirementEntity.setStatus(request.getStatus());
-        requirementEntity.setActivity(request.getActivity());
-        requirementEntity.setCheck_list(request.getCheck_list());
-        requirementEntity.setComments(request.getComments());
+//        requirementEntity.setActivities(request.getActivity());
+//        requirementEntity.setCheck_list(request.getCheck_list());
+//        requirementEntity.setComments(request.getComments());
         requirementEntity.setUrl(request.getUrl());
         requirementEntity.setArchived(request.getArchived());
+        requirementEntity.setDue_date(request.getDue_date());
         return requirementEntity;
     }
 
@@ -36,11 +37,12 @@ public class RequirementMapper {
         requirement.setLast_modified_time(requirementEntity.getLast_modified_time());
         requirement.setPriority(requirementEntity.getPriority());
         requirement.setStatus(requirementEntity.getStatus());
-        requirement.setActivity(requirementEntity.getActivity());
-        requirement.setCheck_list(requirementEntity.getCheck_list());
-        requirement.setComments(requirementEntity.getComments());
+//        requirement.setActivity(requirementEntity.getActivities());
+//        requirement.setCheck_list(requirementEntity.getCheck_list());
+//        requirement.setComments(requirementEntity.getComments());
         requirement.setUrl(requirementEntity.getUrl());
         requirement.setArchived(requirementEntity.getArchived());
+        requirement.setDue_date(requirementEntity.getDue_date());
         return  requirement;
     }
 }
