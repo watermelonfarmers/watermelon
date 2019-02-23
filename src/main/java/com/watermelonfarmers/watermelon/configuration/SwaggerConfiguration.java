@@ -18,7 +18,6 @@ public class SwaggerConfiguration {
     @Bean
     public Docket configureApiView() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .ignoredParameterTypes(Principal.class)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())

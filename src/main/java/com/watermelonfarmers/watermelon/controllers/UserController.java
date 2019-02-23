@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -26,11 +27,10 @@ public class UserController {
 
     }
 
-//    @RequestMapping(value = "/{userId}",method = RequestMethod.GET)
-//    public UserEntity getUserById(@PathVariable Long userId) {
-//        //TODO
-//        return null;
-//    }
+    @RequestMapping(value = "/{userName}",method = RequestMethod.GET)
+    public ResponseEntity<User> getUserByUserName(@PathVariable String userName) {
+        return userProcessor.getUserByUserName(userName);
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createUser(@RequestBody User request) {
@@ -39,10 +39,10 @@ public class UserController {
 
     }
 
-//    @RequestMapping(method = RequestMethod.PUT)
-//    public ResponseEntity<User> updateUser(@RequestBody User request) {
-//        //TODO
-//        return null;
-//    }
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<User> updateUser(@RequestBody User request, Principal user) {
+
+        return userProcessor.updateUser(request, user);
+    }
 
 }

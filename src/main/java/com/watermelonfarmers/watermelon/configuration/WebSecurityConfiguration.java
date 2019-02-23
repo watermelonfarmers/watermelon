@@ -19,6 +19,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/hello").permitAll()
                 .antMatchers("/h2console/**").permitAll()
                 .anyRequest().authenticated().and()
+                .logout()
+                .logoutUrl("/api/logout").and()
                 .csrf().disable().cors();
     }
 

@@ -13,6 +13,7 @@ public class UserMapperTest {
     public static final String LAST_NAME = "Stark";
     public static final String USER_NAME = "user";
     public static final String PASSWORD = "password";
+    public static final String ORIGINAL_VALUE = "ORIGINAL";
 
     private User user;
 
@@ -92,6 +93,46 @@ public class UserMapperTest {
         user.setPassword(PASSWORD);
 
         userEntity = UserMapper.mapUserToUserEntity(user);
+
+        assertThat(userEntity.getPassword()).isEqualTo(PASSWORD);
+    }
+
+    @Test
+    public void whenMapUserToUserEntityForUpdateFirstNameShouldBeFirstName() {
+        user.setFirstName(FIRST_NAME);
+        userEntity.setFirstName(ORIGINAL_VALUE);
+
+        userEntity = UserMapper.mapUserToUserEntityForUpdate(userEntity, user);
+
+        assertThat(userEntity.getFirstName()).isEqualTo(FIRST_NAME);
+    }
+
+    @Test
+    public void whenMapUserToUserEntityForUpdateLastNameShouldBeLastName() {
+        user.setLastName(LAST_NAME);
+        userEntity.setLastName(ORIGINAL_VALUE);
+
+        userEntity = UserMapper.mapUserToUserEntityForUpdate(userEntity, user);
+
+        assertThat(userEntity.getLastName()).isEqualTo(LAST_NAME);
+    }
+
+    @Test
+    public void whenMapUserToUserEntityForUpdateUserNameShouldBeOriginalUserName() {
+        user.setUserName(USER_NAME);
+        userEntity.setUserName(ORIGINAL_VALUE);
+
+        userEntity = UserMapper.mapUserToUserEntityForUpdate(userEntity, user);
+
+        assertThat(userEntity.getUserName()).isEqualTo(ORIGINAL_VALUE);
+    }
+
+    @Test
+    public void whenMapUserToUserEntityForUpdatePasswordShouldBePassword() {
+        user.setPassword(PASSWORD);
+        userEntity.setPassword(ORIGINAL_VALUE);
+
+        userEntity = UserMapper.mapUserToUserEntityForUpdate(userEntity, user);
 
         assertThat(userEntity.getPassword()).isEqualTo(PASSWORD);
     }
