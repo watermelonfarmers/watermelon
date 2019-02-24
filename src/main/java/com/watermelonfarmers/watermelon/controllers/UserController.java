@@ -4,6 +4,7 @@ import com.watermelonfarmers.watermelon.models.User;
 import com.watermelonfarmers.watermelon.processors.UserProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createUser(@RequestBody User request) {
+    public ResponseEntity createUser(@Validated(User.Create.class) @RequestBody User request) {
 
         return userProcessor.createUser(request);
 
