@@ -24,8 +24,6 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<User>> getUsers() {
 
-        // github work flow test
-
         return userProcessor.getUsers();
 
     }
