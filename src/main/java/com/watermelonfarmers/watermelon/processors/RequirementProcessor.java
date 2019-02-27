@@ -44,10 +44,6 @@ public class RequirementProcessor {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-//    public ResponseEntity moveRequirement(Requirement request) {
-//
-//    }
-
     public ResponseEntity deleteRequirement(Requirement request) {
         RequirementEntity requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(request);
         requirementRepository.delete(requirementEntity);

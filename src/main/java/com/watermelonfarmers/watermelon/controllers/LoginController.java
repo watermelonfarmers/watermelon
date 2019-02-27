@@ -21,6 +21,5 @@ public class LoginController {
     public ResponseEntity<User> user(Principal user)
     {
         return userProcessor.getUserByUserName(user.getName());
-
     }
 }

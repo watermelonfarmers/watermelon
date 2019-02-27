@@ -38,28 +38,16 @@ public class RequirementEntity {
     @Column(name = "Url")
     private String url;
 
-    //    @ElementCollection
-//    @CollectionTable(name="Nicknames", joinColumns=@JoinColumn(name="user_id"))
-//    @Column(name="nickname")
-//    public List<String> getNicknames() { ... }
-//    @ElementCollection
-//    @CollectionTable(name = "Members", joinColumns = @JoinColumn(name = "Requirement_Id"))
-//    @Column(name = "Member")
-//    private List<String> members;
-//    @ElementCollection
-//    @CollectionTable(name = "Check_list", joinColumns = @JoinColumn(name = "Requirement_Id"))
-//    @Column(name = "Check_list")
-//    private List<String> check_list;
-//    @Column(name = "Activity")
-//    private List<String> activities;
+    @Column(name = "Assigned_to")
+    private String assigned_to;
 
-    @OneToMany
+    @OneToMany(mappedBy = "requirement")
     private List<CommentEntity> comments = new ArrayList<>();
 
     public RequirementEntity() {
     }
 
-    public RequirementEntity(LocalDateTime created_time, LocalDateTime last_modified_time, String title, String description, Integer priority, String status, String created_by_user, LocalDateTime due_date, Boolean isArchived, String url) {
+    public RequirementEntity(LocalDateTime created_time, LocalDateTime last_modified_time, String title, String description, Integer priority, String status, String created_by_user, LocalDateTime due_date, Boolean isArchived, String url, String assigned_to) {
         this.created_time = created_time;
         this.last_modified_time = last_modified_time;
         this.title = title;
@@ -70,6 +58,7 @@ public class RequirementEntity {
         this.due_date = due_date;
         this.isArchived = isArchived;
         this.url = url;
+        this.assigned_to = assigned_to;
     }
 
     public long getId() {
@@ -162,6 +151,14 @@ public class RequirementEntity {
 
     public List<CommentEntity> getComments() {
         return comments;
+    }
+
+    public String getAssigned_to() {
+        return assigned_to;
+    }
+
+    public void setAssigned_to(String assigned_to) {
+        this.assigned_to = assigned_to;
     }
 
     public void addComment (CommentEntity comment) {
