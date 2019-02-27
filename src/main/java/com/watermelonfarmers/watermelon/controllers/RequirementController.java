@@ -35,9 +35,10 @@ public class RequirementController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity deleteRquirement(@RequestBody Requirement request) {
+    public ResponseEntity deleteRequirement(@RequestBody Requirement request) {
         return requirementProcessor.deleteRequirement(request);
     }
+
 
 
 }

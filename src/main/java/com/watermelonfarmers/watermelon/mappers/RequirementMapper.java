@@ -1,11 +1,12 @@
 package com.watermelonfarmers.watermelon.mappers;
 
+import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.models.Requirement;
 
 public class RequirementMapper {
 
-    //For creat and update
+    //For creat and update and delete
     public static RequirementEntity mapRequirementToRequirementEntity(Requirement request) {
         RequirementEntity requirementEntity = new RequirementEntity();
         requirementEntity.setId(request.getId());
@@ -16,12 +17,15 @@ public class RequirementMapper {
         requirementEntity.setLast_modified_time(request.getLast_modified_time());
         requirementEntity.setPriority(request.getPriority());
         requirementEntity.setStatus(request.getStatus());
-//        requirementEntity.setActivities(request.getActivity());
-//        requirementEntity.setCheck_list(request.getCheck_list());
-//        requirementEntity.setComments(request.getComments());
         requirementEntity.setUrl(request.getUrl());
         requirementEntity.setArchived(request.getArchived());
         requirementEntity.setDue_date(request.getDue_date());
+        requirementEntity.setAssigned_to(request.getAssigned_to());
+
+        //Try to add a list of comment
+//        for(CommentEntity commentEntity : request.getComments()) {
+//            requirementEntity.addComment(commentEntity);
+//        }
         return requirementEntity;
     }
 
@@ -37,12 +41,13 @@ public class RequirementMapper {
         requirement.setLast_modified_time(requirementEntity.getLast_modified_time());
         requirement.setPriority(requirementEntity.getPriority());
         requirement.setStatus(requirementEntity.getStatus());
-//        requirement.setActivity(requirementEntity.getActivities());
-//        requirement.setCheck_list(requirementEntity.getCheck_list());
-//        requirement.setComments(requirementEntity.getComments());
         requirement.setUrl(requirementEntity.getUrl());
         requirement.setArchived(requirementEntity.getArchived());
         requirement.setDue_date(requirementEntity.getDue_date());
+        requirement.setAssigned_to(requirementEntity.getAssigned_to());
+
+        //Try to add a list of comment
+        requirement.setComments(requirementEntity.getComments());
         return  requirement;
     }
 }

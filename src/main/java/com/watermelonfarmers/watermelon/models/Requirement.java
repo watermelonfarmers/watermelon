@@ -1,5 +1,6 @@
 package com.watermelonfarmers.watermelon.models;
 
+import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.time.LocalDateTime;
@@ -33,31 +34,26 @@ public class Requirement {
     @ApiModelProperty(value = "created_by_user", example = "Hannibal")
     private String created_by_user;
 
-//    @ApiModelProperty(value = "members", example = "Flint, Hannibal, Jack")
-//    private List<String> members;
-
     @ApiModelProperty(value = "due_date", example = "2019-02-18T20:53:58")
     private LocalDateTime due_date;
-
-//    @ApiModelProperty(value = "check_list", example = "XXXXXX")
-//    private List<String> check_list;
 
     @ApiModelProperty(value = "isArchived", example = "False")
     private Boolean isArchived;
 
 //    @ApiModelProperty(value = "comments", example = "Nice job!")
-//    private List<String> comments;
-
-//    @ApiModelProperty(value = "activity", example = "Hannibal added this card to Backlog, Feb 10 at 4:42 PM")
-//    private List<String> activity;
+    private List<CommentEntity> comments;
 
     @ApiModelProperty(value = "url", example = "https://www.pivotaltracker.com/story/show/164053311")
     private String url;
 
+
+    @ApiModelProperty(value = "assigned_to", example = "Arya")
+    private String assigned_to;
+
     public Requirement() {
     }
 
-    public Requirement(String title, String description, long id, LocalDateTime created_time, LocalDateTime last_modified_time, Integer priority, String status, String created_by_user, List<String> members, LocalDateTime due_date, List<String> check_list, Boolean isArchived, List<String> comments, List<String> activity, String url) {
+    public Requirement(String title, String description, long id, LocalDateTime created_time, LocalDateTime last_modified_time, Integer priority, String status, String created_by_user, List<String> members, LocalDateTime due_date, Boolean isArchived, List<CommentEntity> comments, String url ,String assigned_to) {
         this.title = title;
         this.description = description;
         this.id = id;
@@ -66,13 +62,11 @@ public class Requirement {
         this.priority = priority;
         this.status = status;
         this.created_by_user = created_by_user;
-//        this.members = members;
         this.due_date = due_date;
-//        this.check_list = check_list;
         this.isArchived = isArchived;
-//        this.comments = comments;
-//        this.activity = activity;
+        this.comments = comments;
         this.url = url;
+        this.assigned_to = assigned_to;
     }
 
     public String getTitle() {
@@ -161,6 +155,22 @@ public class Requirement {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getAssigned_to() {
+        return assigned_to;
+    }
+
+    public void setAssigned_to(String assigned_to) {
+        this.assigned_to = assigned_to;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 }
 
