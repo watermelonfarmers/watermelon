@@ -32,7 +32,7 @@ public class RequirementProcessor {
         Iterable<RequirementEntity> requirementEntities = requirementRepository.findAll();
         List<Requirement> requirements = new ArrayList<>();
         for(RequirementEntity requirementEntity : requirementEntities) {
-            Requirement requirement = RequirementMapper.mapRequirmentEntityToRequirement(requirementEntity);
+            Requirement requirement = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
             requirements.add(requirement);
         }
         return new ResponseEntity<>(requirements,HttpStatus.OK);

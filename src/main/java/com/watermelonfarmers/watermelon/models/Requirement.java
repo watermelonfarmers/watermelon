@@ -14,9 +14,6 @@ public class Requirement {
     @ApiModelProperty(value = "description", example = "This is very important")
     private String description;
 
-    //The ID of the requirement should be unique
-    @ApiModelProperty(value = "id", example = "1")
-    private long id;
 
     @ApiModelProperty(value = "created_time", example = "2019-02-18T20:53:58")
     private LocalDateTime created_time;
@@ -53,10 +50,9 @@ public class Requirement {
     public Requirement() {
     }
 
-    public Requirement(String title, String description, long id, LocalDateTime created_time, LocalDateTime last_modified_time, Integer priority, String status, String created_by_user, List<String> members, LocalDateTime due_date, Boolean isArchived, List<CommentEntity> comments, String url ,String assigned_to) {
+    public Requirement(String title, String description, LocalDateTime created_time, LocalDateTime last_modified_time, Integer priority, String status, String created_by_user, List<String> members, LocalDateTime due_date, Boolean isArchived, List<CommentEntity> comments, String url ,String assigned_to) {
         this.title = title;
         this.description = description;
-        this.id = id;
         this.created_time = created_time;
         this.last_modified_time = last_modified_time;
         this.priority = priority;
@@ -85,13 +81,6 @@ public class Requirement {
         this.description = description;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public LocalDateTime getCreated_time() {
         return created_time;

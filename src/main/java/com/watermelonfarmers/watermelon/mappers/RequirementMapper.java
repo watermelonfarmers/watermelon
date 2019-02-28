@@ -6,10 +6,9 @@ import com.watermelonfarmers.watermelon.models.Requirement;
 
 public class RequirementMapper {
 
-    //For creat and update and delete
+    //For creat and delete
     public static RequirementEntity mapRequirementToRequirementEntity(Requirement request) {
         RequirementEntity requirementEntity = new RequirementEntity();
-        requirementEntity.setId(request.getId());
         requirementEntity.setTitle(request.getTitle());
         requirementEntity.setDescription(request.getDescription());
         requirementEntity.setCreated_by_user(request.getCreated_by_user());
@@ -22,7 +21,7 @@ public class RequirementMapper {
         requirementEntity.setDue_date(request.getDue_date());
         requirementEntity.setAssigned_to(request.getAssigned_to());
 
-        //Try to add a list of comment
+//        Try to add a list of comment
 //        for(CommentEntity commentEntity : request.getComments()) {
 //            requirementEntity.addComment(commentEntity);
 //        }
@@ -31,9 +30,8 @@ public class RequirementMapper {
 
 
     //For read
-    public static Requirement mapRequirmentEntityToRequirement(RequirementEntity requirementEntity) {
+    public static Requirement mapRequirementEntityToRequirement(RequirementEntity requirementEntity) {
         Requirement requirement = new Requirement();
-        requirement.setId(requirementEntity.getId());
         requirement.setTitle(requirementEntity.getTitle());
         requirement.setDescription(requirementEntity.getDescription());
         requirement.setCreated_by_user(requirementEntity.getCreated_by_user());
@@ -50,4 +48,49 @@ public class RequirementMapper {
         requirement.setComments(requirementEntity.getComments());
         return  requirement;
     }
+
+    public static  RequirementEntity mapRequirementToRequirementEntityForUpdate(RequirementEntity requirementEntity, Requirement request) {
+
+        if(null != request.getTitle()) {
+            requirementEntity.setTitle(request.getTitle());
+        }
+
+        if(null != request.getDescription()) {
+            requirementEntity.setDescription(request.getDescription());
+        }
+
+        if(null != request.getArchived()) {
+            requirementEntity.setArchived(request.getArchived());
+        }
+
+        if(null != request.getAssigned_to()) {
+            requirementEntity.setAssigned_to(request.getAssigned_to());
+        }
+
+        if(null != request.getCreated_by_user()) {
+            requirementEntity.setCreated_by_user(request.getCreated_by_user());
+        }
+
+        if(null != request.getDue_date()) {
+            requirementEntity.setDue_date(request.getDue_date());
+        }
+
+        if(null != request.getPriority()) {
+            requirementEntity.setPriority(request.getPriority());
+        }
+
+        if(null != request.getLast_modified_time()) {
+            requirementEntity.setLast_modified_time(request.getLast_modified_time());
+        }
+
+        if(null != request.getUrl()) {
+            requirementEntity.setUrl(request.getUrl());
+        }
+
+        if(null != request.getStatus()) {
+            requirementEntity.setStatus(request.getStatus());
+        }
+        return requirementEntity;
+    }
+
 }
