@@ -51,6 +51,7 @@ public class RequirementMapper {
         return  requirement;
     }
 
+    //For update
     public static  RequirementEntity mapRequirementToRequirementEntityForUpdate(RequirementEntity requirementEntity, Requirement request) {
 
         if(null != request.getTitle()) {

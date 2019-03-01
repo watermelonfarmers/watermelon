@@ -54,10 +54,13 @@ public class RequirementProcessor {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    public ResponseEntity deleteRequirement(Requirement request) {
-        RequirementEntity requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(request);
-        requirementRepository.delete(requirementEntity);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity deleteRequirement(Long id) {
+        Optional<RequirementEntity> requirementEntity = requirementRepository.findById(id);
+        if(requirementEntity.isPresent()) {
+            requirementRepository.delete(requirementEntity.get());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

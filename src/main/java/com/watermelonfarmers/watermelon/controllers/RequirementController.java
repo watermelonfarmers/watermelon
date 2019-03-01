@@ -39,9 +39,9 @@ public class RequirementController {
         return requirementProcessor.updateRequirement(request);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity deleteRequirement(@RequestBody Requirement request) {
-        return requirementProcessor.deleteRequirement(request);
+    @RequestMapping(value = "/{requirementId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteRequirement(@PathVariable Long requirementId) {
+        return requirementProcessor.deleteRequirement(requirementId);
     }
 
 
