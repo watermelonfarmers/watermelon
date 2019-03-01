@@ -25,8 +25,13 @@ public class RequirementController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity readRequirement() {
-        return requirementProcessor.readRequirement();
+    public ResponseEntity readAllRequirement() {
+        return requirementProcessor.readAllRequirement();
+    }
+
+    @RequestMapping(value = "/{requirementId}", method = RequestMethod.GET)
+    public ResponseEntity readOneRequirement(@PathVariable Long requirementId) {
+        return requirementProcessor.readOneRequirement(requirementId);
     }
 
     @RequestMapping(method = RequestMethod.PUT)

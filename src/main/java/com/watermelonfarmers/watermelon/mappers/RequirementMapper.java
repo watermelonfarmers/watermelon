@@ -9,6 +9,7 @@ public class RequirementMapper {
     //For creat and delete
     public static RequirementEntity mapRequirementToRequirementEntity(Requirement request) {
         RequirementEntity requirementEntity = new RequirementEntity();
+        requirementEntity.setId(request.getId());
         requirementEntity.setTitle(request.getTitle());
         requirementEntity.setDescription(request.getDescription());
         requirementEntity.setCreated_by_user(request.getCreated_by_user());
@@ -32,6 +33,7 @@ public class RequirementMapper {
     //For read
     public static Requirement mapRequirementEntityToRequirement(RequirementEntity requirementEntity) {
         Requirement requirement = new Requirement();
+        requirement.setId(requirementEntity.getId());
         requirement.setTitle(requirementEntity.getTitle());
         requirement.setDescription(requirementEntity.getDescription());
         requirement.setCreated_by_user(requirementEntity.getCreated_by_user());

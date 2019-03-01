@@ -8,19 +8,20 @@ import java.util.List;
 
 public class Requirement {
 
+    @ApiModelProperty(value = "id", example = "1")
+    private Long id;
+
     @ApiModelProperty(value = "title", example = "Add requirement API to watermelon service")
     private String title;
 
     @ApiModelProperty(value = "description", example = "This is very important")
     private String description;
 
-
     @ApiModelProperty(value = "created_time", example = "2019-02-18T20:53:58")
     private LocalDateTime created_time;
 
     @ApiModelProperty(value = "last_modified_time", example = "2019-02-18T20:53:58")
     private LocalDateTime last_modified_time;
-
 
     @ApiModelProperty(value = "priority", example = "10")
     private Integer priority;
@@ -50,7 +51,8 @@ public class Requirement {
     public Requirement() {
     }
 
-    public Requirement(String title, String description, LocalDateTime created_time, LocalDateTime last_modified_time, Integer priority, String status, String created_by_user, List<String> members, LocalDateTime due_date, Boolean isArchived, List<CommentEntity> comments, String url ,String assigned_to) {
+    public Requirement(Long id, String title, String description, LocalDateTime created_time, LocalDateTime last_modified_time, Integer priority, String status, String created_by_user, List<String> members, LocalDateTime due_date, Boolean isArchived, List<CommentEntity> comments, String url ,String assigned_to) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.created_time = created_time;
@@ -65,6 +67,13 @@ public class Requirement {
         this.assigned_to = assigned_to;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
     public String getTitle() {
         return title;
     }

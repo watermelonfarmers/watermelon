@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RequirementProcessor {
@@ -28,7 +29,7 @@ public class RequirementProcessor {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Requirement>> readRequirement() {
+    public ResponseEntity<List<Requirement>> readAllRequirement() {
         Iterable<RequirementEntity> requirementEntities = requirementRepository.findAll();
         List<Requirement> requirements = new ArrayList<>();
         for(RequirementEntity requirementEntity : requirementEntities) {
@@ -36,6 +37,15 @@ public class RequirementProcessor {
             requirements.add(requirement);
         }
         return new ResponseEntity<>(requirements,HttpStatus.OK);
+    }
+
+    public ResponseEntity<Requirement> readOneRequirement(Long id) {
+        Optional<RequirementEntity> requirementEntity = requirementRepository.findById(id);
+        if(requirementEntity.isPresent()) {
+            Requirement requirement = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity.get());
+            return new ResponseEntity<>(requirement,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
     }
 
     public ResponseEntity updateRequirement(Requirement request) {
