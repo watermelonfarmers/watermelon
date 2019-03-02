@@ -46,11 +46,11 @@ public class UserAccountSecurityConfiguration extends GlobalAuthenticationConfig
             List<UserAuthorities> userAuthoritiesList = new ArrayList<>();
             UserAuthorities userAuthorities = new UserAuthorities();
             userAuthoritiesList.add(userAuthorities);
-            Optional<UserEntity> userEntity = userRepository.findById(1l);
+            UserEntity userEntity = userRepository.findByUserName(username);
 
             return new User(
-                    userEntity.get().getUserName(),
-                    userEntity.get().getPassword(),
+                    userEntity.getUserName(),
+                    userEntity.getPassword(),
                     userAuthoritiesList);
         };
     }
