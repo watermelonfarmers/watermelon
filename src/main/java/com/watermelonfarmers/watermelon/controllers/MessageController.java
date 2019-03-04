@@ -2,6 +2,7 @@ package com.watermelonfarmers.watermelon.controllers;
 
 import java.util.List;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.watermelonfarmers.watermelon.processors.MessageProcessor;
 
 @RestController
 @RequestMapping("/api/messages")
+@Api(tags = "messages", description = "messages api")
 public class MessageController {
 
     private MessageProcessor messageProcessor;
@@ -33,7 +35,7 @@ public class MessageController {
         return messageProcessor.createMessage(request);
     }
     
-    @RequestMapping(method = RequestMethod.PATCH)
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity updateMessage(@RequestBody Message request) {
         return messageProcessor.createMessage(request);
     }
