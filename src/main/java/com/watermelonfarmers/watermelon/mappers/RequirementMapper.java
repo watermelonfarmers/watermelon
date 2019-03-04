@@ -1,15 +1,17 @@
 package com.watermelonfarmers.watermelon.mappers;
 
-import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.models.Requirement;
 
 public class RequirementMapper {
 
-    //For creat and delete
+    //For creat
     public static RequirementEntity mapRequirementToRequirementEntity(Requirement request) {
         RequirementEntity requirementEntity = new RequirementEntity();
-        requirementEntity.setId(request.getId());
+        /**
+         * RequirementEntity should generate id by database, but we cannot setId in requirementEntity
+         */
+//        requirementEntity.setId(request.getId());
         requirementEntity.setTitle(request.getTitle());
         requirementEntity.setDescription(request.getDescription());
         requirementEntity.setCreated_by_user(request.getCreated_by_user());
