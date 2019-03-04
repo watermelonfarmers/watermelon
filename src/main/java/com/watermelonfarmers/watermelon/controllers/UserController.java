@@ -2,6 +2,7 @@ package com.watermelonfarmers.watermelon.controllers;
 
 import com.watermelonfarmers.watermelon.models.User;
 import com.watermelonfarmers.watermelon.processors.UserProcessor;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
+@Api(tags = "users", description = "users api")
 public class UserController {
 
     private UserProcessor userProcessor;

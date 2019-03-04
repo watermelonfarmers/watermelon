@@ -2,6 +2,7 @@ package com.watermelonfarmers.watermelon.controllers;
 
 import java.util.List;
 
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.watermelonfarmers.watermelon.processors.IssueProcessor;
 
 @RestController
 @RequestMapping("/api/issues")
+@Api(tags = "issues", description = "issues api")
 public class IssueController {
 
     private IssueProcessor issueProcessor;

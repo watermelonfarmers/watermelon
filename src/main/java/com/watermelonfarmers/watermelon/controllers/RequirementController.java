@@ -2,6 +2,7 @@ package com.watermelonfarmers.watermelon.controllers;
 
 import com.watermelonfarmers.watermelon.models.Requirement;
 import com.watermelonfarmers.watermelon.processors.RequirementProcessor;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/requirements")
-
+@Api(tags = "requirements", description = "requirements api")
 public class RequirementController {
 
     private RequirementProcessor requirementProcessor;
