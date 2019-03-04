@@ -10,6 +10,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -35,6 +36,9 @@ public class UserProcessorTest {
     private UserEntity userEntity;
 
     @Mock
+    private PasswordEncoder passwordEncoder;
+
+    @Mock
     private Principal principal;
 
 
@@ -42,7 +46,7 @@ public class UserProcessorTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        userProcessor = new UserProcessor(userRepository);
+        userProcessor = new UserProcessor(userRepository, passwordEncoder);
     }
 
     @Test

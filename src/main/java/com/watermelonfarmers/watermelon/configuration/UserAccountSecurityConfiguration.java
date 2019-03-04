@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -35,7 +36,7 @@ public class UserAccountSecurityConfiguration extends GlobalAuthenticationConfig
     @Bean
     public PasswordEncoder passwordEncoder()
     {
-        PasswordEncoder encoder = NoOpPasswordEncoder.getInstance();
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
     }
 

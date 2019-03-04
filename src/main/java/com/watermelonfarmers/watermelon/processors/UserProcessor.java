@@ -1,16 +1,16 @@
 package com.watermelonfarmers.watermelon.processors;
 
-import com.watermelonfarmers.watermelon.models.User;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.mappers.UserMapper;
+import com.watermelonfarmers.watermelon.models.User;
 import com.watermelonfarmers.watermelon.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.xml.ws.Response;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +19,12 @@ import java.util.List;
 public class UserProcessor {
 
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserProcessor(UserRepository userRepository) {
+    public UserProcessor(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public ResponseEntity<List<User>> getUsers() {
@@ -59,6 +61,8 @@ public class UserProcessor {
         UserEntity userEntity = UserMapper.mapUserToUserEntity(request);
 
         try {
+            String encodedPassword = passwordEncoder.encode(userEntity.getPassword());
+            userEntity.setPassword(encodedPassword);
             userRepository.save(userEntity);
         } catch (DataIntegrityViolationException ex) {
             response = new ResponseEntity<>("already exists",HttpStatus.CONFLICT);
@@ -75,6 +79,8 @@ public class UserProcessor {
 
         UserEntity userEntity = userRepository.findByUserName(user.getName());
         UserMapper.mapUserToUserEntityForUpdate(userEntity, request);
+        String encodedPassword = passwordEncoder.encode(userEntity.getPassword());
+        userEntity.setPassword(encodedPassword);
         userRepository.save(userEntity);
         User updatedUser = UserMapper.mapUserEntityToUser(userEntity);
 
