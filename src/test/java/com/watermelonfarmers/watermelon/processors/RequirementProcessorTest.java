@@ -1,0 +1,90 @@
+package com.watermelonfarmers.watermelon.processors;
+
+import com.watermelonfarmers.watermelon.entities.RequirementEntity;
+import com.watermelonfarmers.watermelon.models.Requirement;
+import com.watermelonfarmers.watermelon.repositories.RequirementRepository;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
+public class RequirementProcessorTest {
+
+    public static final String ALREADY_EXISTS = "already exists";
+
+    private RequirementProcessor requirementProcessor;
+
+    @Mock
+    private RequirementRepository requirementRepository;
+
+    @Mock
+    private RequirementEntity requirementEntity;
+
+    @Before
+    public void setup() {
+        MockitoAnnotations.initMocks(this);
+        requirementProcessor = new RequirementProcessor(requirementRepository);
+    }
+
+    @Test
+    public void whenCreateRequirementIsCalledRequirementIsCreatedAndResponseStatusCodeIsOK() {
+        when(requirementRepository.save(any())).thenReturn(requirementEntity);
+
+        ResponseEntity response = requirementProcessor.createRequirement(new Requirement());
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void whenCreateRequirementIsCalledAndRequirementIdAlreadyExistsResponseStatusCodeIsConflict() {
+        when(requirementRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
+
+        ResponseEntity response = requirementProcessor.createRequirement(new Requirement());
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+    }
+
+    @Test
+    public void whenCreateRequirementIsCalledAndRequirementIdAlreadyExistsResponseMessageIsAlreadyExists() {
+        when(requirementRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
+
+        ResponseEntity response = requirementProcessor.createRequirement(new Requirement());
+
+        assertThat(response.getBody()).isEqualTo(ALREADY_EXISTS);
+    }
+
+    @Test
+    public void whenReadAllRequirementIsCalledAListOfRequirementsIsReturned() {
+        List<RequirementEntity> requirementEntities = new ArrayList<>();
+        requirementEntities.add(new RequirementEntity());
+        requirementEntities.add(new RequirementEntity());
+        when(requirementRepository.findAll()).thenReturn(requirementEntities);
+
+        ResponseEntity<List<Requirement>> response = requirementProcessor.readAllRequirement();
+
+        assertThat(response.getBody().size()).isEqualTo(2);
+    }
+
+
+    @Test
+    public void whenUpdateRequirementIsCalledAndPrincipalRequirementIsNullUnauthorizedIsReturned() {
+        Requirement requirement = new Requirement();
+
+        when(requirementRepository.save(any())).thenReturn(requirementEntity);
+
+        ResponseEntity response = requirementProcessor.updateRequirement(requirement);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
+
+}

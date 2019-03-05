@@ -49,9 +49,13 @@ public class RequirementProcessor {
     }
 
     public ResponseEntity updateRequirement(Requirement request) {
-        RequirementEntity requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(request);
-        requirementRepository.save(requirementEntity);
-        return new ResponseEntity(HttpStatus.OK);
+        Optional<RequirementEntity> requirementEntity = requirementRepository.findById(request.getId());
+        if(requirementEntity.isPresent()) {
+            RequirementEntity requirementEntityUpdated = RequirementMapper.mapRequirementToRequirementEntityForUpdate(requirementEntity.get(),request);
+            requirementRepository.save(requirementEntityUpdated);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     public ResponseEntity deleteRequirement(Long id) {
