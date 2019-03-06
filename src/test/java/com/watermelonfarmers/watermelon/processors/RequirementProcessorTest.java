@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -46,24 +45,6 @@ public class RequirementProcessorTest {
     }
 
     @Test
-    public void whenCreateRequirementIsCalledAndRequirementIdAlreadyExistsResponseStatusCodeIsConflict() {
-        when(requirementRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
-
-        ResponseEntity response = requirementProcessor.createRequirement(new Requirement());
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-    }
-
-    @Test
-    public void whenCreateRequirementIsCalledAndRequirementIdAlreadyExistsResponseMessageIsAlreadyExists() {
-        when(requirementRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
-
-        ResponseEntity response = requirementProcessor.createRequirement(new Requirement());
-
-        assertThat(response.getBody()).isEqualTo(ALREADY_EXISTS);
-    }
-
-    @Test
     public void whenReadAllRequirementIsCalledAListOfRequirementsIsReturned() {
         List<RequirementEntity> requirementEntities = new ArrayList<>();
         requirementEntities.add(new RequirementEntity());
@@ -73,18 +54,6 @@ public class RequirementProcessorTest {
         ResponseEntity<List<Requirement>> response = requirementProcessor.readAllRequirement();
 
         assertThat(response.getBody().size()).isEqualTo(2);
-    }
-
-
-    @Test
-    public void whenUpdateRequirementIsCalledAndPrincipalRequirementIsNullUnauthorizedIsReturned() {
-        Requirement requirement = new Requirement();
-
-        when(requirementRepository.save(any())).thenReturn(requirementEntity);
-
-        ResponseEntity response = requirementProcessor.updateRequirement(requirement);
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
 }
