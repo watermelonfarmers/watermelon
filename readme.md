@@ -7,7 +7,7 @@ username: admin
 password: admin
 
 h2-console is available at: http://localhost:8080/h2console  
-jdbc url:  jdbc:h2:mem:testd  
+jdbc url:  jdbc:h2:mem:testdb
 username: sa  
 password: no password needed
 
