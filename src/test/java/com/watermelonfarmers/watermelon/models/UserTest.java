@@ -44,6 +44,17 @@ public class UserTest {
     }
 
     @Test
+    public void whenFirstNameEmptyAndInterfaceIsCreateValidationFails() {
+        user.setFirstName("");
+        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+
+        assertThat(violations.size()).isEqualTo(1);
+        Iterator iterator = violations.iterator();
+        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        assertThat(violation.getMessage()).isEqualTo("firstName is a required field");
+    }
+
+    @Test
     public void whenFirstNameIsOverFiftyCharactersAndInterfaceIsCreateValidationFails() {
         user.setFirstName(FIFTY_ONE_CHARACTERS);
         Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
@@ -85,6 +96,17 @@ public class UserTest {
     @Test
     public void whenLastNameIsNullAndInterfaceIsCreateValidationFails() {
         user.setLastName(null);
+        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+
+        assertThat(violations.size()).isEqualTo(1);
+        Iterator iterator = violations.iterator();
+        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        assertThat(violation.getMessage()).isEqualTo("lastName is a required field");
+    }
+
+    @Test
+    public void whenLastNameIsEmptyAndInterfaceIsCreateValidationFails() {
+        user.setLastName("");
         Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
@@ -144,6 +166,17 @@ public class UserTest {
     }
 
     @Test
+    public void whenUserNameIsEmptyAndInterfaceIsCreateValidationFails() {
+        user.setUserName("");
+        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+
+        assertThat(violations.size()).isEqualTo(1);
+        Iterator iterator = violations.iterator();
+        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        assertThat(violation.getMessage()).isEqualTo("userName is a required field");
+    }
+
+    @Test
     public void whenUserNameIsOverTwentyCharactersAndInterfaceIsCreateValidationFails() {
         user.setUserName(TWENTY_ONE_CHARACTERS);
         Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
@@ -184,6 +217,17 @@ public class UserTest {
     @Test
     public void whenPasswordIsNullAndInterfaceIsCreateValidationFails() {
         user.setPassword(null);
+        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+
+        assertThat(violations.size()).isEqualTo(1);
+        Iterator iterator = violations.iterator();
+        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        assertThat(violation.getMessage()).isEqualTo("password is a required field");
+    }
+
+    @Test
+    public void whenPasswordIsEmptyAndInterfaceIsCreateValidationFails() {
+        user.setPassword("");
         Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
