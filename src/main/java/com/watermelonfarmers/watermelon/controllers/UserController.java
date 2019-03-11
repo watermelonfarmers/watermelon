@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@RequestBody User request, Principal user) {
+    public ResponseEntity<User> updateUser(@Validated(User.Update.class) @RequestBody User request, Principal user) {
 
         return userProcessor.updateUser(request, user);
     }
