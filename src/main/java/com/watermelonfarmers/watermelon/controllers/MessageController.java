@@ -2,9 +2,9 @@ package com.watermelonfarmers.watermelon.controllers;
 
 import java.util.List;
 
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.watermelonfarmers.watermelon.models.Message;
 import com.watermelonfarmers.watermelon.processors.MessageProcessor;
+
+import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping("/api/messages")
@@ -31,17 +33,17 @@ public class MessageController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createMessage(@RequestBody Message request) {
+    public ResponseEntity<?> createMessage(@Validated(Message.Create.class) @RequestBody Message request) {
         return messageProcessor.createMessage(request);
     }
-    
+
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity updateMessage(@RequestBody Message request) {
+    public ResponseEntity<?> updateMessage(@Validated(Message.Create.class) @RequestBody Message request) {
         return messageProcessor.createMessage(request);
     }
-    
+
     @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity deleteMessage(@RequestBody Message request) {
+    public ResponseEntity<?> deleteMessage(@Validated(Message.Create.class) @RequestBody Message request) {
         return messageProcessor.deleteMessage(request);
     }
 }

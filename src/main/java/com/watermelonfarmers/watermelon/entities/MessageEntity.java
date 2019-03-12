@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "MESSAGE")
@@ -15,12 +17,14 @@ public class MessageEntity {
     @GeneratedValue
     @Column(name = "ID", unique = true)
     private long id;
+    @Size(max = 255)
     @Column(name = "Message_body")
     private String message;
     @Column(name = "Created")
     private LocalDateTime created;
     @Column(name = "Last_modified")
     private LocalDateTime last_modified;
+    @NotNull
     @Column(name = "Created_by_user")
     private String created_by_user;
 
