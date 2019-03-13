@@ -41,7 +41,7 @@ public class MessageProcessorTest {
     public void whenCreateMessageIsCalledMessageIsCreatedAndResponseStatusCodeIsOK() {
         when(messageRepository.save(any())).thenReturn(messageEntity);
 
-        ResponseEntity response = messageProcessor.createMessage(new Message());
+        ResponseEntity<?> response = messageProcessor.createMessage(new Message());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -50,7 +50,7 @@ public class MessageProcessorTest {
     public void whenCreateMessageIsCalledAndMessageIdAlreadyExistsResponseStatusCodeIsConflict() {
         when(messageRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
 
-        ResponseEntity response = messageProcessor.createMessage(new Message());
+        ResponseEntity<?> response = messageProcessor.createMessage(new Message());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
@@ -59,7 +59,7 @@ public class MessageProcessorTest {
     public void whenCreateMessageIsCalledAndMessageIdAlreadyExistsResponseMessageIsAlreadyExists() {
         when(messageRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
 
-        ResponseEntity response = messageProcessor.createMessage(new Message());
+        ResponseEntity<?> response = messageProcessor.createMessage(new Message());
 
         assertThat(response.getBody()).isEqualTo(ALREADY_EXISTS);
     }
