@@ -3,6 +3,8 @@ package com.watermelonfarmers.watermelon.models;
 import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -11,10 +13,13 @@ public class Requirement {
     @ApiModelProperty(value = "id", example = "1")
     private Long id;
 
-    @ApiModelProperty(value = "title", example = "Add requirement API to watermelon service")
+    @ApiModelProperty(value = "title", example = "This is the title of the requirement")
+    @NotNull(message = "Title is a required field", groups = { Create.class})
+    @Size(max = 255, message = "Title can not be more than 255 characters", groups = { Create.class, Update.class})
     private String title;
 
-    @ApiModelProperty(value = "description", example = "This is very important")
+    @Size(max = 10240, message = "Description can not be more than 10240 characters", groups ={ Create.class,Update.class})
+    @ApiModelProperty(value = "description", example = "This is the description of the requirement")
     private String description;
 
     @ApiModelProperty(value = "created_time", example = "2019-02-18T20:53:58")
@@ -45,8 +50,16 @@ public class Requirement {
     private String url;
 
 
-    @ApiModelProperty(value = "assigned_to", example = "Arya")
+    @ApiModelProperty(value = "assigned_to", example = "unassigned")
     private String assigned_to;
+
+    public interface Create {
+
+    }
+
+    public interface Update {
+
+    }
 
     public Requirement() {
     }

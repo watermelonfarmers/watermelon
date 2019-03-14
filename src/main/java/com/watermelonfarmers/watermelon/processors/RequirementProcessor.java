@@ -26,7 +26,7 @@ public class RequirementProcessor {
     public ResponseEntity createRequirement(Requirement request) {
         RequirementEntity requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(request);
         requirementRepository.save(requirementEntity);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     public ResponseEntity<List<Requirement>> readAllRequirement() {
@@ -62,7 +62,7 @@ public class RequirementProcessor {
         Optional<RequirementEntity> requirementEntity = requirementRepository.findById(id);
         if(requirementEntity.isPresent()) {
             requirementRepository.delete(requirementEntity.get());
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
