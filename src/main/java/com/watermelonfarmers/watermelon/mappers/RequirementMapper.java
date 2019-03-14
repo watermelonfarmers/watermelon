@@ -14,7 +14,7 @@ public class RequirementMapper {
 //        requirementEntity.setId(request.getId());
         requirementEntity.setTitle(request.getTitle());
         requirementEntity.setDescription(request.getDescription());
-        requirementEntity.setCreated_by_userName(request.getCreated_by_user());
+        requirementEntity.setCreated_by_user(request.getCreated_by_user());
         requirementEntity.setCreated_time(request.getCreated_time());
         requirementEntity.setLast_modified_time(request.getLast_modified_time());
         requirementEntity.setPriority(request.getPriority());
@@ -38,7 +38,7 @@ public class RequirementMapper {
         requirement.setId(requirementEntity.getId());
         requirement.setTitle(requirementEntity.getTitle());
         requirement.setDescription(requirementEntity.getDescription());
-        requirement.setCreated_by_user(requirementEntity.getCreated_by_userName());
+        requirement.setCreated_by_user(requirementEntity.getCreated_by_user());
         requirement.setCreated_time(requirementEntity.getCreated_time());
         requirement.setLast_modified_time(requirementEntity.getLast_modified_time());
         requirement.setPriority(requirementEntity.getPriority());
@@ -73,7 +73,7 @@ public class RequirementMapper {
         }
 
         if(null != request.getCreated_by_user()) {
-            requirementEntity.setCreated_by_userName(request.getCreated_by_user());
+            requirementEntity.setCreated_by_user(request.getCreated_by_user());
         }
 
         if(null != request.getDue_date()) {

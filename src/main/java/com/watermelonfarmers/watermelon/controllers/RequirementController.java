@@ -5,7 +5,6 @@ import com.watermelonfarmers.watermelon.processors.RequirementProcessor;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -22,7 +21,7 @@ public class RequirementController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createRequirement(@Validated(Requirement.Create.class) @RequestBody Requirement request) {
+    public ResponseEntity createRequirement(@RequestBody Requirement request) {
         return requirementProcessor.createRequirement(request);
     }
 
@@ -37,7 +36,7 @@ public class RequirementController {
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> updateRequirement(@Validated(Requirement.Update.class) @RequestBody Requirement request) {
+    public ResponseEntity updateRequirement(@RequestBody Requirement request) {
         return requirementProcessor.updateRequirement(request);
     }
 
