@@ -41,7 +41,7 @@ public class RequirementProcessorTest {
 
         ResponseEntity response = requirementProcessor.createRequirement(new Requirement());
 
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
     @Test
