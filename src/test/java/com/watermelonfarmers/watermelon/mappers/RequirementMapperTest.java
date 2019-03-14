@@ -22,7 +22,7 @@ public class RequirementMapperTest {
         this.requirement = new Requirement();
         this.requirementEntity = new RequirementEntity();
     }
-    
+
 
     @Test
     public void whenMapRequirementToRequirementEntityForUpdateTitleShouldBeTitle() {
