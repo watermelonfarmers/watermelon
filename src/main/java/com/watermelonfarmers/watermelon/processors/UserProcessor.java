@@ -56,7 +56,7 @@ public class UserProcessor {
 
     public ResponseEntity createUser(User request) {
 
-        ResponseEntity response = new ResponseEntity<>("success", HttpStatus.OK);
+        ResponseEntity response = new ResponseEntity<>(HttpStatus.OK);
 
         UserEntity userEntity = UserMapper.mapUserToUserEntity(request);
 
@@ -65,7 +65,7 @@ public class UserProcessor {
             userEntity.setPassword(encodedPassword);
             userRepository.save(userEntity);
         } catch (DataIntegrityViolationException ex) {
-            response = new ResponseEntity<>("already exists",HttpStatus.CONFLICT);
+            response = new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
         return response;

@@ -22,7 +22,6 @@ import static org.mockito.Mockito.when;
 
 public class UserProcessorTest {
 
-    public static final String ALREADY_EXISTS = "already exists";
     public static final String USER_NAME = "username";
     public static final String ORIGINAL = "Original";
     public static final String UPDATED = "Updated";
@@ -73,7 +72,7 @@ public class UserProcessorTest {
 
         ResponseEntity response = userProcessor.createUser(new User());
 
-        assertThat(response.getBody()).isEqualTo(ALREADY_EXISTS);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
 
     @Test
