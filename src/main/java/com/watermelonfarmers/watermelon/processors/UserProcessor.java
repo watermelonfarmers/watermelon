@@ -80,8 +80,10 @@ public class UserProcessor {
 
         UserEntity userEntity = userRepository.findByUserName(user.getName());
         UserMapper.mapUserToUserEntityForUpdate(userEntity, request);
-        String encodedPassword = passwordEncoder.encode(userEntity.getPassword());
-        userEntity.setPassword(encodedPassword);
+        if (null != request.getPassword()) {
+            String encodedPassword = passwordEncoder.encode(userEntity.getPassword());
+            userEntity.setPassword(encodedPassword);
+        }
         userRepository.save(userEntity);
         UserResponse updatedUser = UserMapper.mapUserEntityToUserResponse(userEntity);
 
