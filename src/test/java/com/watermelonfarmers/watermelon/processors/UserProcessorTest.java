@@ -1,7 +1,8 @@
 package com.watermelonfarmers.watermelon.processors;
 
-import com.watermelonfarmers.watermelon.models.User;
+import com.watermelonfarmers.watermelon.models.users.UserRequest;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.models.users.UserResponse;
 import com.watermelonfarmers.watermelon.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class UserProcessorTest {
     public void whenCreateUserIsCalledUserIsCreatedAndResponseStatusCodeIsOK() {
         when(userRepository.save(any())).thenReturn(userEntity);
 
-        ResponseEntity response = userProcessor.createUser(new User());
+        ResponseEntity response = userProcessor.createUser(new UserRequest());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
@@ -61,7 +62,7 @@ public class UserProcessorTest {
     public void whenCreateUserIsCalledAndUserIdAlreadyExistsResponseStatusCodeIsConflict() {
         when(userRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
 
-        ResponseEntity response = userProcessor.createUser(new User());
+        ResponseEntity response = userProcessor.createUser(new UserRequest());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
@@ -70,7 +71,7 @@ public class UserProcessorTest {
     public void whenCreateUserIsCalledAndUserIdAlreadyExistsResponseMessageIsAlreadyExists() {
         when(userRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
 
-        ResponseEntity response = userProcessor.createUser(new User());
+        ResponseEntity response = userProcessor.createUser(new UserRequest());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
     }
@@ -82,7 +83,7 @@ public class UserProcessorTest {
         userEntities.add(new UserEntity());
         when(userRepository.findAll()).thenReturn(userEntities);
 
-        ResponseEntity<List<User>> response = userProcessor.getUsers();
+        ResponseEntity<List<UserResponse>> response = userProcessor.getUsers();
 
         assertThat(response.getBody().size()).isEqualTo(2);
     }
@@ -94,7 +95,7 @@ public class UserProcessorTest {
 
         when(userRepository.findByUserName(USER_NAME)).thenReturn(userEntity);
 
-        ResponseEntity<User> response = userProcessor.getUserByUserName(USER_NAME);
+        ResponseEntity<UserResponse> response = userProcessor.getUserByUserName(USER_NAME);
 
         assertThat(response.getBody().getUserName()).isEqualTo(USER_NAME);
     }
@@ -106,76 +107,76 @@ public class UserProcessorTest {
 
         when(userRepository.findByUserName(USER_NAME)).thenReturn(null);
 
-        ResponseEntity<User> response = userProcessor.getUserByUserName(USER_NAME);
+        ResponseEntity<UserResponse> response = userProcessor.getUserByUserName(USER_NAME);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 
     @Test
     public void whenUpdateUserIsCalledAndPrincipalUserIsNullUnauthorizedIsReturned() {
-        User user = new User();
+        UserRequest userRequest = new UserRequest();
 
         when(userRepository.save(any())).thenReturn(userEntity);
 
-        ResponseEntity<User> response = userProcessor.updateUser(user, null);
+        ResponseEntity<UserResponse> response = userProcessor.updateUser(userRequest, null);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
     @Test
     public void whenUpdateUserIsCalledWithNewFirstNameFirstNameIsUpdated() {
-        User user = new User();
-        user.setFirstName(UPDATED);
+        UserRequest userRequest = new UserRequest();
+        userRequest.setFirstName(UPDATED);
         UserEntity userEntityOne = new UserEntity();
 
         when(principal.getName()).thenReturn(ORIGINAL);
         when(userRepository.findByUserName(ORIGINAL)).thenReturn(userEntityOne);
 
-        ResponseEntity<User> response = userProcessor.updateUser(user, principal);
+        ResponseEntity<UserResponse> response = userProcessor.updateUser(userRequest, principal);
 
         assertThat(response.getBody().getFirstName()).isEqualTo(UPDATED);
     }
 
     @Test
     public void whenUpdateUserIsAndFirstNameIsNullFirstNameIsOriginal() {
-        User user = new User();
-        user.setFirstName(null);
+        UserRequest userRequest = new UserRequest();
+        userRequest.setFirstName(null);
         UserEntity userEntityOne = new UserEntity();
         userEntityOne.setFirstName(ORIGINAL);
 
         when(principal.getName()).thenReturn(ORIGINAL);
         when(userRepository.findByUserName(ORIGINAL)).thenReturn(userEntityOne);
 
-        ResponseEntity<User> response = userProcessor.updateUser(user, principal);
+        ResponseEntity<UserResponse> response = userProcessor.updateUser(userRequest, principal);
 
         assertThat(response.getBody().getFirstName()).isEqualTo(ORIGINAL);
     }
 
     @Test
     public void whenUpdateUserIsCalledWithNewLastNameLastNameIsUpdated() {
-        User user = new User();
-        user.setLastName(UPDATED);
+        UserRequest userRequest = new UserRequest();
+        userRequest.setLastName(UPDATED);
         UserEntity userEntityOne = new UserEntity();
 
         when(principal.getName()).thenReturn(ORIGINAL);
         when(userRepository.findByUserName(ORIGINAL)).thenReturn(userEntityOne);
 
-        ResponseEntity<User> response = userProcessor.updateUser(user, principal);
+        ResponseEntity<UserResponse> response = userProcessor.updateUser(userRequest, principal);
 
         assertThat(response.getBody().getLastName()).isEqualTo(UPDATED);
     }
 
     @Test
     public void whenUpdateUserIsAndLastNameIsNullLastNameIsOriginal() {
-        User user = new User();
-        user.setLastName(null);
+        UserRequest userRequest = new UserRequest();
+        userRequest.setLastName(null);
         UserEntity userEntityOne = new UserEntity();
         userEntityOne.setLastName(ORIGINAL);
 
         when(principal.getName()).thenReturn(ORIGINAL);
         when(userRepository.findByUserName(ORIGINAL)).thenReturn(userEntityOne);
 
-        ResponseEntity<User> response = userProcessor.updateUser(user, principal);
+        ResponseEntity<UserResponse> response = userProcessor.updateUser(userRequest, principal);
 
         assertThat(response.getBody().getLastName()).isEqualTo(ORIGINAL);
     }

@@ -1,6 +1,6 @@
 package com.watermelonfarmers.watermelon.controllers;
 
-import com.watermelonfarmers.watermelon.models.User;
+import com.watermelonfarmers.watermelon.models.users.UserResponse;
 import com.watermelonfarmers.watermelon.processors.UserProcessor;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class LoginController {
     UserProcessor userProcessor;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<User> user(Principal user)
+    public ResponseEntity<UserResponse> user(Principal user)
     {
         return userProcessor.getUserByUserName(user.getName());
     }

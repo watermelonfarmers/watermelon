@@ -1,6 +1,7 @@
 package com.watermelonfarmers.watermelon.controllers;
 
-import com.watermelonfarmers.watermelon.models.User;
+import com.watermelonfarmers.watermelon.models.users.UserRequest;
+import com.watermelonfarmers.watermelon.models.users.UserResponse;
 import com.watermelonfarmers.watermelon.processors.UserProcessor;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,26 +25,26 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<UserResponse>> getUsers() {
 
         return userProcessor.getUsers();
 
     }
 
     @RequestMapping(value = "/{userName}",method = RequestMethod.GET)
-    public ResponseEntity<User> getUserByUserName(@PathVariable String userName) {
+    public ResponseEntity<UserResponse> getUserByUserName(@PathVariable String userName) {
         return userProcessor.getUserByUserName(userName);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createUser(@Validated(User.Create.class) @RequestBody User request) {
+    public ResponseEntity createUser(@Validated(UserRequest.Create.class) @RequestBody UserRequest request) {
 
         return userProcessor.createUser(request);
 
     }
 
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<User> updateUser(@Validated(User.Update.class) @RequestBody User request, Principal user) {
+    public ResponseEntity<UserResponse> updateUser(@Validated(UserRequest.Update.class) @RequestBody UserRequest request, Principal user) {
 
         return userProcessor.updateUser(request, user);
     }
