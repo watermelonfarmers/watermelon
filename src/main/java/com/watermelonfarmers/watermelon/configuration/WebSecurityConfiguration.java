@@ -18,6 +18,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/users/**").permitAll()
                 .antMatchers("/api/requirements/**").permitAll()
                 .antMatchers("/api/messages/**").permitAll()
+                .antMatchers("/api/issues/**").permitAll()
                 .antMatchers("/hello").permitAll()
                 .antMatchers("/h2console/**").permitAll()
                 .antMatchers("/api/logout").permitAll()
