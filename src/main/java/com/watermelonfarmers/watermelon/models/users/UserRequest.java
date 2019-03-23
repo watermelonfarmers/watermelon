@@ -1,11 +1,11 @@
-package com.watermelonfarmers.watermelon.models;
+package com.watermelonfarmers.watermelon.models.users;
 
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class User {
+public class UserRequest {
 
     @NotEmpty(message = "firstName is a required field", groups = {Create.class})
     @Size(max=50, message="firstName can not be more than 50 characters", groups ={Create.class, Update.class})
@@ -30,10 +30,10 @@ public class User {
     public interface Create { }
     public interface Update { }
 
-    public User() {
+    public UserRequest() {
     }
 
-    public User(String firstName, String lastName, String userName, String password) {
+    public UserRequest(String firstName, String lastName, String userName, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;

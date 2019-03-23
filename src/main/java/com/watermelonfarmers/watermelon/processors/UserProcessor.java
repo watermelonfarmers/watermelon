@@ -2,7 +2,8 @@ package com.watermelonfarmers.watermelon.processors;
 
 import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.mappers.UserMapper;
-import com.watermelonfarmers.watermelon.models.User;
+import com.watermelonfarmers.watermelon.models.users.UserRequest;
+import com.watermelonfarmers.watermelon.models.users.UserResponse;
 import com.watermelonfarmers.watermelon.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -27,34 +28,34 @@ public class UserProcessor {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<UserResponse>> getUsers() {
 
         Iterable<UserEntity> userEntities = userRepository.findAll();
 
-        List<User> users = new ArrayList<>();
+        List<UserResponse> userRequests = new ArrayList<>();
         for (UserEntity userEntity : userEntities) {
-            User user = UserMapper.mapUserEntityToUser(userEntity);
-            users.add(user);
+            UserResponse userResponse = UserMapper.mapUserEntityToUserResponse(userEntity);
+            userRequests.add(userResponse);
         }
 
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        return new ResponseEntity<>(userRequests, HttpStatus.OK);
     }
 
-    public ResponseEntity<User> getUserByUserName(String userName) {
+    public ResponseEntity<UserResponse> getUserByUserName(String userName) {
 
-        ResponseEntity<User> response;
+        ResponseEntity<UserResponse> response;
         UserEntity userEntity = userRepository.findByUserName(userName);
         if (null == userEntity) {
             response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            User user = UserMapper.mapUserEntityToUser(userEntity);
-            response = new ResponseEntity<>(user, HttpStatus.OK);
+            UserResponse userResponse = UserMapper.mapUserEntityToUserResponse(userEntity);
+            response = new ResponseEntity<>(userResponse, HttpStatus.OK);
         }
 
         return response;
     }
 
-    public ResponseEntity createUser(User request) {
+    public ResponseEntity createUser(UserRequest request) {
 
         ResponseEntity response = new ResponseEntity<>(HttpStatus.OK);
 
@@ -71,7 +72,7 @@ public class UserProcessor {
         return response;
     }
 
-    public ResponseEntity<User> updateUser(User request, Principal user) {
+    public ResponseEntity<UserResponse> updateUser(UserRequest request, Principal user) {
 
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -82,7 +83,7 @@ public class UserProcessor {
         String encodedPassword = passwordEncoder.encode(userEntity.getPassword());
         userEntity.setPassword(encodedPassword);
         userRepository.save(userEntity);
-        User updatedUser = UserMapper.mapUserEntityToUser(userEntity);
+        UserResponse updatedUser = UserMapper.mapUserEntityToUserResponse(userEntity);
 
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package com.watermelonfarmers.watermelon.models;
 
+import com.watermelonfarmers.watermelon.models.users.UserRequest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SuppressWarnings("unchecked")
-public class UserTest {
+public class UserRequestTest {
 
     private static String FIFTY_ONE_CHARACTERS = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
     private static String FIFTY_CHARACTERS = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
@@ -22,7 +23,7 @@ public class UserTest {
 
     private Validator validator;
 
-    private User user;
+    private UserRequest userRequest;
 
     @Before
     public void setUp() {
@@ -34,60 +35,60 @@ public class UserTest {
 
     @Test
     public void whenFirstNameIsNullAndInterfaceIsCreateValidationFails() {
-        user.setFirstName(null);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setFirstName(null);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("firstName is a required field");
     }
 
     @Test
     public void whenFirstNameEmptyAndInterfaceIsCreateValidationFails() {
-        user.setFirstName("");
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setFirstName("");
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("firstName is a required field");
     }
 
     @Test
     public void whenFirstNameIsOverFiftyCharactersAndInterfaceIsCreateValidationFails() {
-        user.setFirstName(FIFTY_ONE_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setFirstName(FIFTY_ONE_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("firstName can not be more than 50 characters");
     }
 
     @Test
     public void whenFirstNameIsFiftyCharactersAndInterfaceIsCreateValidationPasses() {
-        user.setFirstName(FIFTY_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setFirstName(FIFTY_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(0);
     }
 
     @Test
     public void whenFirstNameIsOverFiftyCharactersAndInterfaceIsUpdateValidationFails() {
-        user.setFirstName(FIFTY_ONE_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Update.class);
+        userRequest.setFirstName(FIFTY_ONE_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("firstName can not be more than 50 characters");
     }
 
     @Test
     public void whenFisrtNameIsFiftyCharactersAndInterfaceIsUpdateValidationPasses() {
-        user.setFirstName(FIFTY_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Update.class);
+        userRequest.setFirstName(FIFTY_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
         assertThat(violations.size()).isEqualTo(0);
     }
@@ -95,181 +96,181 @@ public class UserTest {
 
     @Test
     public void whenLastNameIsNullAndInterfaceIsCreateValidationFails() {
-        user.setLastName(null);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setLastName(null);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("lastName is a required field");
     }
 
     @Test
     public void whenLastNameIsEmptyAndInterfaceIsCreateValidationFails() {
-        user.setLastName("");
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setLastName("");
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("lastName is a required field");
     }
 
 
     @Test
     public void whenLastNameIsOverFiftyCharactersAndInterfaceIsCreateValidationFails() {
-        user.setLastName(FIFTY_ONE_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setLastName(FIFTY_ONE_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("lastName can not be more than 50 characters");
     }
 
     @Test
     public void whenLastNameIsFiftyCharactersAndInterfaceIsCreateValidationPasses() {
-        user.setLastName(FIFTY_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setLastName(FIFTY_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(0);
     }
 
     @Test
     public void whenLastNameIsOverFiftyCharactersAndInterfaceIsUpdateValidationFails() {
-        user.setLastName(FIFTY_ONE_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Update.class);
+        userRequest.setLastName(FIFTY_ONE_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("lastName can not be more than 50 characters");
     }
 
     @Test
     public void whenLastNameIsFiftyCharactersAndInterfaceIsUpdateValidationPasses() {
-        user.setLastName(FIFTY_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Update.class);
+        userRequest.setLastName(FIFTY_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
         assertThat(violations.size()).isEqualTo(0);
     }
 
     @Test
     public void whenUserNameIsNullAndInterfaceIsCreateValidationFails() {
-        user.setUserName(null);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setUserName(null);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("userName is a required field");
     }
 
     @Test
     public void whenUserNameIsEmptyAndInterfaceIsCreateValidationFails() {
-        user.setUserName("");
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setUserName("");
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("userName is a required field");
     }
 
     @Test
     public void whenUserNameIsOverTwentyCharactersAndInterfaceIsCreateValidationFails() {
-        user.setUserName(TWENTY_ONE_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setUserName(TWENTY_ONE_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("userName can not be more than 20 characters");
     }
 
     @Test
     public void whenUserNameIsTwentyCharactersAndInterfaceIsCreateValidationPasses() {
-        user.setUserName(TWENTY_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setUserName(TWENTY_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(0);
     }
 
     @Test
     public void whenUserNameIsOverTwentyCharactersAndInterfaceIsUpdateValidationFails() {
-        user.setUserName(TWENTY_ONE_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Update.class);
+        userRequest.setUserName(TWENTY_ONE_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("userName can not be more than 20 characters");
     }
 
     @Test
     public void whenUserNameIsTwentyCharactersAndInterfaceIsUpdateValidationPasses() {
-        user.setUserName(TWENTY_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Update.class);
+        userRequest.setUserName(TWENTY_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
         assertThat(violations.size()).isEqualTo(0);
     }
 
     @Test
     public void whenPasswordIsNullAndInterfaceIsCreateValidationFails() {
-        user.setPassword(null);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setPassword(null);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("password is a required field");
     }
 
     @Test
     public void whenPasswordIsEmptyAndInterfaceIsCreateValidationFails() {
-        user.setPassword("");
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setPassword("");
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("password is a required field");
     }
 
     @Test
     public void whenPasswordIsOverTwentyCharactersAndInterfaceIsCreateValidationFails() {
-        user.setPassword(TWENTY_ONE_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setPassword(TWENTY_ONE_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("password can not be more than 20 characters");
     }
 
     @Test
     public void whenPasswordIsTwentyCharactersAndInterfaceIsCreateValidationPasses() {
-        user.setPassword(TWENTY_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Create.class);
+        userRequest.setPassword(TWENTY_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
 
         assertThat(violations.size()).isEqualTo(0);
     }
 
     @Test
     public void whenPasswordIsOverTwentyCharactersAndInterfaceIsUpdateValidationFails() {
-        user.setPassword(TWENTY_ONE_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Update.class);
+        userRequest.setPassword(TWENTY_ONE_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
         assertThat(violations.size()).isEqualTo(1);
         Iterator iterator = violations.iterator();
-        ConstraintViolation<User> violation = (ConstraintViolation<User>) iterator.next();
+        ConstraintViolation<UserRequest> violation = (ConstraintViolation<UserRequest>) iterator.next();
         assertThat(violation.getMessage()).isEqualTo("password can not be more than 20 characters");
     }
 
     @Test
     public void whenPasswordIsTwentyCharactersAndInterfaceIsUpdateValidationPasses() {
-        user.setPassword(TWENTY_CHARACTERS);
-        Set<ConstraintViolation<User>> violations = validator.validate(user, User.Update.class);
+        userRequest.setPassword(TWENTY_CHARACTERS);
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
         assertThat(violations.size()).isEqualTo(0);
     }
@@ -277,10 +278,10 @@ public class UserTest {
 
 
     private void initializeUser() {
-        user = new User();
-        user.setFirstName("Peter");
-        user.setLastName("Parker");
-        user.setUserName("spiderman");
-        user.setPassword("password");
+        userRequest = new UserRequest();
+        userRequest.setFirstName("Peter");
+        userRequest.setLastName("Parker");
+        userRequest.setUserName("spiderman");
+        userRequest.setPassword("password");
     }
 }
