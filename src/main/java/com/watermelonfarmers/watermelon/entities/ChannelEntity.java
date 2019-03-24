@@ -1,6 +1,7 @@
 package com.watermelonfarmers.watermelon.entities;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -100,5 +101,5 @@ public class ChannelEntity {
     public void setMessageEntity(List<MessageEntity> messageEntity) {
         this.messageEntity = messageEntity;
     }
-    
+
 }

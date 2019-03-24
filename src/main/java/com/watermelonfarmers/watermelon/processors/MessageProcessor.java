@@ -51,4 +51,14 @@ public class MessageProcessor {
         messageRepository.delete(messageEntity);
         return response;
     }
+    
+    public ResponseEntity<List<Message>> getMessagesByChannel(long channelId) {
+        Iterable<MessageEntity> messageEntities = messageRepository.findAllMessagesByChannelId(channelId);
+        List<Message> messages = new ArrayList<>();
+        for (MessageEntity messageEntity : messageEntities) {
+            Message message = MessageMapper.mapMessageToMessageEntity(messageEntity);
+            messages.add(message);
+        }
+        return new ResponseEntity<>(messages, HttpStatus.OK);
+    }
 }

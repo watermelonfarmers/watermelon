@@ -37,7 +37,7 @@ public class MessageEntity {
     private String created_by_user;
 
     @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "channel_id", insertable = false, updatable = false)
     @JsonBackReference
     private ChannelEntity channelEntity;
 
