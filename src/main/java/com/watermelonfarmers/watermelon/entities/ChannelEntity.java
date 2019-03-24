@@ -1,30 +1,30 @@
 package com.watermelonfarmers.watermelon.entities;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "MESSAGE")
-public class MessageEntity {
+@Table(name = "CHANNEL")
+public class ChannelEntity {
     @Id
     @GeneratedValue
     @Column(name = "ID", unique = true)
     private long id;
 
     @Size(max = 255)
-    @Column(name = "Message_body")
-    private String message;
+    @Column(name = "Channel_name")
+    private String channel;
 
     @Column(name = "Created")
     private LocalDateTime created;
@@ -36,22 +36,21 @@ public class MessageEntity {
     @Column(name = "Created_by_user")
     private String created_by_user;
 
-    @ManyToOne
-    @JoinColumn(name = "id", insertable = false, updatable = false)
-    @JsonBackReference
-    private ChannelEntity channelEntity;
+    @OneToMany(mappedBy = "channelEntity")
+    @JsonManagedReference
+    private List<MessageEntity> messageEntity;
 
-    public MessageEntity() {
+    public ChannelEntity() {
     }
 
-    public MessageEntity(long id, @Size(max = 255) String message, LocalDateTime created, LocalDateTime last_modified,
-            @NotNull String created_by_user, ChannelEntity channelEntity) {
+    public ChannelEntity(long id, @Size(max = 255) String channel, LocalDateTime created, LocalDateTime last_modified,
+            @NotNull String created_by_user, List<MessageEntity> messageEntity) {
         this.id = id;
-        this.message = message;
+        this.channel = channel;
         this.created = created;
         this.last_modified = last_modified;
         this.created_by_user = created_by_user;
-        this.channelEntity = channelEntity;
+        this.messageEntity = messageEntity;
     }
 
     public long getId() {
@@ -62,12 +61,12 @@ public class MessageEntity {
         this.id = id;
     }
 
-    public String getMessage() {
-        return message;
+    public String getChannel() {
+        return channel;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setChannel(String channel) {
+        this.channel = channel;
     }
 
     public LocalDateTime getCreated() {
@@ -94,11 +93,12 @@ public class MessageEntity {
         this.created_by_user = created_by_user;
     }
 
-    public ChannelEntity getChannelEntity() {
-        return channelEntity;
+    public List<MessageEntity> getMessageEntity() {
+        return messageEntity;
     }
 
-    public void setChannelEntity(ChannelEntity channelEntity) {
-        this.channelEntity = channelEntity;
+    public void setMessageEntity(List<MessageEntity> messageEntity) {
+        this.messageEntity = messageEntity;
     }
+    
 }
