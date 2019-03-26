@@ -54,7 +54,7 @@ public class IssueMapper {
         }
 
         if (null != issueEntity.getLastModified()) {
-            issue.setLast_modified(issueEntity.getLastModified());
+            issue.setLastModified(issueEntity.getLastModified());
         }
 
         if (null != issueEntity.getTitle()) {

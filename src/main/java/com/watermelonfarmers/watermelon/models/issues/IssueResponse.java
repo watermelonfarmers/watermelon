@@ -8,7 +8,7 @@ public class IssueResponse {
 
     private Long issueId;
     private LocalDateTime created;
-    private LocalDateTime last_modified;
+    private LocalDateTime lastModified;
     private String title;
     private String description;
     private Integer priority;
@@ -32,12 +32,12 @@ public class IssueResponse {
         this.created = created;
     }
 
-    public LocalDateTime getLast_modified() {
-        return last_modified;
+    public LocalDateTime getLastModified() {
+        return lastModified;
     }
 
-    public void setLast_modified(LocalDateTime last_modified) {
-        this.last_modified = last_modified;
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
     }
 
     public String getTitle() {

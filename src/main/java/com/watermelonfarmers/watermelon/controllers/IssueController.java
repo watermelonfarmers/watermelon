@@ -27,6 +27,11 @@ public class IssueController {
         return issueProcessor.getIssues();
     }
 
+    @RequestMapping(value = "/{issueId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getIssueById(@PathVariable("issueId") Long issueId) {
+        return issueProcessor.getIssueById(issueId);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity createIssue(@RequestBody IssueRequest request) {
         return issueProcessor.createIssue(request);

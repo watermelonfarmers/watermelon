@@ -34,6 +34,19 @@ public class IssueProcessor {
         return new ResponseEntity<>(issues, HttpStatus.OK);
     }
 
+    public ResponseEntity<?> getIssueById(Long issueId) {
+        ResponseEntity response;
+        Optional<IssueEntity> issueEntity = issueRepository.findById(issueId);
+        if (issueEntity.isPresent()) {
+            IssueResponse issue = IssueMapper.mapIssueEntityToIssueResponse(issueEntity.get());
+            response = new ResponseEntity<>(issue, HttpStatus.OK);
+        }
+        else {
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return response;
+    }
+
     public ResponseEntity<?> createIssue(IssueRequest request) {
         ResponseEntity response = new ResponseEntity(HttpStatus.OK);
         IssueEntity issueEntity = IssueMapper.mapIssueRequestToIssueEntity(new IssueEntity(), request);
@@ -68,4 +81,5 @@ public class IssueProcessor {
 
         return response;
     }
+
 }
