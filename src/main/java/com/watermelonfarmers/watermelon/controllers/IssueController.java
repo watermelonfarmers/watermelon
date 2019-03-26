@@ -1,17 +1,14 @@
 package com.watermelonfarmers.watermelon.controllers;
 
-import java.util.List;
-
+import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
+import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
+import com.watermelonfarmers.watermelon.processors.IssueProcessor;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.watermelonfarmers.watermelon.models.Issue;
-import com.watermelonfarmers.watermelon.processors.IssueProcessor;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/issues")
@@ -26,22 +23,27 @@ public class IssueController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Issue>> getIssues() {
+    public ResponseEntity<List<IssueResponse>> getIssues() {
         return issueProcessor.getIssues();
     }
 
+    @RequestMapping(value = "/{issueId}", method = RequestMethod.GET)
+    public ResponseEntity<?> getIssueById(@PathVariable("issueId") Long issueId) {
+        return issueProcessor.getIssueById(issueId);
+    }
+
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createIssue(@RequestBody Issue request) {
+    public ResponseEntity createIssue(@RequestBody IssueRequest request) {
         return issueProcessor.createIssue(request);
     }
     
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity updateIssue(@RequestBody Issue request) {
-        return issueProcessor.createIssue(request);
+    @RequestMapping(value = "/{issueId}", method = RequestMethod.PUT)
+    public ResponseEntity updateIssue(@RequestBody IssueRequest request, @PathVariable("issueId") Long issueId) {
+        return issueProcessor.updateIssue(request, issueId);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity deleteIssue(@RequestBody Issue request) {
-        return issueProcessor.deleteIssue(request);
+    @RequestMapping(value = "/{issueId}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteIssue(@PathVariable("issueId") Long issueId) {
+        return issueProcessor.deleteIssue(issueId);
     }
 }

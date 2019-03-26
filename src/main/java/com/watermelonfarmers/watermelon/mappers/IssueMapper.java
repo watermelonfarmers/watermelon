@@ -1,32 +1,88 @@
 package com.watermelonfarmers.watermelon.mappers;
 
 import com.watermelonfarmers.watermelon.entities.IssueEntity;
-import com.watermelonfarmers.watermelon.models.Issue;
+import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
+import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
+import com.watermelonfarmers.watermelon.models.users.UserResponse;
 
 public class IssueMapper {
-    public static IssueEntity mapIssueEntityToIssue(Issue request) {
-        IssueEntity issueEntity = new IssueEntity();
-        issueEntity.setId(request.getId());
-        issueEntity.setTitle(request.getTitle());
-        issueEntity.setDescription(request.getDescription());
-        issueEntity.setPriority(request.getPriority());
-        issueEntity.setStatus(request.getStatus());
-        issueEntity.setCreated_by_user_id(request.getCreated_by_user_id());
-        issueEntity.setCreated(request.getCreated());
-        issueEntity.setLast_modified(request.getLast_modified());
+
+    public static IssueEntity mapIssueRequestToIssueEntity(IssueEntity issueEntity, IssueRequest request) {
+
+        if (null != request.getTitle()) {
+            issueEntity.setTitle(request.getTitle());
+        }
+
+        if (null != request.getDescription()) {
+            issueEntity.setDescription(request.getDescription());
+        }
+
+        if (null != request.getPriority()) {
+            issueEntity.setPriority(request.getPriority());
+        }
+
+        if (null != request.getStatus()) {
+            issueEntity.setStatus(request.getStatus());
+        }
+
+        if (null != request.getCreatedByUserId()) {
+            UserEntity user = new UserEntity();
+            user.setId(request.getCreatedByUserId());
+            issueEntity.setCreatedByUser(user);
+        }
+
+        if (null != request.getAssignedUserId()) {
+            UserEntity user = new UserEntity();
+            user.setId(request.getAssignedUserId());
+            issueEntity.setAssignedUser(user);
+        }
+
         return issueEntity;
     }
 
-    public static Issue mapIssueToIssueEntity(IssueEntity issueEntity) {
-        Issue issue = new Issue();
-        issue.setId(issueEntity.getId());
-        issue.setTitle(issueEntity.getTitle());
-        issue.setDescription(issueEntity.getDescription());
-        issue.setPriority(issueEntity.getPriority());
-        issue.setStatus(issueEntity.getStatus());
-        issue.setCreated_by_user_id(issueEntity.getCreated_by_user_id());
-        issue.setCreated(issueEntity.getCreated());
-        issue.setLast_modified(issueEntity.getLast_modified());
+
+    public static IssueResponse mapIssueEntityToIssueResponse(IssueEntity issueEntity) {
+        IssueResponse issue = new IssueResponse();
+
+        if (null != issueEntity.getIssueId()) {
+            issue.setIssueId(issueEntity.getIssueId());
+        }
+
+        if (null != issueEntity.getCreated()) {
+            issue.setCreated(issueEntity.getCreated());
+        }
+
+        if (null != issueEntity.getLastModified()) {
+            issue.setLastModified(issueEntity.getLastModified());
+        }
+
+        if (null != issueEntity.getTitle()) {
+            issue.setTitle(issueEntity.getTitle());
+        }
+
+        if (null != issueEntity.getDescription()) {
+            issue.setDescription(issueEntity.getDescription());
+        }
+
+        if (null != issueEntity.getPriority()) {
+            issue.setPriority(issueEntity.getPriority());
+        }
+
+        if (null != issueEntity.getStatus()) {
+            issue.setStatus(issueEntity.getStatus());
+        }
+
+        if (null != issueEntity.getCreatedByUser()) {
+            UserResponse user = UserMapper.mapUserEntityToUserResponse(issueEntity.getCreatedByUser());
+            issue.setCreatedByUser(user);
+        }
+
+        if (null != issueEntity.getAssignedUser()) {
+            UserResponse user = UserMapper.mapUserEntityToUserResponse(issueEntity.getAssignedUser());
+            issue.setAssignedUser(user);
+        }
+
         return issue;
     }
 }

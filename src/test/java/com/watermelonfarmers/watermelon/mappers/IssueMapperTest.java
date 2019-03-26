@@ -2,23 +2,24 @@ package com.watermelonfarmers.watermelon.mappers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
+import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.watermelonfarmers.watermelon.entities.IssueEntity;
-import com.watermelonfarmers.watermelon.models.Issue;
 
 public class IssueMapperTest {
 
     public static final String TITLE = "Hello";
 
-    private Issue issue;
+    private IssueResponse issue;
 
     private IssueEntity issueEntity;
 
     @Before
     public void setup() {
-        this.issue = new Issue();
+        this.issue = new IssueResponse();
         this.issueEntity = new IssueEntity();
     }
 
@@ -26,7 +27,7 @@ public class IssueMapperTest {
     public void whenMapIssueEntityToIssueTitleShouldBeTitle() {
         issueEntity.setTitle(TITLE);
 
-        issue = IssueMapper.mapIssueToIssueEntity(issueEntity);
+        issue = IssueMapper.mapIssueEntityToIssueResponse(issueEntity);
 
         assertThat(issue.getTitle()).isEqualTo(TITLE);
     }

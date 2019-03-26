@@ -1,15 +1,10 @@
 package com.watermelonfarmers.watermelon.entities;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ISSUE")
@@ -17,46 +12,51 @@ public class IssueEntity {
 
     @Id
     @GeneratedValue
-    @Column(name = "Id", unique = true)
-    private long id;
+    @Column(name = "ISSUE_ID", unique = true)
+    private Long issueId;
     @CreationTimestamp
+    @Column(name = "CREATED")
     private LocalDateTime created;
     @UpdateTimestamp
-    private LocalDateTime last_modified;
+    @Column(name = "LAST_MODIFIED")
+    private LocalDateTime lastModified;
+    @Column(name = "TITLE")
     private String title;
-    @Column(name = "Description")
+    @Column(name = "DESCRIPTION")
     private String description;
-    @Column(name = "Prioirty")
+    @Column(name = "PRIORITY")
     private Integer priority;
-    @Column(name = "Status")
+    @Column(name = "STATUS")
     private String status;
-    @Column(name = "Created_by_user_id")
-    private long created_by_user_id;
-    @Column(name = "Assigned_user_id")
-    private long assigned_user_id;
+    @OneToOne
+    @JoinColumn(name = "CREATED_BY_USER_ID")
+    private UserEntity createdByUser;
+    @OneToOne
+    @JoinColumn(name = "ASSIGNED_USER_ID")
+    private UserEntity assignedUser;
 
     public IssueEntity() {
     }
 
-    public IssueEntity(long id, LocalDateTime created, LocalDateTime last_modified, String title,
-            String description, Integer priority, String status, long created_by_user_id, long assigned_user_id) {
-        this.id = id;
+    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description,
+                       Integer priority, String status, UserEntity createdByUser, UserEntity assignedUser) {
+        this.issueId = issueId;
         this.created = created;
-        this.last_modified = last_modified;
+        this.lastModified = lastModified;
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status = status;
-        this.created_by_user_id = created_by_user_id;
-        this.assigned_user_id = assigned_user_id;
+        this.createdByUser = createdByUser;
+        this.assignedUser = assignedUser;
     }
 
-    public long getId() {
-        return id;
+    public Long getIssueId() {
+        return issueId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setIssueId(Long issueId) {
+        this.issueId = issueId;
     }
 
     public LocalDateTime getCreated() {
@@ -67,12 +67,12 @@ public class IssueEntity {
         this.created = created;
     }
 
-    public LocalDateTime getLast_modified() {
-        return last_modified;
+    public LocalDateTime getLastModified() {
+        return lastModified;
     }
 
-    public void setLast_modified(LocalDateTime last_modified) {
-        this.last_modified = last_modified;
+    public void setLastModified(LocalDateTime lastModified) {
+        this.lastModified = lastModified;
     }
 
     public String getTitle() {
@@ -107,20 +107,19 @@ public class IssueEntity {
         this.status = status;
     }
 
-    public long getCreated_by_user_id() {
-        return created_by_user_id;
+    public UserEntity getCreatedByUser() {
+        return createdByUser;
     }
 
-    public void setCreated_by_user_id(long created_by_user_id) {
-        this.created_by_user_id = created_by_user_id;
+    public void setCreatedByUser(UserEntity createdByUser) {
+        this.createdByUser = createdByUser;
     }
 
-    public long getAssigned_user_id() {
-        return assigned_user_id;
+    public UserEntity getAssignedUser() {
+        return assignedUser;
     }
 
-    public void setAssigned_user_id(long assigned_user_id) {
-        this.assigned_user_id = assigned_user_id;
+    public void setAssignedUser(UserEntity assignedUser) {
+        this.assignedUser = assignedUser;
     }
-
 }

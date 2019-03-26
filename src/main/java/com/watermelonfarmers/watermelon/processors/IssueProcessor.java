@@ -1,18 +1,18 @@
 package com.watermelonfarmers.watermelon.processors;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.watermelonfarmers.watermelon.entities.IssueEntity;
+import com.watermelonfarmers.watermelon.mappers.IssueMapper;
+import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
+import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
+import com.watermelonfarmers.watermelon.repositories.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.watermelonfarmers.watermelon.entities.IssueEntity;
-import com.watermelonfarmers.watermelon.mappers.IssueMapper;
-import com.watermelonfarmers.watermelon.models.Issue;
-import com.watermelonfarmers.watermelon.repositories.IssueRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IssueProcessor {
@@ -24,31 +24,62 @@ public class IssueProcessor {
         this.issueRepository = issueRepository;
     }
 
-    public ResponseEntity<List<Issue>> getIssues() {
+    public ResponseEntity<List<IssueResponse>> getIssues() {
         Iterable<IssueEntity> issueEntities = issueRepository.findAll();
-        List<Issue> issues = new ArrayList<>();
+        List<IssueResponse> issues = new ArrayList<>();
         for (IssueEntity issueEntity : issueEntities) {
-            Issue issue = IssueMapper.mapIssueToIssueEntity(issueEntity);
+            IssueResponse issue = IssueMapper.mapIssueEntityToIssueResponse(issueEntity);
             issues.add(issue);
         }
         return new ResponseEntity<>(issues, HttpStatus.OK);
     }
 
-    public ResponseEntity<String> createIssue(Issue request) {
-        ResponseEntity<String> response = new ResponseEntity<String>("success", HttpStatus.OK);
-        IssueEntity issueEntity = IssueMapper.mapIssueEntityToIssue(request);
-        try {
-            issueRepository.save(issueEntity);
-        } catch (DataIntegrityViolationException ex) {
-            response = new ResponseEntity<String>("already exists", HttpStatus.CONFLICT);
+    public ResponseEntity<?> getIssueById(Long issueId) {
+        ResponseEntity response;
+        Optional<IssueEntity> issueEntity = issueRepository.findById(issueId);
+        if (issueEntity.isPresent()) {
+            IssueResponse issue = IssueMapper.mapIssueEntityToIssueResponse(issueEntity.get());
+            response = new ResponseEntity<>(issue, HttpStatus.OK);
+        }
+        else {
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
         }
         return response;
     }
 
-    public ResponseEntity<String> deleteIssue(Issue request) {
-        ResponseEntity<String> response = new ResponseEntity<String>("success", HttpStatus.OK);
-        IssueEntity issueEntity = IssueMapper.mapIssueEntityToIssue(request);
-        issueRepository.delete(issueEntity);
+    public ResponseEntity<?> createIssue(IssueRequest request) {
+        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+        IssueEntity issueEntity = IssueMapper.mapIssueRequestToIssueEntity(new IssueEntity(), request);
+        issueRepository.save(issueEntity);
         return response;
     }
+
+    public ResponseEntity<?> deleteIssue(Long issueId) {
+        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+        Optional<IssueEntity> channelEntity = issueRepository.findById(issueId);
+
+        if (channelEntity.isPresent()) {
+            issueRepository.delete(channelEntity.get());
+        }
+        else {
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return response;
+    }
+
+    public ResponseEntity updateIssue(IssueRequest request, Long issueId) {
+        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+        Optional<IssueEntity> channelEntity = issueRepository.findById(issueId);
+        if (channelEntity.isPresent()) {
+            IssueEntity updatedChannel = IssueMapper.mapIssueRequestToIssueEntity(channelEntity.get(), request);
+            issueRepository.save(updatedChannel);
+        }
+        else {
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return response;
+    }
+
 }
