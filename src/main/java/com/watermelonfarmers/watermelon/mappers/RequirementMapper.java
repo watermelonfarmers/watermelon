@@ -1,10 +1,15 @@
 package com.watermelonfarmers.watermelon.mappers;
 
+import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import com.watermelonfarmers.watermelon.models.users.UserResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequirementMapper {
 
@@ -95,7 +100,12 @@ public class RequirementMapper {
         }
 
         if(null != requirementEntity.getComments()) {
-            requirement.setComments(requirementEntity.getComments());
+            List<CommentResponse> commentResponseList = new ArrayList<>();
+            for (CommentEntity commentEntity: requirementEntity.getComments()) {
+                CommentResponse commentResponse = CommentMapper.mapCommentEntityToCommentResponse(commentEntity);
+                commentResponseList.add(commentResponse);
+            }
+            requirement.setComments(commentResponseList);
         }
 
         if(null != requirementEntity.getCreated_by_user()) {

@@ -38,7 +38,7 @@ public class RequirementRequest {
     private Boolean isArchived;
 
     //    @ApiModelProperty(value = "comments", example = "Nice job!")
-    private List<CommentEntity> comments;
+//    private List<CommentEntity> comments;
 
     @ApiModelProperty(value = "created_by_user", example = "1")
     private Long created_by_user;
@@ -57,18 +57,14 @@ public class RequirementRequest {
     public RequirementRequest() {
     }
 
-    public RequirementRequest(Long id, String title, String description, Integer priority, String status,
-                              Long created_by_user, List<String> members, LocalDateTime due_date, Boolean isArchived, List<CommentEntity> comments, Long assigned_to_user) {
+    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 10240, message = "Description can not be more than 10240 characters", groups = {Create.class, Update.class}) String description, Integer priority, String status, LocalDateTime due_date, Boolean isArchived, Long created_by_user, Long assigned_to_user) {
         this.title = title;
         this.description = description;
-//        this.created_time = created_time;
-//        this.last_modified_time = last_modified_time;
         this.priority = priority;
         this.status = status;
-        this.created_by_user = created_by_user;
         this.due_date = due_date;
         this.isArchived = isArchived;
-        this.comments = comments;
+        this.created_by_user = created_by_user;
         this.assigned_to_user = assigned_to_user;
     }
 
@@ -104,14 +100,6 @@ public class RequirementRequest {
         this.status = status;
     }
 
-    public Long getCreated_by_user() {
-        return created_by_user;
-    }
-
-    public void setCreated_by_user(Long created_by_user) {
-        this.created_by_user = created_by_user;
-    }
-
     public LocalDateTime getDue_date() {
         return due_date;
     }
@@ -128,19 +116,19 @@ public class RequirementRequest {
         isArchived = archived;
     }
 
+    public Long getCreated_by_user() {
+        return created_by_user;
+    }
+
+    public void setCreated_by_user(Long created_by_user) {
+        this.created_by_user = created_by_user;
+    }
+
     public Long getAssigned_to_user() {
         return assigned_to_user;
     }
 
     public void setAssigned_to_user(Long assigned_to_user) {
         this.assigned_to_user = assigned_to_user;
-    }
-
-    public List<CommentEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentEntity> comments) {
-        this.comments = comments;
     }
 }
