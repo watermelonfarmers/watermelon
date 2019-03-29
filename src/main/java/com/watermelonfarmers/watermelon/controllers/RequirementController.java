@@ -1,12 +1,15 @@
 package com.watermelonfarmers.watermelon.controllers;
 
 import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import com.watermelonfarmers.watermelon.processors.RequirementProcessor;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -27,12 +30,12 @@ public class RequirementController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity readAllRequirement() {
+    public ResponseEntity<List<RequirementResponse>> readAllRequirement() {
         return requirementProcessor.readAllRequirement();
     }
 
     @RequestMapping(value = "/{requirementId}", method = RequestMethod.GET)
-    public ResponseEntity readOneRequirement(@PathVariable Long requirementId) {
+    public ResponseEntity<RequirementResponse> readOneRequirement(@PathVariable Long requirementId) {
         return requirementProcessor.readOneRequirement(requirementId);
     }
 

@@ -40,7 +40,7 @@ public class RequirementEntity {
     @Column(name = "Url")
     private String url;
 
-    @OneToMany(mappedBy = "requirement")
+    @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments = new ArrayList<>();
 
     @OneToOne

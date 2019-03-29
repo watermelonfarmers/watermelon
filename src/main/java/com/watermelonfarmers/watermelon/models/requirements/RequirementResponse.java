@@ -1,6 +1,7 @@
 package com.watermelonfarmers.watermelon.models.requirements;
 
 import com.watermelonfarmers.watermelon.entities.CommentEntity;
+import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
 import com.watermelonfarmers.watermelon.models.users.UserResponse;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,16 +16,14 @@ public class RequirementResponse {
     private String status;
     private LocalDateTime due_date;
     private Boolean isArchived;
-    private List<CommentEntity> comments;
+    private List<CommentResponse> comments;
     private UserResponse created_by_user;
     private UserResponse assigned_to_user;
 
     public RequirementResponse() {
     }
 
-    public RequirementResponse(Long id, String title, String description, LocalDateTime created_time, LocalDateTime last_modified_time,
-                               Integer priority, String status,  LocalDateTime due_date, Boolean isArchived, List<CommentEntity> comments,
-                               UserResponse created_by_user, UserResponse assigned_to_user) {
+    public RequirementResponse(Long id, String title, String description, LocalDateTime created_time, LocalDateTime last_modified_time, Integer priority, String status, LocalDateTime due_date, Boolean isArchived, List<CommentResponse> comments, UserResponse created_by_user, UserResponse assigned_to_user) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -32,20 +31,21 @@ public class RequirementResponse {
         this.last_modified_time = last_modified_time;
         this.priority = priority;
         this.status = status;
-        this.created_by_user = created_by_user;
         this.due_date = due_date;
         this.isArchived = isArchived;
         this.comments = comments;
+        this.created_by_user = created_by_user;
         this.assigned_to_user = assigned_to_user;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Long getId() {
-        return id;
-    }
     public String getTitle() {
         return title;
     }
@@ -61,7 +61,6 @@ public class RequirementResponse {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     public LocalDateTime getCreated_time() {
         return created_time;
@@ -95,14 +94,6 @@ public class RequirementResponse {
         this.status = status;
     }
 
-    public UserResponse getCreated_by_user() {
-        return created_by_user;
-    }
-
-    public void setCreated_by_user(UserResponse created_by_user) {
-        this.created_by_user = created_by_user;
-    }
-
     public LocalDateTime getDue_date() {
         return due_date;
     }
@@ -119,19 +110,27 @@ public class RequirementResponse {
         isArchived = archived;
     }
 
+    public List<CommentResponse> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentResponse> comments) {
+        this.comments = comments;
+    }
+
+    public UserResponse getCreated_by_user() {
+        return created_by_user;
+    }
+
+    public void setCreated_by_user(UserResponse created_by_user) {
+        this.created_by_user = created_by_user;
+    }
+
     public UserResponse getAssigned_to_user() {
         return assigned_to_user;
     }
 
     public void setAssigned_to_user(UserResponse assigned_to_user) {
         this.assigned_to_user = assigned_to_user;
-    }
-
-    public List<CommentEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentEntity> comments) {
-        this.comments = comments;
     }
 }
