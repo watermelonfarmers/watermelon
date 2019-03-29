@@ -33,9 +33,6 @@ public class RequirementEntity {
     private Integer priority;
     @Column(name = "Status")//Choose from the Number of the card
     private String status;
-    @Column(name = "Created_by_userName")
-    @Size(max = 255)
-    private String created_by_userName;
     @Column(name = "isArchived")
     private Boolean isArchived;
     @Column(name = "Due_date")
@@ -43,31 +40,33 @@ public class RequirementEntity {
     @Column(name = "Url")
     private String url;
 
-    @Column(name = "Assigned_to")
-    private String assigned_to;
-
     @OneToMany(mappedBy = "requirement")
     private List<CommentEntity> comments = new ArrayList<>();
 
     @OneToOne
-    private UserEntity created_by_userEntity;
+    private UserEntity created_by_user;
+
+    @OneToOne
+    private UserEntity assigned_to_user;
 
 
     public RequirementEntity() {
     }
 
-    public RequirementEntity(LocalDateTime created_time, LocalDateTime last_modified_time, String title, String description, Integer priority, String status, String created_by_user, LocalDateTime due_date, Boolean isArchived, String url, String assigned_to) {
+    public RequirementEntity(LocalDateTime created_time, LocalDateTime last_modified_time, String title, String description,
+                             Integer priority, String status,LocalDateTime due_date, Boolean isArchived, String url,
+                             UserEntity created_by_user, UserEntity assigned_to_user) {
         this.created_time = created_time;
         this.last_modified_time = last_modified_time;
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status = status;
-        this.created_by_userName = created_by_user;
         this.due_date = due_date;
         this.isArchived = isArchived;
         this.url = url;
-        this.assigned_to = assigned_to;
+        this.created_by_user = created_by_user;
+        this.assigned_to_user = assigned_to_user;
     }
 
     public long getId() {
@@ -154,14 +153,6 @@ public class RequirementEntity {
         return comments;
     }
 
-    public String getAssigned_to() {
-        return assigned_to;
-    }
-
-    public void setAssigned_to(String assigned_to) {
-        this.assigned_to = assigned_to;
-    }
-
     public void addComment (CommentEntity comment) {
         this.comments.add(comment);
     }
@@ -171,12 +162,19 @@ public class RequirementEntity {
     }
 
 
-    public String getCreated_by_userName() {
-        return created_by_userName;
+    public UserEntity getCreated_by_user() {
+        return created_by_user;
     }
 
-    public void setCreated_by_userName(String created_by_user) {
-        this.created_by_userName = created_by_user;
+    public void setCreated_by_user(UserEntity created_by_user) {
+        this.created_by_user = created_by_user;
     }
 
+    public UserEntity getAssigned_to_user() {
+        return assigned_to_user;
+    }
+
+    public void setAssigned_to_user(UserEntity assigned_to_user) {
+        this.assigned_to_user = assigned_to_user;
+    }
 }

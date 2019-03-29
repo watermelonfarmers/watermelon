@@ -2,7 +2,8 @@ package com.watermelonfarmers.watermelon.processors;
 
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.mappers.RequirementMapper;
-import com.watermelonfarmers.watermelon.models.Requirement;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import com.watermelonfarmers.watermelon.repositories.RequirementRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,33 +24,33 @@ public class RequirementProcessor {
         this.requirementRepository = requirementRepository;
     }
 
-    public ResponseEntity createRequirement(Requirement request) {
+    public ResponseEntity createRequirement(RequirementRequest request) {
         RequirementEntity requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(request);
         requirementRepository.save(requirementEntity);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    public ResponseEntity<List<Requirement>> readAllRequirement() {
+    public ResponseEntity<List<RequirementResponse>> readAllRequirement() {
         Iterable<RequirementEntity> requirementEntities = requirementRepository.findAll();
-        List<Requirement> requirements = new ArrayList<>();
+        List<RequirementResponse> requirements = new ArrayList<>();
         for(RequirementEntity requirementEntity : requirementEntities) {
-            Requirement requirement = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+            RequirementResponse requirement = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
             requirements.add(requirement);
         }
         return new ResponseEntity<>(requirements,HttpStatus.OK);
     }
 
-    public ResponseEntity<Requirement> readOneRequirement(Long id) {
+    public ResponseEntity<RequirementResponse> readOneRequirement(Long id) {
         Optional<RequirementEntity> requirementEntity = requirementRepository.findById(id);
         if(requirementEntity.isPresent()) {
-            Requirement requirement = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity.get());
+            RequirementResponse requirement = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity.get());
             return new ResponseEntity<>(requirement,HttpStatus.OK);
         }
-        return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity updateRequirement(Requirement request) {
-        Optional<RequirementEntity> requirementEntity = requirementRepository.findById(request.getId());
+    public ResponseEntity updateRequirement(RequirementRequest request, Long requirementId) {
+        Optional<RequirementEntity> requirementEntity = requirementRepository.findById(requirementId);
         if(requirementEntity.isPresent()) {
             RequirementEntity requirementEntityUpdated = RequirementMapper.mapRequirementToRequirementEntityForUpdate(requirementEntity.get(),request);
             requirementRepository.save(requirementEntityUpdated);
