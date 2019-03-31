@@ -17,56 +17,53 @@ public class RequirementEntity {
     @GeneratedValue
     @Column(name = "Id",unique = true)
     private long id;
-//    @Column(name = "Created_time")
+    @Column(name = "CreatedTime")
     @CreationTimestamp
-    private LocalDateTime created_time;
-//    @Column(name = "Last_modified_time")
+    private LocalDateTime createdTime;
+    @Column(name = "Last_modified_time")
     @UpdateTimestamp
-    private LocalDateTime last_modified_time;
+    private LocalDateTime lastModifiedTime;
     @Column(name = "Title")
     @Size(max = 255)
     private String title;
     @Column(name = "Description")
     @Size(max = 10240)
     private String description;
-    @Column(name = "Priority")//Choose from 1 ~ 10
-    private Integer priority;
+    @Column(name = "Priority")//Choose from Normal Urgent VeryUrgent
+    private String priority;
     @Column(name = "Status")//Choose from the Number of the card
     private String status;
     @Column(name = "isArchived")
     private Boolean isArchived;
-    @Column(name = "Due_date")
-    private LocalDateTime due_date;
-    @Column(name = "Url")
-    private String url;
+    @Column(name = "DueDate")
+    private LocalDateTime dueDate;
 
     @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments = new ArrayList<>();
 
     @OneToOne
-    private UserEntity created_by_user;
+    private UserEntity createdByUser;
 
     @OneToOne
-    private UserEntity assigned_to_user;
+    private UserEntity assignedToUser;
 
 
     public RequirementEntity() {
     }
 
-    public RequirementEntity(LocalDateTime created_time, LocalDateTime last_modified_time, String title, String description,
-                             Integer priority, String status,LocalDateTime due_date, Boolean isArchived, String url,
-                             UserEntity created_by_user, UserEntity assigned_to_user) {
-        this.created_time = created_time;
-        this.last_modified_time = last_modified_time;
+    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 10240) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser) {
+        this.id = id;
+        this.createdTime = createdTime;
+        this.lastModifiedTime = lastModifiedTime;
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status = status;
-        this.due_date = due_date;
         this.isArchived = isArchived;
-        this.url = url;
-        this.created_by_user = created_by_user;
-        this.assigned_to_user = assigned_to_user;
+        this.dueDate = dueDate;
+        this.comments = comments;
+        this.createdByUser = createdByUser;
+        this.assignedToUser = assignedToUser;
     }
 
     public long getId() {
@@ -77,20 +74,20 @@ public class RequirementEntity {
         this.id = id;
     }
 
-    public LocalDateTime getCreated_time() {
-        return created_time;
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreated_time(LocalDateTime created_time) {
-        this.created_time = created_time;
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public LocalDateTime getLast_modified_time() {
-        return last_modified_time;
+    public LocalDateTime getLastModifiedTime() {
+        return lastModifiedTime;
     }
 
-    public void setLast_modified_time(LocalDateTime last_modified_time) {
-        this.last_modified_time = last_modified_time;
+    public void setLastModifiedTime(LocalDateTime lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
     }
 
     public String getTitle() {
@@ -109,11 +106,11 @@ public class RequirementEntity {
         this.description = description;
     }
 
-    public Integer getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
@@ -125,14 +122,6 @@ public class RequirementEntity {
         this.status = status;
     }
 
-    public LocalDateTime getDue_date() {
-        return due_date;
-    }
-
-    public void setDue_date(LocalDateTime due_date) {
-        this.due_date = due_date;
-    }
-
     public Boolean getArchived() {
         return isArchived;
     }
@@ -141,40 +130,35 @@ public class RequirementEntity {
         isArchived = archived;
     }
 
-    public String getUrl() {
-        return url;
+    public LocalDateTime getDueDate() {
+        return dueDate;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
     }
 
     public List<CommentEntity> getComments() {
         return comments;
     }
 
-    public void addComment (CommentEntity comment) {
-        this.comments.add(comment);
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 
-    public void removeComment (CommentEntity comment) {
-        this.comments.remove(comment);
+    public UserEntity getCreatedByUser() {
+        return createdByUser;
     }
 
-
-    public UserEntity getCreated_by_user() {
-        return created_by_user;
+    public void setCreatedByUser(UserEntity createdByUser) {
+        this.createdByUser = createdByUser;
     }
 
-    public void setCreated_by_user(UserEntity created_by_user) {
-        this.created_by_user = created_by_user;
+    public UserEntity getAssignedToUser() {
+        return assignedToUser;
     }
 
-    public UserEntity getAssigned_to_user() {
-        return assigned_to_user;
-    }
-
-    public void setAssigned_to_user(UserEntity assigned_to_user) {
-        this.assigned_to_user = assigned_to_user;
+    public void setAssignedToUser(UserEntity assignedToUser) {
+        this.assignedToUser = assignedToUser;
     }
 }

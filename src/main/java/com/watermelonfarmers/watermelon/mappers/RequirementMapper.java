@@ -13,7 +13,6 @@ import java.util.List;
 
 public class RequirementMapper {
 
-    //For creat
     public static RequirementEntity mapRequirementToRequirementEntity(RequirementRequest request) {
         RequirementEntity requirementEntity = new RequirementEntity();
 
@@ -37,26 +36,22 @@ public class RequirementMapper {
             requirementEntity.setArchived(request.getArchived());
         }
 
-        if(null != request.getDue_date()) {
-            requirementEntity.setDue_date(request.getDue_date());
+        if(null != request.getDueDate()) {
+            requirementEntity.setDueDate(request.getDueDate());
         }
 
-        if(null != request.getCreated_by_user()) {
+        if(null != request.getCreatedByUser()) {
             UserEntity user = new UserEntity();
-            user.setId(request.getCreated_by_user());
-            requirementEntity.setCreated_by_user(user);
+            user.setId(request.getCreatedByUser());
+            requirementEntity.setCreatedByUser(user);
         }
 
-        if(null != request.getAssigned_to_user()) {
+        if(null != request.getAssignedToUser()) {
             UserEntity user = new UserEntity();
-            user.setId(request.getAssigned_to_user());
-            requirementEntity.setAssigned_to_user(user);
+            user.setId(request.getAssignedToUser());
+            requirementEntity.setAssignedToUser(user);
         }
 
-//        Try to add a list of comment
-//        for(CommentEntity commentEntity : request.getComments()) {
-//            requirementEntity.addComment(commentEntity);
-//        }
         return requirementEntity;
     }
 
@@ -75,12 +70,12 @@ public class RequirementMapper {
             requirement.setDescription(requirementEntity.getDescription());
         }
 
-        if(null != requirementEntity.getCreated_time()) {
-            requirement.setCreated_time(requirementEntity.getCreated_time());
+        if(null != requirementEntity.getCreatedTime()) {
+            requirement.setCreatedTime(requirementEntity.getCreatedTime());
         }
 
-        if(null != requirementEntity.getLast_modified_time()) {
-            requirement.setLast_modified_time(requirementEntity.getLast_modified_time());
+        if(null != requirementEntity.getLastModifiedTime()) {
+            requirement.setLastModifiedTime(requirementEntity.getLastModifiedTime());
         }
 
         if(null != requirementEntity.getPriority()) {
@@ -95,27 +90,28 @@ public class RequirementMapper {
             requirement.setStatus(requirementEntity.getStatus());
         }
 
-        if(null != requirementEntity.getDue_date()) {
-            requirement.setDue_date(requirementEntity.getDue_date());
+        if(null != requirementEntity.getDueDate()) {
+            requirement.setDueDate(requirementEntity.getDueDate());
         }
 
         if(null != requirementEntity.getComments()) {
             List<CommentResponse> commentResponseList = new ArrayList<>();
-            for (CommentEntity commentEntity: requirementEntity.getComments()) {
+            for (CommentEntity commentEntity : requirementEntity.getComments()) {
                 CommentResponse commentResponse = CommentMapper.mapCommentEntityToCommentResponse(commentEntity);
                 commentResponseList.add(commentResponse);
             }
             requirement.setComments(commentResponseList);
         }
 
-        if(null != requirementEntity.getCreated_by_user()) {
-            UserResponse user = UserMapper.mapUserEntityToUserResponse(requirementEntity.getCreated_by_user());
-            requirement.setCreated_by_user(user);
+
+        if(null != requirementEntity.getCreatedByUser()) {
+            UserResponse user = UserMapper.mapUserEntityToUserResponse(requirementEntity.getCreatedByUser());
+            requirement.setCreatedByUser(user);
         }
 
-        if(null != requirementEntity.getAssigned_to_user()) {
-            UserResponse user = UserMapper.mapUserEntityToUserResponse(requirementEntity.getAssigned_to_user());
-            requirement.setAssigned_to_user(user);
+        if(null != requirementEntity.getAssignedToUser()) {
+            UserResponse user = UserMapper.mapUserEntityToUserResponse(requirementEntity.getAssignedToUser());
+            requirement.setAssignedToUser(user);
         }
         return  requirement;
     }
@@ -135,20 +131,20 @@ public class RequirementMapper {
             requirementEntity.setArchived(request.getArchived());
         }
 
-        if(null != request.getCreated_by_user()) {
+        if(null != request.getCreatedByUser()) {
             UserEntity user = new UserEntity();
-            user.setId(request.getCreated_by_user());
-            requirementEntity.setCreated_by_user(user);
+            user.setId(request.getCreatedByUser());
+            requirementEntity.setCreatedByUser(user);
         }
 
-        if(null != request.getAssigned_to_user()) {
+        if(null != request.getAssignedToUser()) {
             UserEntity user = new UserEntity();
-            user.setId(request.getAssigned_to_user());
-            requirementEntity.setAssigned_to_user(user);
+            user.setId(request.getAssignedToUser());
+            requirementEntity.setAssignedToUser(user);
         }
 
-        if(null != request.getDue_date()) {
-            requirementEntity.setDue_date(request.getDue_date());
+        if(null != request.getDueDate()) {
+            requirementEntity.setDueDate(request.getDueDate());
         }
 
         if(null != request.getPriority()) {

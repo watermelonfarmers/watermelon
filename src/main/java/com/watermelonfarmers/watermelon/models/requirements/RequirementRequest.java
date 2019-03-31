@@ -19,32 +19,23 @@ public class RequirementRequest {
     @ApiModelProperty(value = "description", example = "This is the description of the requirement")
     private String description;
 
-//    @ApiModelProperty(value = "created_time", example = "2019-02-18T20:53:58")
-//    private LocalDateTime created_time;
-//
-//    @ApiModelProperty(value = "last_modified_time", example = "2019-02-18T20:53:58")
-//    private LocalDateTime last_modified_time;
-
-    @ApiModelProperty(value = "priority", example = "10")
-    private Integer priority;
+    @ApiModelProperty(value = "priority", example = "Normal")
+    private String priority;
 
     @ApiModelProperty(value = "status", example = "IN PROGRESS")
     private String status;
 
-    @ApiModelProperty(value = "due_date", example = "2019-02-18T20:53:58")
-    private LocalDateTime due_date;
+    @ApiModelProperty(value = "dueDate", example = "2019-02-18T20:53:58")
+    private LocalDateTime dueDate;
 
     @ApiModelProperty(value = "isArchived", example = "False")
     private Boolean isArchived;
 
-    //    @ApiModelProperty(value = "comments", example = "Nice job!")
-//    private List<CommentEntity> comments;
+    @ApiModelProperty(value = "createdByUser", example = "1")
+    private Long createdByUser;
 
-    @ApiModelProperty(value = "created_by_user", example = "1")
-    private Long created_by_user;
-
-    @ApiModelProperty(value = "assigned_to_user", example = "1")
-    private Long assigned_to_user;
+    @ApiModelProperty(value = "assignedToUser", example = "1")
+    private Long assignedToUser;
 
     public interface Create {
 
@@ -57,15 +48,15 @@ public class RequirementRequest {
     public RequirementRequest() {
     }
 
-    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 10240, message = "Description can not be more than 10240 characters", groups = {Create.class, Update.class}) String description, Integer priority, String status, LocalDateTime due_date, Boolean isArchived, Long created_by_user, Long assigned_to_user) {
+    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 10240, message = "Description can not be more than 10240 characters", groups = {Create.class, Update.class}) String description, String priority, String status, LocalDateTime dueDate, Boolean isArchived, Long createdByUser, Long assignedToUser) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status = status;
-        this.due_date = due_date;
+        this.dueDate = dueDate;
         this.isArchived = isArchived;
-        this.created_by_user = created_by_user;
-        this.assigned_to_user = assigned_to_user;
+        this.createdByUser = createdByUser;
+        this.assignedToUser = assignedToUser;
     }
 
     public String getTitle() {
@@ -84,11 +75,11 @@ public class RequirementRequest {
         this.description = description;
     }
 
-    public Integer getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
@@ -100,12 +91,12 @@ public class RequirementRequest {
         this.status = status;
     }
 
-    public LocalDateTime getDue_date() {
-        return due_date;
+    public LocalDateTime getDueDate() {
+        return dueDate;
     }
 
-    public void setDue_date(LocalDateTime due_date) {
-        this.due_date = due_date;
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
     }
 
     public Boolean getArchived() {
@@ -116,19 +107,19 @@ public class RequirementRequest {
         isArchived = archived;
     }
 
-    public Long getCreated_by_user() {
-        return created_by_user;
+    public Long getCreatedByUser() {
+        return createdByUser;
     }
 
-    public void setCreated_by_user(Long created_by_user) {
-        this.created_by_user = created_by_user;
+    public void setCreatedByUser(Long createdByUser) {
+        this.createdByUser = createdByUser;
     }
 
-    public Long getAssigned_to_user() {
-        return assigned_to_user;
+    public Long getAssignedToUser() {
+        return assignedToUser;
     }
 
-    public void setAssigned_to_user(Long assigned_to_user) {
-        this.assigned_to_user = assigned_to_user;
+    public void setAssignedToUser(Long assignedToUser) {
+        this.assignedToUser = assignedToUser;
     }
 }

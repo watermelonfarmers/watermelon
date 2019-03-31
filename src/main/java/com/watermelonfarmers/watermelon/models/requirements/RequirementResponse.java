@@ -10,32 +10,32 @@ public class RequirementResponse {
     private Long id;
     private String title;
     private String description;
-    private LocalDateTime created_time;
-    private LocalDateTime last_modified_time;
-    private Integer priority;
+    private LocalDateTime createdTime;
+    private LocalDateTime lastModifiedTime;
+    private String priority;
     private String status;
-    private LocalDateTime due_date;
+    private LocalDateTime dueDate;
     private Boolean isArchived;
     private List<CommentResponse> comments;
-    private UserResponse created_by_user;
-    private UserResponse assigned_to_user;
+    private UserResponse createdByUser;
+    private UserResponse assignedToUser;
 
     public RequirementResponse() {
     }
 
-    public RequirementResponse(Long id, String title, String description, LocalDateTime created_time, LocalDateTime last_modified_time, Integer priority, String status, LocalDateTime due_date, Boolean isArchived, List<CommentResponse> comments, UserResponse created_by_user, UserResponse assigned_to_user) {
+    public RequirementResponse(Long id, String title, String description, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String priority, String status, LocalDateTime dueDate, Boolean isArchived, List<CommentResponse> comments, UserResponse createdByUser, UserResponse assignedToUser) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.created_time = created_time;
-        this.last_modified_time = last_modified_time;
+        this.createdTime = createdTime;
+        this.lastModifiedTime = lastModifiedTime;
         this.priority = priority;
         this.status = status;
-        this.due_date = due_date;
+        this.dueDate = dueDate;
         this.isArchived = isArchived;
         this.comments = comments;
-        this.created_by_user = created_by_user;
-        this.assigned_to_user = assigned_to_user;
+        this.createdByUser = createdByUser;
+        this.assignedToUser = assignedToUser;
     }
 
     public Long getId() {
@@ -62,27 +62,27 @@ public class RequirementResponse {
         this.description = description;
     }
 
-    public LocalDateTime getCreated_time() {
-        return created_time;
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 
-    public void setCreated_time(LocalDateTime created_time) {
-        this.created_time = created_time;
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public LocalDateTime getLast_modified_time() {
-        return last_modified_time;
+    public LocalDateTime getLastModifiedTime() {
+        return lastModifiedTime;
     }
 
-    public void setLast_modified_time(LocalDateTime last_modified_time) {
-        this.last_modified_time = last_modified_time;
+    public void setLastModifiedTime(LocalDateTime lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
     }
 
-    public Integer getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
@@ -94,12 +94,12 @@ public class RequirementResponse {
         this.status = status;
     }
 
-    public LocalDateTime getDue_date() {
-        return due_date;
+    public LocalDateTime getDueDate() {
+        return dueDate;
     }
 
-    public void setDue_date(LocalDateTime due_date) {
-        this.due_date = due_date;
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
     }
 
     public Boolean getArchived() {
@@ -118,19 +118,19 @@ public class RequirementResponse {
         this.comments = comments;
     }
 
-    public UserResponse getCreated_by_user() {
-        return created_by_user;
+    public UserResponse getCreatedByUser() {
+        return createdByUser;
     }
 
-    public void setCreated_by_user(UserResponse created_by_user) {
-        this.created_by_user = created_by_user;
+    public void setCreatedByUser(UserResponse createdByUser) {
+        this.createdByUser = createdByUser;
     }
 
-    public UserResponse getAssigned_to_user() {
-        return assigned_to_user;
+    public UserResponse getAssignedToUser() {
+        return assignedToUser;
     }
 
-    public void setAssigned_to_user(UserResponse assigned_to_user) {
-        this.assigned_to_user = assigned_to_user;
+    public void setAssignedToUser(UserResponse assignedToUser) {
+        this.assignedToUser = assignedToUser;
     }
 }
