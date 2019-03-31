@@ -1,6 +1,7 @@
 package com.watermelonfarmers.watermelon.mappers;
 
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
+import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import org.junit.Before;
@@ -13,6 +14,10 @@ public class RequirementMapperTest {
     public static final String TITLE = "Chaos is a ladder";
     public static final String DESCRIPTION = "Many who try to climb it fail and never get to try again";
     public static final String STATUS = "In progress";
+    public static final Boolean ISARCHIVED = false;
+    public static final String PRIORITY = "Normal";
+    public static final UserEntity CREATEDBYUSER = new UserEntity(1L,"Arya","Stark","North","123");
+    public static final UserEntity ASSIGNEDTOUSER = new UserEntity(1L,"Arya","Stark","North","123");
     public static final String ORIGINAL_VALUE = "ORIGINAL";
 
     private RequirementRequest requirementRequest;
@@ -26,7 +31,152 @@ public class RequirementMapperTest {
         this.requirementEntity = new RequirementEntity();
     }
 
+    /**
+     * Mapping Entity to Model Test
+     */
 
+    @Test
+    public void whenMapRequirementEntityToRequirementRequirementIdShouldBeRequirementId() {
+        requirementEntity.setId(20);
+
+        requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+
+        assertThat(requirementResponse.getId()).isEqualTo(20);
+    }
+
+    @Test
+    public void whenMapRequirementEntityToRequirementTitleShouldBeTitle() {
+        requirementEntity.setTitle(TITLE);
+
+        requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+
+        assertThat(requirementResponse.getTitle()).isEqualTo(TITLE);
+    }
+
+    @Test
+    public void whenMapRequirementEntityToRequirementDescriptionShouldBeDescription() {
+        requirementEntity.setDescription(DESCRIPTION);
+
+        requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+
+        assertThat(requirementResponse.getDescription()).isEqualTo(DESCRIPTION);
+    }
+
+    @Test
+    public void whenMapRequirementEntityToRequirementStatusShouldBeStatus() {
+        requirementEntity.setStatus(STATUS);
+
+        requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+
+        assertThat(requirementResponse.getStatus()).isEqualTo(STATUS);
+    }
+
+    @Test
+    public void whenMapRequirementEntityToRequirementIsArchivedShouldBeIsArchived() {
+        requirementEntity.setIsArchived(ISARCHIVED);
+
+        requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+
+        assertThat(requirementResponse.getDescription()).isEqualTo(ISARCHIVED);
+    }
+
+    @Test
+    public void whenMapRequirementEntityToRequirementPriorityShouldBePriority() {
+        requirementEntity.setPriority(PRIORITY);
+
+        requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+
+        assertThat(requirementResponse.getPriority()).isEqualTo(PRIORITY);
+    }
+
+    @Test
+    public void whenMapRequirementEntityToRequirementCreatedByUserShouldBeCreatedByUser() {
+        requirementEntity.setCreatedByUser(CREATEDBYUSER);
+
+        requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+
+        assertThat(requirementResponse.getCreatedByUser()).isEqualTo(CREATEDBYUSER);
+    }
+
+    @Test
+    public void whenMapRequirementEntityToRequirementAssignedToUserShouldBeAssignedToUser() {
+        requirementEntity.setAssignedToUser(ASSIGNEDTOUSER);
+
+        requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
+
+        assertThat(requirementResponse.getAssignedToUser()).isEqualTo(ASSIGNEDTOUSER);
+    }
+
+    /**
+     * Map Model to Entity Test
+     */
+    @Test
+    public void whenMapRequirementToRequirementEntityTitleShouldBeTitle() {
+        requirementRequest.setTitle(TITLE);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
+
+        assertThat(requirementEntity.getTitle()).isEqualTo(TITLE);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityDescriptionShouldBeDescription() {
+        requirementRequest.setDescription(DESCRIPTION);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
+
+        assertThat(requirementEntity.getDescription()).isEqualTo(DESCRIPTION);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityStatusShouldBeStatus() {
+        requirementRequest.setStatus(STATUS);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
+
+        assertThat(requirementEntity.getStatus()).isEqualTo(STATUS);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityIsArchivedShouldBeIsArchived() {
+        requirementRequest.setIsArchived(ISARCHIVED);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
+
+        assertThat(requirementEntity.getIsArchived()).isEqualTo(ISARCHIVED);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityPriorityShouldBePriority() {
+        requirementRequest.setPriority(PRIORITY);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
+
+        assertThat(requirementEntity.getPriority()).isEqualTo(PRIORITY);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityCreatedByUserShouldBeCreatedByUser() {
+        requirementRequest.setCreatedByUser(1L);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
+
+        assertThat(requirementEntity.getCreatedByUser()).isEqualTo(1L);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityAssignedToUserShouldBeAssignedToUser() {
+        requirementRequest.setAssignedToUser(1L);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
+
+        assertThat(requirementEntity.getAssignedToUser()).isEqualTo(1L);
+    }
+
+
+    /**
+     * Mapping Model to Entity for update Test
+     */
     @Test
     public void whenMapRequirementToRequirementEntityForUpdateTitleShouldBeTitle() {
         requirementRequest.setTitle(TITLE);
@@ -37,7 +187,6 @@ public class RequirementMapperTest {
         assertThat(requirementEntity.getTitle()).isEqualTo(TITLE);
     }
 
-
     @Test
     public void whenMapRequirementToRequirementEntityForUpdateAndTitleIsNullTitleShouldBeOriginal() {
         requirementRequest.setTitle(null);
@@ -46,6 +195,16 @@ public class RequirementMapperTest {
         requirementEntity = RequirementMapper.mapRequirementToRequirementEntityForUpdate(requirementEntity,requirementRequest);
 
         assertThat(requirementEntity.getTitle()).isEqualTo(ORIGINAL_VALUE);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityForUpdateDescriptionShouldBeDescription() {
+        requirementRequest.setDescription(DESCRIPTION);
+        requirementEntity.setDescription(ORIGINAL_VALUE);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntityForUpdate(requirementEntity,requirementRequest);
+
+        assertThat(requirementEntity.getDescription()).isEqualTo(DESCRIPTION);
     }
 
     @Test
@@ -59,6 +218,16 @@ public class RequirementMapperTest {
     }
 
     @Test
+    public void whenMapRequirementToRequirementEntityForUpdateStatusShouldBeStatus() {
+        requirementRequest.setStatus(STATUS);
+        requirementEntity.setStatus(ORIGINAL_VALUE);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntityForUpdate(requirementEntity,requirementRequest);
+
+        assertThat(requirementEntity.getStatus()).isEqualTo(STATUS);
+    }
+
+    @Test
     public void whenMapRequirementToRequirementEntityForUpdateAndStatusIsNullStatusShouldBeOriginal() {
         requirementRequest.setStatus(null);
         requirementEntity.setStatus(ORIGINAL_VALUE);
@@ -66,6 +235,26 @@ public class RequirementMapperTest {
         requirementEntity = RequirementMapper.mapRequirementToRequirementEntityForUpdate(requirementEntity,requirementRequest);
 
         assertThat(requirementEntity.getStatus()).isEqualTo(ORIGINAL_VALUE);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityForUpdatePriorityShouldBePriority() {
+        requirementRequest.setPriority(PRIORITY);
+        requirementEntity.setPriority(ORIGINAL_VALUE);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntityForUpdate(requirementEntity,requirementRequest);
+
+        assertThat(requirementEntity.getPriority()).isEqualTo(PRIORITY);
+    }
+
+    @Test
+    public void whenMapRequirementToRequirementEntityForUpdateAndPriorityIsNullPriorityShouldBeOriginal() {
+        requirementRequest.setPriority(null);
+        requirementEntity.setPriority(ORIGINAL_VALUE);
+
+        requirementEntity = RequirementMapper.mapRequirementToRequirementEntityForUpdate(requirementEntity,requirementRequest);
+
+        assertThat(requirementEntity.getPriority()).isEqualTo(ORIGINAL_VALUE);
     }
 
 }

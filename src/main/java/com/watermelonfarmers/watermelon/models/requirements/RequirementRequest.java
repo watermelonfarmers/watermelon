@@ -1,12 +1,10 @@
 package com.watermelonfarmers.watermelon.models.requirements;
 
-import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class RequirementRequest {
 
@@ -19,32 +17,23 @@ public class RequirementRequest {
     @ApiModelProperty(value = "description", example = "This is the description of the requirement")
     private String description;
 
-//    @ApiModelProperty(value = "created_time", example = "2019-02-18T20:53:58")
-//    private LocalDateTime created_time;
-//
-//    @ApiModelProperty(value = "last_modified_time", example = "2019-02-18T20:53:58")
-//    private LocalDateTime last_modified_time;
-
-    @ApiModelProperty(value = "priority", example = "10")
-    private Integer priority;
+    @ApiModelProperty(value = "priority", example = "Normal")
+    private String priority;
 
     @ApiModelProperty(value = "status", example = "IN PROGRESS")
     private String status;
 
-    @ApiModelProperty(value = "due_date", example = "2019-02-18T20:53:58")
-    private LocalDateTime due_date;
+    @ApiModelProperty(value = "dueDate", example = "2019-02-18T20:53:58")
+    private LocalDateTime dueDate;
 
     @ApiModelProperty(value = "isArchived", example = "False")
     private Boolean isArchived;
 
-    //    @ApiModelProperty(value = "comments", example = "Nice job!")
-    private List<CommentEntity> comments;
+    @ApiModelProperty(value = "createdByUser", example = "1")
+    private Long createdByUser;
 
-    @ApiModelProperty(value = "created_by_user", example = "1")
-    private Long created_by_user;
-
-    @ApiModelProperty(value = "assigned_to_user", example = "1")
-    private Long assigned_to_user;
+    @ApiModelProperty(value = "assignedToUser", example = "1")
+    private Long assignedToUser;
 
     public interface Create {
 
@@ -57,19 +46,16 @@ public class RequirementRequest {
     public RequirementRequest() {
     }
 
-    public RequirementRequest(Long id, String title, String description, Integer priority, String status,
-                              Long created_by_user, List<String> members, LocalDateTime due_date, Boolean isArchived, List<CommentEntity> comments, Long assigned_to_user) {
+    public RequirementRequest(String title, String description, String priority, String status,
+                              Long createdByUser, LocalDateTime dueDate, Boolean isArchived,  Long assignedToUser) {
         this.title = title;
         this.description = description;
-//        this.created_time = created_time;
-//        this.last_modified_time = last_modified_time;
         this.priority = priority;
         this.status = status;
-        this.created_by_user = created_by_user;
-        this.due_date = due_date;
+        this.createdByUser = createdByUser;
+        this.dueDate = dueDate;
         this.isArchived = isArchived;
-        this.comments = comments;
-        this.assigned_to_user = assigned_to_user;
+        this.assignedToUser = assignedToUser;
     }
 
     public String getTitle() {
@@ -88,11 +74,11 @@ public class RequirementRequest {
         this.description = description;
     }
 
-    public Integer getPriority() {
+    public String getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
@@ -104,43 +90,35 @@ public class RequirementRequest {
         this.status = status;
     }
 
-    public Long getCreated_by_user() {
-        return created_by_user;
+    public Long getCreatedByUser() {
+        return createdByUser;
     }
 
-    public void setCreated_by_user(Long created_by_user) {
-        this.created_by_user = created_by_user;
+    public void setCreatedByUser(Long createdByUser) {
+        this.createdByUser = createdByUser;
     }
 
-    public LocalDateTime getDue_date() {
-        return due_date;
+    public LocalDateTime getDueDate() {
+        return dueDate;
     }
 
-    public void setDue_date(LocalDateTime due_date) {
-        this.due_date = due_date;
+    public void setDueDate(LocalDateTime dueDate) {
+        this.dueDate = dueDate;
     }
 
-    public Boolean getArchived() {
+    public Boolean getIsArchived() {
         return isArchived;
     }
 
-    public void setArchived(Boolean archived) {
+    public void setIsArchived(Boolean archived) {
         isArchived = archived;
     }
 
-    public Long getAssigned_to_user() {
-        return assigned_to_user;
+    public Long getAssignedToUser() {
+        return assignedToUser;
     }
 
-    public void setAssigned_to_user(Long assigned_to_user) {
-        this.assigned_to_user = assigned_to_user;
-    }
-
-    public List<CommentEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentEntity> comments) {
-        this.comments = comments;
+    public void setAssignedToUser(Long assignedToUser) {
+        this.assignedToUser = assignedToUser;
     }
 }
