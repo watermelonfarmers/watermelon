@@ -79,7 +79,7 @@ public class RequirementMapper {
         }
 
         if(null != requirementEntity.getIsArchived()) {
-            requirement.setArchived(requirementEntity.getIsArchived());
+            requirement.setIsArchived(requirementEntity.getIsArchived());
         }
 
         if(null != requirementEntity.getStatus()) {
