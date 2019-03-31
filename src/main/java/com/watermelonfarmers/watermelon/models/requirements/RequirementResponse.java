@@ -107,11 +107,11 @@ public class RequirementResponse {
         this.dueDate = dueDate;
     }
 
-    public Boolean getArchived() {
+    public Boolean getIsArchived() {
         return isArchived;
     }
 
-    public void setArchived(Boolean archived) {
+    public void setIsArchived(Boolean archived) {
         isArchived = archived;
     }
 

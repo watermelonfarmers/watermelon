@@ -77,7 +77,7 @@ public class RequirementMapperTest {
 
         requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
 
-        assertThat(requirementResponse.getDescription()).isEqualTo(ISARCHIVED);
+        assertThat(requirementResponse.getIsArchived()).isEqualTo(ISARCHIVED);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class RequirementMapperTest {
 
         requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
 
-        assertThat(requirementResponse.getCreatedByUser()).isEqualTo(CREATEDBYUSER);
+        assertThat(requirementResponse.getCreatedByUser().getUserId()).isEqualTo(CREATEDBYUSER.getId());
     }
 
     @Test
@@ -104,7 +104,7 @@ public class RequirementMapperTest {
 
         requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
 
-        assertThat(requirementResponse.getAssignedToUser()).isEqualTo(ASSIGNEDTOUSER);
+        assertThat(requirementResponse.getAssignedToUser().getUserId()).isEqualTo(ASSIGNEDTOUSER.getId());
     }
 
     /**
@@ -157,20 +157,20 @@ public class RequirementMapperTest {
 
     @Test
     public void whenMapRequirementToRequirementEntityCreatedByUserShouldBeCreatedByUser() {
-        requirementRequest.setCreatedByUser(1L);
+        requirementRequest.setCreatedByUser(CREATEDBYUSER.getId());
 
         requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
 
-        assertThat(requirementEntity.getCreatedByUser()).isEqualTo(1L);
+        assertThat(requirementEntity.getCreatedByUser().getId()).isEqualTo(CREATEDBYUSER.getId());
     }
 
     @Test
     public void whenMapRequirementToRequirementEntityAssignedToUserShouldBeAssignedToUser() {
-        requirementRequest.setAssignedToUser(1L);
+        requirementRequest.setAssignedToUser(ASSIGNEDTOUSER.getId());
 
         requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
 
-        assertThat(requirementEntity.getAssignedToUser()).isEqualTo(1L);
+        assertThat(requirementEntity.getAssignedToUser().getId()).isEqualTo(ASSIGNEDTOUSER.getId());
     }
 
 

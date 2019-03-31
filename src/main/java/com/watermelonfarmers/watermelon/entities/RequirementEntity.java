@@ -52,7 +52,7 @@ public class RequirementEntity {
     }
 
     public RequirementEntity(LocalDateTime createdTime, LocalDateTime lastModifiedTime, String title, String description,
-                             String priority, String status, LocalDateTime dueDate, Boolean isArchived, String url,
+                             String priority, String status, LocalDateTime dueDate, Boolean isArchived,
                              UserEntity createdByUser, UserEntity assignedToUser) {
         this.createdTime = createdTime;
         this.lastModifiedTime = lastModifiedTime;
@@ -78,16 +78,8 @@ public class RequirementEntity {
         return createdTime;
     }
 
-    public void setCreatedTime(LocalDateTime createdTime) {
-        this.createdTime = createdTime;
-    }
-
     public LocalDateTime getLastModifiedTime() {
         return lastModifiedTime;
-    }
-
-    public void setLastModifiedTime(LocalDateTime lastModifiedTime) {
-        this.lastModifiedTime = lastModifiedTime;
     }
 
     public String getTitle() {
