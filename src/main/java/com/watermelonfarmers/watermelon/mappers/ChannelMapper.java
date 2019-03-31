@@ -1,26 +1,29 @@
 package com.watermelonfarmers.watermelon.mappers;
 
 import com.watermelonfarmers.watermelon.entities.ChannelEntity;
-import com.watermelonfarmers.watermelon.models.Channel;
+import com.watermelonfarmers.watermelon.models.channels.ChannelRequest;
+import com.watermelonfarmers.watermelon.models.channels.ChannelResponse;
 
 public class ChannelMapper {
-    public static ChannelEntity mapChannelEntityToChannel(Channel request) {
+    public static ChannelEntity mapChannelRequestToChannelEntity(ChannelRequest request) {
         ChannelEntity channelEntity = new ChannelEntity();
-        channelEntity.setId(request.getId());
-        channelEntity.setChannel(request.getChannel());
-        channelEntity.setCreated_by_user(request.getCreated_by_user());
-        channelEntity.setCreated(request.getCreated());
-        channelEntity.setLast_modified(request.getLast_modified());
+        channelEntity.setName(request.getName());
         return channelEntity;
     }
 
-    public static Channel mapChannelToChannelEntity(ChannelEntity channelEntity) {
-        Channel message = new Channel();
-        message.setId(channelEntity.getId());
-        message.setChannel(channelEntity.getChannel());
-        message.setCreated_by_user(channelEntity.getCreated_by_user());
-        message.setCreated(channelEntity.getCreated());
-        message.setLast_modified(channelEntity.getLast_modified());
-        return message;
+    public static ChannelResponse mapChannelEntityToChannelResponse(ChannelEntity channelEntity) {
+        ChannelResponse channel = new ChannelResponse();
+        channel.setId(channelEntity.getChannelId());
+        channel.setName(channelEntity.getName());
+        return channel;
+    }
+
+    public static ChannelEntity mapChannelRequestToChannelEntityForUpdate(ChannelEntity channelEntity, ChannelRequest request) {
+
+        if (null != request.getName()) {
+            channelEntity.setName(request.getName());
+        }
+
+        return channelEntity;
     }
 }

@@ -6,7 +6,12 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import com.watermelonfarmers.watermelon.entities.MessageEntity;
+import com.watermelonfarmers.watermelon.models.channels.ChannelRequest;
+import com.watermelonfarmers.watermelon.models.channels.ChannelResponse;
+import com.watermelonfarmers.watermelon.models.messages.MessageRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -16,13 +21,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.watermelonfarmers.watermelon.entities.ChannelEntity;
-import com.watermelonfarmers.watermelon.models.Channel;
 import com.watermelonfarmers.watermelon.repositories.ChannelRepository;
 
 public class ChannelProcessorTest {
 
-    public static final String ALREADY_EXISTS = "already exists";
-
+    public static final long CHANNEL_ID = 1l;
     private ChannelProcessor channelProcessor;
 
     @Mock
@@ -30,6 +33,9 @@ public class ChannelProcessorTest {
 
     @Mock
     private ChannelEntity channelEntity;
+
+    @Mock
+    private ChannelRequest channelRequest;
 
     @Before
     public void setup() {
@@ -41,27 +47,9 @@ public class ChannelProcessorTest {
     public void whenCreateChannelIsCalledChannelIsCreatedAndResponseStatusCodeIsOK() {
         when(channelRepository.save(any())).thenReturn(channelEntity);
 
-        ResponseEntity<?> response = channelProcessor.createChannel(new Channel());
+        ResponseEntity<?> response = channelProcessor.createChannel(new ChannelRequest());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    @Test
-    public void whenCreateChannelIsCalledAndChannelIdAlreadyExistsResponseStatusCodeIsConflict() {
-        when(channelRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
-
-        ResponseEntity<?> response = channelProcessor.createChannel(new Channel());
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-    }
-
-    @Test
-    public void whenCreateChannelIsCalledAndChannelIdAlreadyExistsResponseChannelIsAlreadyExists() {
-        when(channelRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
-
-        ResponseEntity<?> response = channelProcessor.createChannel(new Channel());
-
-        assertThat(response.getBody()).isEqualTo(ALREADY_EXISTS);
     }
 
     @Test
@@ -71,8 +59,52 @@ public class ChannelProcessorTest {
         channelEntities.add(new ChannelEntity());
         when(channelRepository.findAll()).thenReturn(channelEntities);
 
-        ResponseEntity<List<Channel>> response = channelProcessor.getChannels();
+        ResponseEntity<List<ChannelResponse>> response = channelProcessor.getChannels();
 
         assertThat(response.getBody().size()).isEqualTo(2);
+    }
+
+    @Test
+    public void whenUpdateChannelIsCalledHttpStatusIsOK() {
+
+        Optional<ChannelEntity> messageOptional = Optional.of(channelEntity);
+        when(channelRepository.findById(any())).thenReturn(messageOptional);
+
+        ResponseEntity<?> response = channelProcessor.updateChannel(channelRequest, CHANNEL_ID);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void whenUpdateMessageIsCalledAndMessageIsNotFoundHttpStatusCodeIsNotFound() {
+
+        Optional<ChannelEntity> messageOptional = Optional.empty();
+        when(channelRepository.findById(any())).thenReturn(messageOptional);
+
+        ResponseEntity<?> response = channelProcessor.updateChannel(channelRequest, CHANNEL_ID);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    public void whenDeleteMessageIsCalledHttpStatusIsOK() {
+
+        Optional<ChannelEntity> messageOptional = Optional.of(channelEntity);
+        when(channelRepository.findById(any())).thenReturn(messageOptional);
+
+        ResponseEntity<?> response = channelProcessor.deleteChannel(CHANNEL_ID);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @Test
+    public void whenDeleteMessageIsCalledAndMessageIsNotFoundHttpStatusCodeIsNotFound() {
+
+        Optional<ChannelEntity> messageOptional = Optional.empty();
+        when(channelRepository.findById(any())).thenReturn(messageOptional);
+
+        ResponseEntity<?> response = channelProcessor.deleteChannel(CHANNEL_ID);
+
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
     }
 }

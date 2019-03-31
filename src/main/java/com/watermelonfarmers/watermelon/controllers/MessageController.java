@@ -1,20 +1,15 @@
 package com.watermelonfarmers.watermelon.controllers;
 
-import java.util.List;
-
+import com.watermelonfarmers.watermelon.models.messages.MessageRequest;
+import com.watermelonfarmers.watermelon.models.messages.MessageResponse;
+import com.watermelonfarmers.watermelon.processors.MessageProcessor;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.watermelonfarmers.watermelon.models.Message;
-import com.watermelonfarmers.watermelon.processors.MessageProcessor;
-
-import io.swagger.annotations.Api;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/messages")
@@ -29,27 +24,28 @@ public class MessageController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<Message>> getMessages() {
+    public ResponseEntity<List<MessageResponse>> getMessages() {
         return messageProcessor.getMessages();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createMessage(@Validated(Message.Create.class) @RequestBody Message request) {
+    public ResponseEntity<?> createMessage(@Validated(MessageRequest.Create.class) @RequestBody MessageRequest request) {
         return messageProcessor.createMessage(request);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> updateMessage(@Validated(Message.Create.class) @RequestBody Message request) {
-        return messageProcessor.createMessage(request);
+    @RequestMapping(value = "/{messageId}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateMessage(@Validated(MessageRequest.Update.class) @RequestBody MessageRequest request,
+                                           @PathVariable("messageId") Long messageId) {
+        return messageProcessor.updateMessage(request, messageId);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteMessage(@Validated(Message.Create.class) @RequestBody Message request) {
-        return messageProcessor.deleteMessage(request);
+    @RequestMapping(value = "/{messageId}", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteMessage(@PathVariable("messageId") Long messageId) {
+        return messageProcessor.deleteMessage(messageId);
     }
 
     @RequestMapping(value = "/{channel}", method = RequestMethod.GET)
-    public ResponseEntity<List<Message>> getMessagesByChannel(@PathVariable("channel") long channel) {
+    public ResponseEntity<List<MessageResponse>> getMessagesByChannel(@PathVariable("channel") Long channel) {
         return messageProcessor.getMessagesByChannel(channel);
     }
 }

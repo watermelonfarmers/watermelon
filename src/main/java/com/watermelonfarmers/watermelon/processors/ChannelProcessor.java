@@ -1,18 +1,18 @@
 package com.watermelonfarmers.watermelon.processors;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.watermelonfarmers.watermelon.entities.ChannelEntity;
+import com.watermelonfarmers.watermelon.mappers.ChannelMapper;
+import com.watermelonfarmers.watermelon.models.channels.ChannelRequest;
+import com.watermelonfarmers.watermelon.models.channels.ChannelResponse;
+import com.watermelonfarmers.watermelon.repositories.ChannelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.watermelonfarmers.watermelon.entities.ChannelEntity;
-import com.watermelonfarmers.watermelon.mappers.ChannelMapper;
-import com.watermelonfarmers.watermelon.models.Channel;
-import com.watermelonfarmers.watermelon.repositories.ChannelRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ChannelProcessor {
@@ -24,31 +24,48 @@ public class ChannelProcessor {
         this.channelRepository = channelRepository;
     }
 
-    public ResponseEntity<List<Channel>> getChannels() {
+    public ResponseEntity<List<ChannelResponse>> getChannels() {
         Iterable<ChannelEntity> channelEntities = channelRepository.findAll();
-        List<Channel> channels = new ArrayList<>();
+        List<ChannelResponse> channels = new ArrayList<>();
         for (ChannelEntity channelEntity : channelEntities) {
-            Channel channel = ChannelMapper.mapChannelToChannelEntity(channelEntity);
+            ChannelResponse channel = ChannelMapper.mapChannelEntityToChannelResponse(channelEntity);
             channels.add(channel);
         }
         return new ResponseEntity<>(channels, HttpStatus.OK);
     }
 
-    public ResponseEntity<String> createChannel(Channel request) {
-        ResponseEntity<String> response = new ResponseEntity<String>("success", HttpStatus.OK);
-        ChannelEntity channelEntity = ChannelMapper.mapChannelEntityToChannel(request);
-        try {
-            channelRepository.save(channelEntity);
-        } catch (DataIntegrityViolationException ex) {
-            response = new ResponseEntity<String>("already exists", HttpStatus.CONFLICT);
-        }
+    public ResponseEntity<?> createChannel(ChannelRequest request) {
+        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+        ChannelEntity channelEntity = ChannelMapper.mapChannelRequestToChannelEntity(request);
+        channelRepository.save(channelEntity);
         return response;
     }
 
-    public ResponseEntity<String> deleteChannel(Channel request) {
-        ResponseEntity<String> response = new ResponseEntity<String>("success", HttpStatus.OK);
-        ChannelEntity channelEntity = ChannelMapper.mapChannelEntityToChannel(request);
-        channelRepository.delete(channelEntity);
+    public ResponseEntity<?> deleteChannel(Long channelId) {
+        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+        Optional<ChannelEntity> channelEntity = channelRepository.findById(channelId);
+
+        if (channelEntity.isPresent()) {
+            channelRepository.delete(channelEntity.get());
+        }
+        else {
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
+        return response;
+    }
+
+    public ResponseEntity<?> updateChannel(ChannelRequest request, Long channelId) {
+        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+        Optional<ChannelEntity> channelEntity = channelRepository.findById(channelId);
+        if (channelEntity.isPresent()) {
+            ChannelEntity updatedChannel = ChannelMapper.mapChannelRequestToChannelEntityForUpdate(channelEntity.get(), request);
+            channelRepository.save(updatedChannel);
+        }
+        else {
+            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+
         return response;
     }
 }
