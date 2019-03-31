@@ -73,11 +73,11 @@ public class RequirementMapperTest {
 
     @Test
     public void whenMapRequirementEntityToRequirementIsArchivedShouldBeIsArchived() {
-        requirementEntity.setIsArchived(ISARCHIVED);
+        requirementEntity.setArchived(ISARCHIVED);
 
         requirementResponse = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
 
-        assertThat(requirementResponse.getIsArchived()).isEqualTo(ISARCHIVED);
+        assertThat(requirementResponse.getArchived()).isEqualTo(ISARCHIVED);
     }
 
     @Test
@@ -139,11 +139,11 @@ public class RequirementMapperTest {
 
     @Test
     public void whenMapRequirementToRequirementEntityIsArchivedShouldBeIsArchived() {
-        requirementRequest.setIsArchived(ISARCHIVED);
+        requirementRequest.setArchived(ISARCHIVED);
 
         requirementEntity = RequirementMapper.mapRequirementToRequirementEntity(requirementRequest);
 
-        assertThat(requirementEntity.getIsArchived()).isEqualTo(ISARCHIVED);
+        assertThat(requirementEntity.getArchived()).isEqualTo(ISARCHIVED);
     }
 
     @Test

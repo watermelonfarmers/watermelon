@@ -1,14 +1,18 @@
 package com.watermelonfarmers.watermelon.mappers;
 
+import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import com.watermelonfarmers.watermelon.models.users.UserResponse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RequirementMapper {
 
-    //For creat
     public static RequirementEntity mapRequirementToRequirementEntity(RequirementRequest request) {
         RequirementEntity requirementEntity = new RequirementEntity();
 
@@ -28,8 +32,8 @@ public class RequirementMapper {
             requirementEntity.setStatus(request.getStatus());
         }
 
-        if(null != request.getIsArchived()) {
-            requirementEntity.setIsArchived(request.getIsArchived());
+        if(null != request.getArchived()) {
+            requirementEntity.setArchived(request.getArchived());
         }
 
         if(null != request.getDueDate()) {
@@ -78,8 +82,8 @@ public class RequirementMapper {
             requirement.setPriority(requirementEntity.getPriority());
         }
 
-        if(null != requirementEntity.getIsArchived()) {
-            requirement.setIsArchived(requirementEntity.getIsArchived());
+        if(null != requirementEntity.getArchived()) {
+            requirement.setArchived(requirementEntity.getArchived());
         }
 
         if(null != requirementEntity.getStatus()) {
@@ -89,6 +93,16 @@ public class RequirementMapper {
         if(null != requirementEntity.getDueDate()) {
             requirement.setDueDate(requirementEntity.getDueDate());
         }
+
+        if(null != requirementEntity.getComments()) {
+            List<CommentResponse> commentResponseList = new ArrayList<>();
+            for (CommentEntity commentEntity : requirementEntity.getComments()) {
+                CommentResponse commentResponse = CommentMapper.mapCommentEntityToCommentResponse(commentEntity);
+                commentResponseList.add(commentResponse);
+            }
+            requirement.setComments(commentResponseList);
+        }
+
 
         if(null != requirementEntity.getCreatedByUser()) {
             UserResponse user = UserMapper.mapUserEntityToUserResponse(requirementEntity.getCreatedByUser());
@@ -113,8 +127,8 @@ public class RequirementMapper {
             requirementEntity.setDescription(request.getDescription());
         }
 
-        if(null != request.getIsArchived()) {
-            requirementEntity.setIsArchived(request.getIsArchived());
+        if(null != request.getArchived()) {
+            requirementEntity.setArchived(request.getArchived());
         }
 
         if(null != request.getCreatedByUser()) {

@@ -1,10 +1,12 @@
 package com.watermelonfarmers.watermelon.models.requirements;
 
+import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class RequirementRequest {
 
@@ -46,15 +48,14 @@ public class RequirementRequest {
     public RequirementRequest() {
     }
 
-    public RequirementRequest(String title, String description, String priority, String status,
-                              Long createdByUser, LocalDateTime dueDate, Boolean isArchived,  Long assignedToUser) {
+    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 10240, message = "Description can not be more than 10240 characters", groups = {Create.class, Update.class}) String description, String priority, String status, LocalDateTime dueDate, Boolean isArchived, Long createdByUser, Long assignedToUser) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status = status;
-        this.createdByUser = createdByUser;
         this.dueDate = dueDate;
         this.isArchived = isArchived;
+        this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
     }
 
@@ -90,14 +91,6 @@ public class RequirementRequest {
         this.status = status;
     }
 
-    public Long getCreatedByUser() {
-        return createdByUser;
-    }
-
-    public void setCreatedByUser(Long createdByUser) {
-        this.createdByUser = createdByUser;
-    }
-
     public LocalDateTime getDueDate() {
         return dueDate;
     }
@@ -106,12 +99,20 @@ public class RequirementRequest {
         this.dueDate = dueDate;
     }
 
-    public Boolean getIsArchived() {
+    public Boolean getArchived() {
         return isArchived;
     }
 
-    public void setIsArchived(Boolean archived) {
+    public void setArchived(Boolean archived) {
         isArchived = archived;
+    }
+
+    public Long getCreatedByUser() {
+        return createdByUser;
+    }
+
+    public void setCreatedByUser(Long createdByUser) {
+        this.createdByUser = createdByUser;
     }
 
     public Long getAssignedToUser() {

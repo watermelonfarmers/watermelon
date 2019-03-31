@@ -12,7 +12,7 @@ public class CommentEntity {
 
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
 
     @CreationTimestamp
     private LocalDateTime create_time;
@@ -39,11 +39,11 @@ public class CommentEntity {
         this.requirement = requirement;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

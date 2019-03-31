@@ -38,7 +38,7 @@ public class RequirementEntity {
     @Column(name = "DueDate")
     private LocalDateTime dueDate;
 
-    @OneToMany(mappedBy = "requirement")
+    @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments = new ArrayList<>();
 
     @OneToOne
@@ -51,17 +51,17 @@ public class RequirementEntity {
     public RequirementEntity() {
     }
 
-    public RequirementEntity(LocalDateTime createdTime, LocalDateTime lastModifiedTime, String title, String description,
-                             String priority, String status, LocalDateTime dueDate, Boolean isArchived,
-                             UserEntity createdByUser, UserEntity assignedToUser) {
+    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 10240) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser) {
+        this.id = id;
         this.createdTime = createdTime;
         this.lastModifiedTime = lastModifiedTime;
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.status = status;
-        this.dueDate = dueDate;
         this.isArchived = isArchived;
+        this.dueDate = dueDate;
+        this.comments = comments;
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
     }
@@ -78,8 +78,16 @@ public class RequirementEntity {
         return createdTime;
     }
 
+    public void setCreatedTime(LocalDateTime createdTime) {
+        this.createdTime = createdTime;
+    }
+
     public LocalDateTime getLastModifiedTime() {
         return lastModifiedTime;
+    }
+
+    public void setLastModifiedTime(LocalDateTime lastModifiedTime) {
+        this.lastModifiedTime = lastModifiedTime;
     }
 
     public String getTitle() {
@@ -114,6 +122,14 @@ public class RequirementEntity {
         this.status = status;
     }
 
+    public Boolean getArchived() {
+        return isArchived;
+    }
+
+    public void setArchived(Boolean archived) {
+        isArchived = archived;
+    }
+
     public LocalDateTime getDueDate() {
         return dueDate;
     }
@@ -122,12 +138,12 @@ public class RequirementEntity {
         this.dueDate = dueDate;
     }
 
-    public Boolean getIsArchived() {
-        return isArchived;
+    public List<CommentEntity> getComments() {
+        return comments;
     }
 
-    public void setIsArchived(Boolean isArchived) {
-        this.isArchived = isArchived;
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 
     public UserEntity getCreatedByUser() {
