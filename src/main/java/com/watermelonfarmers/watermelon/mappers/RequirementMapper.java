@@ -1,9 +1,11 @@
 package com.watermelonfarmers.watermelon.mappers;
 
 import com.watermelonfarmers.watermelon.entities.CommentEntity;
+import com.watermelonfarmers.watermelon.entities.IssueEntity;
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementIssueResponse;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import com.watermelonfarmers.watermelon.models.users.UserResponse;
@@ -50,6 +52,12 @@ public class RequirementMapper {
             UserEntity user = new UserEntity();
             user.setId(request.getAssignedToUser());
             requirementEntity.setAssignedToUser(user);
+        }
+
+        if (null != request.getRelatedIssueId()) {
+            IssueEntity issue = new IssueEntity();
+            issue.setIssueId(request.getRelatedIssueId());
+            requirementEntity.setIssueEntity(issue);
         }
 
         return requirementEntity;
@@ -113,6 +121,14 @@ public class RequirementMapper {
             UserResponse user = UserMapper.mapUserEntityToUserResponse(requirementEntity.getAssignedToUser());
             requirement.setAssignedToUser(user);
         }
+
+        if(null != requirementEntity.getIssueEntity()) {
+            RequirementIssueResponse issueResponse = new RequirementIssueResponse();
+            issueResponse.setIssueId(requirementEntity.getIssueEntity().getIssueId());
+            issueResponse.setTitle(requirementEntity.getIssueEntity().getTitle());
+            requirement.setRelatedIssue(issueResponse);
+        }
+
         return  requirement;
     }
 
@@ -154,6 +170,13 @@ public class RequirementMapper {
         if(null != request.getStatus()) {
             requirementEntity.setStatus(request.getStatus());
         }
+
+        if (null != request.getRelatedIssueId()) {
+            IssueEntity issue = new IssueEntity();
+            issue.setIssueId(request.getRelatedIssueId());
+            requirementEntity.setIssueEntity(issue);
+        }
+
         return requirementEntity;
     }
 

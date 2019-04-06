@@ -1,10 +1,15 @@
 package com.watermelonfarmers.watermelon.mappers;
 
 import com.watermelonfarmers.watermelon.entities.IssueEntity;
+import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
+import com.watermelonfarmers.watermelon.models.issues.IssueRequirementResponse;
 import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
 import com.watermelonfarmers.watermelon.models.users.UserResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IssueMapper {
 
@@ -81,6 +86,17 @@ public class IssueMapper {
         if (null != issueEntity.getAssignedUser()) {
             UserResponse user = UserMapper.mapUserEntityToUserResponse(issueEntity.getAssignedUser());
             issue.setAssignedUser(user);
+        }
+
+        if (null != issueEntity.getRequirementEntities()) {
+            List<IssueRequirementResponse> requirementResponseList = new ArrayList<>();
+            for (RequirementEntity requirement: issueEntity.getRequirementEntities()) {
+                IssueRequirementResponse issueRequirement = new IssueRequirementResponse();
+                issueRequirement.setRequirementId(requirement.getId());
+                issueRequirement.setTitle(requirement.getTitle());
+                requirementResponseList.add(issueRequirement);
+            }
+            issue.setRelatedRequirements(requirementResponseList);
         }
 
         return issue;

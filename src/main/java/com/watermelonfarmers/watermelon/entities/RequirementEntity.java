@@ -1,5 +1,6 @@
 package com.watermelonfarmers.watermelon.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -47,11 +48,16 @@ public class RequirementEntity {
     @OneToOne
     private UserEntity assignedToUser;
 
+    @ManyToOne
+    @JoinColumn(name = "ISSUE_ID")
+    @JsonBackReference
+    private IssueEntity issueEntity;
+
 
     public RequirementEntity() {
     }
 
-    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 10240) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser) {
+    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 10240) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser, IssueEntity issueEntity) {
         this.id = id;
         this.createdTime = createdTime;
         this.lastModifiedTime = lastModifiedTime;
@@ -64,6 +70,7 @@ public class RequirementEntity {
         this.comments = comments;
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
+        this.issueEntity = issueEntity;
     }
 
     public long getId() {
@@ -160,5 +167,13 @@ public class RequirementEntity {
 
     public void setAssignedToUser(UserEntity assignedToUser) {
         this.assignedToUser = assignedToUser;
+    }
+
+    public IssueEntity getIssueEntity() {
+        return issueEntity;
+    }
+
+    public void setIssueEntity(IssueEntity issueEntity) {
+        this.issueEntity = issueEntity;
     }
 }

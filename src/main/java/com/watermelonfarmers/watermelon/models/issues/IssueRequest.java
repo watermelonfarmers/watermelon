@@ -14,7 +14,7 @@ public class IssueRequest {
     private String status;
     @ApiModelProperty(value = "createdByUserId", example = "1")
     private Long createdByUserId;
-    @ApiModelProperty(value = "assignedUserId", example = "2")
+    @ApiModelProperty(value = "assignedUserId", example = "1")
     private Long assignedUserId;
 
     public String getTitle() {

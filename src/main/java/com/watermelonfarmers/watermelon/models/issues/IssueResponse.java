@@ -3,6 +3,7 @@ package com.watermelonfarmers.watermelon.models.issues;
 import com.watermelonfarmers.watermelon.models.users.UserResponse;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class IssueResponse {
 
@@ -15,6 +16,7 @@ public class IssueResponse {
     private String status;
     private UserResponse createdByUser;
     private UserResponse assignedUser;
+    private List<IssueRequirementResponse> relatedRequirements;
 
     public Long getIssueId() {
         return issueId;
@@ -86,5 +88,13 @@ public class IssueResponse {
 
     public void setAssignedUser(UserResponse assignedUser) {
         this.assignedUser = assignedUser;
+    }
+
+    public List<IssueRequirementResponse> getRelatedRequirements() {
+        return relatedRequirements;
+    }
+
+    public void setRelatedRequirements(List<IssueRequirementResponse> relatedRequirements) {
+        this.relatedRequirements = relatedRequirements;
     }
 }
