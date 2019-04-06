@@ -1,8 +1,8 @@
 package com.watermelonfarmers.watermelon.models.requirements;
 
-import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
 import com.watermelonfarmers.watermelon.models.users.UserResponse;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,11 +19,12 @@ public class RequirementResponse {
     private List<CommentResponse> comments;
     private UserResponse createdByUser;
     private UserResponse assignedToUser;
+    private RequirementIssueResponse relatedIssue;
 
     public RequirementResponse() {
     }
 
-    public RequirementResponse(Long id, String title, String description, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String priority, String status, LocalDateTime dueDate, Boolean isArchived, List<CommentResponse> comments, UserResponse createdByUser, UserResponse assignedToUser) {
+    public RequirementResponse(Long id, String title, String description, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String priority, String status, LocalDateTime dueDate, Boolean isArchived, List<CommentResponse> comments, UserResponse createdByUser, UserResponse assignedToUser, RequirementIssueResponse relatedIssue) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -36,6 +37,7 @@ public class RequirementResponse {
         this.comments = comments;
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
+        this.relatedIssue = relatedIssue;
     }
 
     public Long getId() {
@@ -132,5 +134,13 @@ public class RequirementResponse {
 
     public void setAssignedToUser(UserResponse assignedToUser) {
         this.assignedToUser = assignedToUser;
+    }
+
+    public RequirementIssueResponse getRelatedIssue() {
+        return relatedIssue;
+    }
+
+    public void setRelatedIssue(RequirementIssueResponse relatedIssue) {
+        this.relatedIssue = relatedIssue;
     }
 }

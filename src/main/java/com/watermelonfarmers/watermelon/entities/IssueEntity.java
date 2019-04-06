@@ -1,10 +1,12 @@
 package com.watermelonfarmers.watermelon.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "ISSUE")
@@ -34,12 +36,13 @@ public class IssueEntity {
     @OneToOne
     @JoinColumn(name = "ASSIGNED_USER_ID")
     private UserEntity assignedUser;
+    @OneToMany(mappedBy = "issueEntity")
+    private List<RequirementEntity> requirementEntities;
 
     public IssueEntity() {
     }
 
-    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description,
-                       Integer priority, String status, UserEntity createdByUser, UserEntity assignedUser) {
+    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description, Integer priority, String status, UserEntity createdByUser, UserEntity assignedUser, List<RequirementEntity> requirementEntities) {
         this.issueId = issueId;
         this.created = created;
         this.lastModified = lastModified;
@@ -49,6 +52,7 @@ public class IssueEntity {
         this.status = status;
         this.createdByUser = createdByUser;
         this.assignedUser = assignedUser;
+        this.requirementEntities = requirementEntities;
     }
 
     public Long getIssueId() {
@@ -121,5 +125,13 @@ public class IssueEntity {
 
     public void setAssignedUser(UserEntity assignedUser) {
         this.assignedUser = assignedUser;
+    }
+
+    public List<RequirementEntity> getRequirementEntities() {
+        return requirementEntities;
+    }
+
+    public void setRequirementEntities(List<RequirementEntity> requirementEntities) {
+        this.requirementEntities = requirementEntities;
     }
 }

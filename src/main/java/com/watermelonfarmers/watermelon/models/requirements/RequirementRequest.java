@@ -1,12 +1,10 @@
 package com.watermelonfarmers.watermelon.models.requirements;
 
-import com.watermelonfarmers.watermelon.entities.CommentEntity;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class RequirementRequest {
 
@@ -37,6 +35,9 @@ public class RequirementRequest {
     @ApiModelProperty(value = "assignedToUser", example = "1")
     private Long assignedToUser;
 
+    @ApiModelProperty(value = "relatedIssueId", example = "1")
+    private Long relatedIssueId;
+
     public interface Create {
 
     }
@@ -48,7 +49,7 @@ public class RequirementRequest {
     public RequirementRequest() {
     }
 
-    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 10240, message = "Description can not be more than 10240 characters", groups = {Create.class, Update.class}) String description, String priority, String status, LocalDateTime dueDate, Boolean isArchived, Long createdByUser, Long assignedToUser) {
+    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 10240, message = "Description can not be more than 10240 characters", groups = {Create.class, Update.class}) String description, String priority, String status, LocalDateTime dueDate, Boolean isArchived, Long createdByUser, Long assignedToUser, Long relatedIssueId) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -57,6 +58,7 @@ public class RequirementRequest {
         this.isArchived = isArchived;
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
+        this.relatedIssueId = relatedIssueId;
     }
 
     public String getTitle() {
@@ -121,5 +123,13 @@ public class RequirementRequest {
 
     public void setAssignedToUser(Long assignedToUser) {
         this.assignedToUser = assignedToUser;
+    }
+
+    public Long getRelatedIssueId() {
+        return relatedIssueId;
+    }
+
+    public void setRelatedIssueId(Long relatedIssueId) {
+        this.relatedIssueId = relatedIssueId;
     }
 }
