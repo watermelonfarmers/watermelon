@@ -38,6 +38,8 @@ public class RequirementEntity {
     private Boolean isArchived;
     @Column(name = "DueDate")
     private LocalDateTime dueDate;
+    @Column(name = "EstimatedTime")
+    private String  estiamtedTime;
 
     @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments = new ArrayList<>();
@@ -57,7 +59,7 @@ public class RequirementEntity {
     public RequirementEntity() {
     }
 
-    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 10240) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser, IssueEntity issueEntity) {
+    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 10240) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser, IssueEntity issueEntity, String estiamtedTime) {
         this.id = id;
         this.createdTime = createdTime;
         this.lastModifiedTime = lastModifiedTime;
@@ -71,6 +73,7 @@ public class RequirementEntity {
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
         this.issueEntity = issueEntity;
+        this.estiamtedTime = estiamtedTime;
     }
 
     public long getId() {
@@ -175,5 +178,13 @@ public class RequirementEntity {
 
     public void setIssueEntity(IssueEntity issueEntity) {
         this.issueEntity = issueEntity;
+    }
+
+    public String getEstiamtedTime() {
+        return estiamtedTime;
+    }
+
+    public void setEstiamtedTime(String estiamtedTime) {
+        this.estiamtedTime = estiamtedTime;
     }
 }
