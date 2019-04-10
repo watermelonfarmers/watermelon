@@ -1,12 +1,15 @@
 package com.watermelonfarmers.watermelon.controllers;
 
-import com.watermelonfarmers.watermelon.models.Requirement;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import com.watermelonfarmers.watermelon.processors.RequirementProcessor;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -22,23 +25,24 @@ public class RequirementController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> createRequirement(@Validated(Requirement.Create.class) @RequestBody Requirement request) {
+    public ResponseEntity<?> createRequirement(@Validated(RequirementRequest.Create.class) @RequestBody RequirementRequest request) {
         return requirementProcessor.createRequirement(request);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity readAllRequirement() {
+    public ResponseEntity<List<RequirementResponse>> readAllRequirement() {
         return requirementProcessor.readAllRequirement();
     }
 
     @RequestMapping(value = "/{requirementId}", method = RequestMethod.GET)
-    public ResponseEntity readOneRequirement(@PathVariable Long requirementId) {
+    public ResponseEntity<RequirementResponse> readOneRequirement(@PathVariable Long requirementId) {
         return requirementProcessor.readOneRequirement(requirementId);
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> updateRequirement(@Validated(Requirement.Update.class) @RequestBody Requirement request) {
-        return requirementProcessor.updateRequirement(request);
+    @RequestMapping(value = "/{requirementId}",method = RequestMethod.PUT)
+    public ResponseEntity<?> updateRequirement(@Validated(RequirementRequest.Update.class) @RequestBody RequirementRequest request,
+                                               @PathVariable Long requirementId) {
+        return requirementProcessor.updateRequirement(request,requirementId);
     }
 
     @RequestMapping(value = "/{requirementId}", method = RequestMethod.DELETE)

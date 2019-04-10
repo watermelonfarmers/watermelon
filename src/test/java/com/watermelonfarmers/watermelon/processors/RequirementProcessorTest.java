@@ -1,7 +1,8 @@
 package com.watermelonfarmers.watermelon.processors;
 
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
-import com.watermelonfarmers.watermelon.models.Requirement;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import com.watermelonfarmers.watermelon.repositories.RequirementRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +40,7 @@ public class RequirementProcessorTest {
     public void whenCreateRequirementIsCalledRequirementIsCreatedAndResponseStatusCodeIsOK() {
         when(requirementRepository.save(any())).thenReturn(requirementEntity);
 
-        ResponseEntity response = requirementProcessor.createRequirement(new Requirement());
+        ResponseEntity response = requirementProcessor.createRequirement(new RequirementRequest());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
@@ -51,7 +52,7 @@ public class RequirementProcessorTest {
         requirementEntities.add(new RequirementEntity());
         when(requirementRepository.findAll()).thenReturn(requirementEntities);
 
-        ResponseEntity<List<Requirement>> response = requirementProcessor.readAllRequirement();
+        ResponseEntity<List<RequirementResponse>> response = requirementProcessor.readAllRequirement();
 
         assertThat(response.getBody().size()).isEqualTo(2);
     }

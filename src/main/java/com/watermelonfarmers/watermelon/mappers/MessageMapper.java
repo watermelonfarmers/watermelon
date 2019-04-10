@@ -1,26 +1,51 @@
 package com.watermelonfarmers.watermelon.mappers;
 
+import com.watermelonfarmers.watermelon.entities.ChannelEntity;
 import com.watermelonfarmers.watermelon.entities.MessageEntity;
-import com.watermelonfarmers.watermelon.models.Message;
+import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.models.messages.MessageRequest;
+import com.watermelonfarmers.watermelon.models.messages.MessageResponse;
+import com.watermelonfarmers.watermelon.models.users.UserResponse;
 
-public class MessageMapper {
-    public static MessageEntity mapMessageEntityToMessage(Message request) {
-        MessageEntity messageEntity = new MessageEntity();
-        messageEntity.setId(request.getId());
-        messageEntity.setMessage(request.getMessage());
-        messageEntity.setCreated_by_user(request.getCreated_by_user());
-        messageEntity.setCreated(request.getCreated());
-        messageEntity.setLast_modified(request.getLast_modified());
-        return messageEntity;
+public final class MessageMapper {
+
+    public static MessageResponse mapMessageEntityToMessageResponse(MessageEntity messageEntity) {
+        MessageResponse message = new MessageResponse();
+        message.setMessageId(messageEntity.getId());
+        message.setMessage(messageEntity.getBody());
+        message.setCreated(messageEntity.getCreated());
+
+        if (null != messageEntity.getChannelEntity()) {
+            message.setChannelId(messageEntity.getChannelEntity().getChannelId());
+        }
+
+        if (null != messageEntity.getCreatedByUser()) {
+            UserResponse user = UserMapper.mapUserEntityToUserResponse(messageEntity.getCreatedByUser());
+            message.setUser(user);
+        }
+
+        return message;
     }
 
-    public static Message mapMessageToMessageEntity(MessageEntity messageEntity) {
-        Message message = new Message();
-        message.setId(messageEntity.getId());
-        message.setMessage(messageEntity.getMessage());
-        message.setCreated_by_user(messageEntity.getCreated_by_user());
-        message.setCreated(messageEntity.getCreated());
-        message.setLast_modified(messageEntity.getLast_modified());
-        return message;
+    public static MessageEntity mapMessageRequestToMessageEntity(MessageEntity messageEntity, MessageRequest request) {
+
+
+        if (null != request.getMessage()) {
+            messageEntity.setBody(request.getMessage());
+        }
+
+        if (null != request.getUserId()) {
+            UserEntity user = new UserEntity();
+            user.setId(request.getUserId());
+            messageEntity.setCreatedByUser(user);
+        }
+
+        if (null != request.getChannelId()) {
+            ChannelEntity channelEntity = new ChannelEntity();
+            channelEntity.setChannelId(request.getChannelId());
+            messageEntity.setChannelEntity(channelEntity);
+        }
+
+        return messageEntity;
     }
 }

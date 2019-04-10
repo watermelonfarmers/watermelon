@@ -1,27 +1,24 @@
 package com.watermelonfarmers.watermelon.processors;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.watermelonfarmers.watermelon.entities.IssueEntity;
+import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
+import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
+import com.watermelonfarmers.watermelon.repositories.IssueRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.watermelonfarmers.watermelon.entities.IssueEntity;
-import com.watermelonfarmers.watermelon.models.Issue;
-import com.watermelonfarmers.watermelon.repositories.IssueRepository;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 public class IssueProcessorTest {
-
-    public static final String ALREADY_EXISTS = "already exists";
 
     private IssueProcessor issueProcessor;
 
@@ -41,27 +38,9 @@ public class IssueProcessorTest {
     public void whenCreateIssueIsCalledIssueIsCreatedAndResponseStatusCodeIsOK() {
         when(issueRepository.save(any())).thenReturn(issueEntity);
 
-        ResponseEntity response = issueProcessor.createIssue(new Issue());
+        ResponseEntity response = issueProcessor.createIssue(new IssueRequest());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    @Test
-    public void whenCreateIssueIsCalledAndIssueIdAlreadyExistsResponseStatusCodeIsConflict() {
-        when(issueRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
-
-        ResponseEntity response = issueProcessor.createIssue(new Issue());
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
-    }
-
-    @Test
-    public void whenCreateIssueIsCalledAndIssueIdAlreadyExistsResponseIssueIsAlreadyExists() {
-        when(issueRepository.save(any())).thenThrow(DataIntegrityViolationException.class);
-
-        ResponseEntity response = issueProcessor.createIssue(new Issue());
-
-        assertThat(response.getBody()).isEqualTo(ALREADY_EXISTS);
     }
 
     @Test
@@ -71,7 +50,7 @@ public class IssueProcessorTest {
         issueEntities.add(new IssueEntity());
         when(issueRepository.findAll()).thenReturn(issueEntities);
 
-        ResponseEntity<List<Issue>> response = issueProcessor.getIssues();
+        ResponseEntity<List<IssueResponse>> response = issueProcessor.getIssues();
 
         assertThat(response.getBody().size()).isEqualTo(2);
     }

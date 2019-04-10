@@ -1,60 +1,139 @@
 package com.watermelonfarmers.watermelon.mappers;
 
+import com.watermelonfarmers.watermelon.entities.CommentEntity;
+import com.watermelonfarmers.watermelon.entities.IssueEntity;
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
-import com.watermelonfarmers.watermelon.models.Requirement;
+import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementIssueResponse;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
+import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
+import com.watermelonfarmers.watermelon.models.users.UserResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RequirementMapper {
 
-    //For creat
-    public static RequirementEntity mapRequirementToRequirementEntity(Requirement request) {
+    public static RequirementEntity mapRequirementToRequirementEntity(RequirementRequest request) {
         RequirementEntity requirementEntity = new RequirementEntity();
-        /**
-         * RequirementEntity should generate id by database, but we cannot setId in requirementEntity
-         */
-//        requirementEntity.setId(request.getId());
-        requirementEntity.setTitle(request.getTitle());
-        requirementEntity.setDescription(request.getDescription());
-        requirementEntity.setCreated_by_userName(request.getCreated_by_user());
-        requirementEntity.setCreated_time(request.getCreated_time());
-        requirementEntity.setLast_modified_time(request.getLast_modified_time());
-        requirementEntity.setPriority(request.getPriority());
-        requirementEntity.setStatus(request.getStatus());
-        requirementEntity.setUrl(request.getUrl());
-        requirementEntity.setArchived(request.getArchived());
-        requirementEntity.setDue_date(request.getDue_date());
-        requirementEntity.setAssigned_to(request.getAssigned_to());
 
-//        Try to add a list of comment
-//        for(CommentEntity commentEntity : request.getComments()) {
-//            requirementEntity.addComment(commentEntity);
-//        }
+        if(null != request.getTitle()) {
+            requirementEntity.setTitle(request.getTitle());
+        }
+
+        if(null != request.getDescription()) {
+            requirementEntity.setDescription(request.getDescription());
+        }
+
+        if(null != request.getPriority()) {
+            requirementEntity.setPriority(request.getPriority());
+        }
+
+        if(null != request.getStatus()) {
+            requirementEntity.setStatus(request.getStatus());
+        }
+
+        if(null != request.getArchived()) {
+            requirementEntity.setArchived(request.getArchived());
+        }
+
+        if(null != request.getDueDate()) {
+            requirementEntity.setDueDate(request.getDueDate());
+        }
+
+        if(null != request.getCreatedByUser()) {
+            UserEntity user = new UserEntity();
+            user.setId(request.getCreatedByUser());
+            requirementEntity.setCreatedByUser(user);
+        }
+
+        if(null != request.getAssignedToUser()) {
+            UserEntity user = new UserEntity();
+            user.setId(request.getAssignedToUser());
+            requirementEntity.setAssignedToUser(user);
+        }
+
+        if (null != request.getRelatedIssueId()) {
+            IssueEntity issue = new IssueEntity();
+            issue.setIssueId(request.getRelatedIssueId());
+            requirementEntity.setIssueEntity(issue);
+        }
+
         return requirementEntity;
     }
 
 
     //For read
-    public static Requirement mapRequirementEntityToRequirement(RequirementEntity requirementEntity) {
-        Requirement requirement = new Requirement();
-        requirement.setId(requirementEntity.getId());
-        requirement.setTitle(requirementEntity.getTitle());
-        requirement.setDescription(requirementEntity.getDescription());
-        requirement.setCreated_by_user(requirementEntity.getCreated_by_userName());
-        requirement.setCreated_time(requirementEntity.getCreated_time());
-        requirement.setLast_modified_time(requirementEntity.getLast_modified_time());
-        requirement.setPriority(requirementEntity.getPriority());
-        requirement.setStatus(requirementEntity.getStatus());
-        requirement.setUrl(requirementEntity.getUrl());
-        requirement.setArchived(requirementEntity.getArchived());
-        requirement.setDue_date(requirementEntity.getDue_date());
-        requirement.setAssigned_to(requirementEntity.getAssigned_to());
+    public static RequirementResponse mapRequirementEntityToRequirement(RequirementEntity requirementEntity) {
+        RequirementResponse requirement = new RequirementResponse();
 
-        //Try to add a list of comment
-        requirement.setComments(requirementEntity.getComments());
+        requirement.setId(requirementEntity.getId());
+
+        if(null != requirementEntity.getTitle()) {
+            requirement.setTitle(requirementEntity.getTitle());
+        }
+
+        if(null != requirementEntity.getDescription()) {
+            requirement.setDescription(requirementEntity.getDescription());
+        }
+
+        if(null != requirementEntity.getCreatedTime()) {
+            requirement.setCreatedTime(requirementEntity.getCreatedTime());
+        }
+
+        if(null != requirementEntity.getLastModifiedTime()) {
+            requirement.setLastModifiedTime(requirementEntity.getLastModifiedTime());
+        }
+
+        if(null != requirementEntity.getPriority()) {
+            requirement.setPriority(requirementEntity.getPriority());
+        }
+
+        if(null != requirementEntity.getArchived()) {
+            requirement.setArchived(requirementEntity.getArchived());
+        }
+
+        if(null != requirementEntity.getStatus()) {
+            requirement.setStatus(requirementEntity.getStatus());
+        }
+
+        if(null != requirementEntity.getDueDate()) {
+            requirement.setDueDate(requirementEntity.getDueDate());
+        }
+
+        if(null != requirementEntity.getComments()) {
+            List<CommentResponse> commentResponseList = new ArrayList<>();
+            for (CommentEntity commentEntity : requirementEntity.getComments()) {
+                CommentResponse commentResponse = CommentMapper.mapCommentEntityToCommentResponse(commentEntity);
+                commentResponseList.add(commentResponse);
+            }
+            requirement.setComments(commentResponseList);
+        }
+
+
+        if(null != requirementEntity.getCreatedByUser()) {
+            UserResponse user = UserMapper.mapUserEntityToUserResponse(requirementEntity.getCreatedByUser());
+            requirement.setCreatedByUser(user);
+        }
+
+        if(null != requirementEntity.getAssignedToUser()) {
+            UserResponse user = UserMapper.mapUserEntityToUserResponse(requirementEntity.getAssignedToUser());
+            requirement.setAssignedToUser(user);
+        }
+
+        if(null != requirementEntity.getIssueEntity()) {
+            RequirementIssueResponse issueResponse = new RequirementIssueResponse();
+            issueResponse.setIssueId(requirementEntity.getIssueEntity().getIssueId());
+            issueResponse.setTitle(requirementEntity.getIssueEntity().getTitle());
+            requirement.setRelatedIssue(issueResponse);
+        }
+
         return  requirement;
     }
 
     //For update
-    public static RequirementEntity mapRequirementToRequirementEntityForUpdate(RequirementEntity requirementEntity, Requirement request) {
+    public static RequirementEntity mapRequirementToRequirementEntityForUpdate(RequirementEntity requirementEntity, RequirementRequest request) {
 
         if(null != request.getTitle()) {
             requirementEntity.setTitle(request.getTitle());
@@ -68,33 +147,36 @@ public class RequirementMapper {
             requirementEntity.setArchived(request.getArchived());
         }
 
-        if(null != request.getAssigned_to()) {
-            requirementEntity.setAssigned_to(request.getAssigned_to());
+        if(null != request.getCreatedByUser()) {
+            UserEntity user = new UserEntity();
+            user.setId(request.getCreatedByUser());
+            requirementEntity.setCreatedByUser(user);
         }
 
-        if(null != request.getCreated_by_user()) {
-            requirementEntity.setCreated_by_userName(request.getCreated_by_user());
+        if(null != request.getAssignedToUser()) {
+            UserEntity user = new UserEntity();
+            user.setId(request.getAssignedToUser());
+            requirementEntity.setAssignedToUser(user);
         }
 
-        if(null != request.getDue_date()) {
-            requirementEntity.setDue_date(request.getDue_date());
+        if(null != request.getDueDate()) {
+            requirementEntity.setDueDate(request.getDueDate());
         }
 
         if(null != request.getPriority()) {
             requirementEntity.setPriority(request.getPriority());
         }
 
-        if(null != request.getLast_modified_time()) {
-            requirementEntity.setLast_modified_time(request.getLast_modified_time());
-        }
-
-        if(null != request.getUrl()) {
-            requirementEntity.setUrl(request.getUrl());
-        }
-
         if(null != request.getStatus()) {
             requirementEntity.setStatus(request.getStatus());
         }
+
+        if (null != request.getRelatedIssueId()) {
+            IssueEntity issue = new IssueEntity();
+            issue.setIssueId(request.getRelatedIssueId());
+            requirementEntity.setIssueEntity(issue);
+        }
+
         return requirementEntity;
     }
 
