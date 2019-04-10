@@ -12,6 +12,8 @@ public class IssueRequest {
     private Integer priority;
     @ApiModelProperty(value = "status", example = "IN PROGRESS")
     private String status;
+    @ApiModelProperty(value = "estimate", example = "3")
+    private Long estimate;
     @ApiModelProperty(value = "createdByUserId", example = "1")
     private Long createdByUserId;
     @ApiModelProperty(value = "assignedUserId", example = "1")
@@ -63,5 +65,13 @@ public class IssueRequest {
 
     public void setAssignedUserId(Long assignedUserId) {
         this.assignedUserId = assignedUserId;
+    }
+
+    public Long getEstimate() {
+        return estimate;
+    }
+
+    public void setEstimate(Long estimate) {
+        this.estimate = estimate;
     }
 }
