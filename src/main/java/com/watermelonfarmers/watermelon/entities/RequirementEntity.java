@@ -53,7 +53,6 @@ public class RequirementEntity {
     @JsonBackReference
     private IssueEntity issueEntity;
 
-
     public RequirementEntity() {
     }
 

@@ -1,5 +1,6 @@
 package com.watermelonfarmers.watermelon.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
