@@ -38,6 +38,9 @@ public class RequirementRequest {
     @ApiModelProperty(value = "relatedIssueId", example = "1")
     private Long relatedIssueId;
 
+    @ApiModelProperty(value = "estimatedTime", example = "One week")
+    private String estimatedTime;
+
     public interface Create {
 
     }
@@ -49,7 +52,7 @@ public class RequirementRequest {
     public RequirementRequest() {
     }
 
-    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 10240, message = "Description can not be more than 10240 characters", groups = {Create.class, Update.class}) String description, String priority, String status, LocalDateTime dueDate, Boolean isArchived, Long createdByUser, Long assignedToUser, Long relatedIssueId) {
+    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 10240, message = "Description can not be more than 10240 characters", groups = {Create.class, Update.class}) String description, String priority, String status, LocalDateTime dueDate, Boolean isArchived, Long createdByUser, Long assignedToUser, Long relatedIssueId, String estimatedTime) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -59,6 +62,7 @@ public class RequirementRequest {
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
         this.relatedIssueId = relatedIssueId;
+        this.estimatedTime = estimatedTime;
     }
 
     public String getTitle() {
@@ -131,5 +135,13 @@ public class RequirementRequest {
 
     public void setRelatedIssueId(Long relatedIssueId) {
         this.relatedIssueId = relatedIssueId;
+    }
+
+    public String getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(String estimatedTime) {
+        this.estimatedTime = estimatedTime;
     }
 }

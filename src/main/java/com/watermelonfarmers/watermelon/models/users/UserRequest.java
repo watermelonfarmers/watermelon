@@ -2,6 +2,7 @@ package com.watermelonfarmers.watermelon.models.users;
 
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
@@ -27,17 +28,15 @@ public class UserRequest {
     @ApiModelProperty(value = "password", example = "admin")
     private String password;
 
+    //@NotEmpty(message = "email is a required field", groups = {Create.class})
+    @Email(message="invalid email format", groups ={Create.class, Update.class})
+    @ApiModelProperty(value = "email", example = "test@test.com")
+    private String email;
+
     public interface Create { }
     public interface Update { }
 
     public UserRequest() {
-    }
-
-    public UserRequest(String firstName, String lastName, String userName, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -72,4 +71,11 @@ public class UserRequest {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

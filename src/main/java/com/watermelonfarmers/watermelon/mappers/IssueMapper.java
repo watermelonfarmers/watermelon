@@ -31,6 +31,10 @@ public class IssueMapper {
             issueEntity.setStatus(request.getStatus());
         }
 
+        if (null != request.getEstimate()) {
+            issueEntity.setEstimate(request.getEstimate());
+        }
+
         if (null != request.getCreatedByUserId()) {
             UserEntity user = new UserEntity();
             user.setId(request.getCreatedByUserId());
@@ -76,6 +80,10 @@ public class IssueMapper {
 
         if (null != issueEntity.getStatus()) {
             issue.setStatus(issueEntity.getStatus());
+        }
+
+        if (null != issueEntity.getEstimate()) {
+            issue.setEstimate(issueEntity.getEstimate());
         }
 
         if (null != issueEntity.getCreatedByUser()) {

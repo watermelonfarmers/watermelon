@@ -275,6 +275,45 @@ public class UserRequestTest {
         assertThat(violations.size()).isEqualTo(0);
     }
 
+//    @Test
+//    public void whenEmailIsEmptyAndInterfaceIsCreateValidationFails() {
+//        userRequest.setEmail("");
+//        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
+//
+//        assertThat(violations.size()).isEqualTo(1);
+//    }
+
+    @Test
+    public void whenEmailIsInvalidFormatAndInterfaceIsCreateValidationFails() {
+        userRequest.setEmail("testemail");
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
+
+        assertThat(violations.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void whenEmailIsValidFormatAndInterfaceIsCreateValidationFails() {
+        userRequest.setEmail("testemail@test.com");
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Create.class);
+
+        assertThat(violations.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void whenEmailIsInvalidFormatAndInterfaceIsUpdateValidationFails() {
+        userRequest.setEmail("testemail");
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
+
+        assertThat(violations.size()).isEqualTo(1);
+    }
+
+    @Test
+    public void whenEmailIsValidFormatAndInterfaceIsUpdateValidationFails() {
+        userRequest.setEmail("testemail@test.com");
+        Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
+
+        assertThat(violations.size()).isEqualTo(0);
+    }
 
 
     private void initializeUser() {
@@ -283,5 +322,6 @@ public class UserRequestTest {
         userRequest.setLastName("Parker");
         userRequest.setUserName("spiderman");
         userRequest.setPassword("password");
+        userRequest.setEmail("test@test");
     }
 }

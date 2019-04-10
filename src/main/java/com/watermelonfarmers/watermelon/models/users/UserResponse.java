@@ -6,16 +6,8 @@ public class UserResponse {
     private String userName;
     private String firstName;
     private String lastName;
-
-    public UserResponse() {
-    }
-
-    public UserResponse(Long userId, String userName, String firstName, String lastName) {
-        this.userId = userId;
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
+    private String email;
+    private String avatarUrl;
 
     public Long getUserId() {
         return userId;
@@ -47,5 +39,21 @@ public class UserResponse {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }
