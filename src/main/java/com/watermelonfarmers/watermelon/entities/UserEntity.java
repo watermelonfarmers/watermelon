@@ -18,17 +18,22 @@ public class UserEntity {
     private String userName;
     @Column(name = "PASSWORD")
     private String password;
-
+    @Column(name = "EMAIL_ADDRESS")
+    private String email;
+    @Column(name = "AVATAR_URL")
+    private String avatarUrl;
 
     public UserEntity() {
     }
 
-    public UserEntity(long id, String firstName, String lastName, String userName, String password) {
+    public UserEntity(long id, String firstName, String lastName, String userName, String password, String email, String avatarUrl) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
+        this.email = email;
+        this.avatarUrl = avatarUrl;
     }
 
     public long getId() {
@@ -69,5 +74,21 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

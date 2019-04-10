@@ -1,6 +1,5 @@
 package com.watermelonfarmers.watermelon.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -30,6 +29,8 @@ public class IssueEntity {
     private Integer priority;
     @Column(name = "STATUS")
     private String status;
+    @Column(name = "ESTIMATE")
+    private Long estimate;
     @OneToOne
     @JoinColumn(name = "CREATED_BY_USER_ID")
     private UserEntity createdByUser;
@@ -133,5 +134,13 @@ public class IssueEntity {
 
     public void setRequirementEntities(List<RequirementEntity> requirementEntities) {
         this.requirementEntities = requirementEntities;
+    }
+
+    public Long getEstimate() {
+        return estimate;
+    }
+
+    public void setEstimate(Long estimate) {
+        this.estimate = estimate;
     }
 }
