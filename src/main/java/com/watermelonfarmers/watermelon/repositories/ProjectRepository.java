@@ -9,5 +9,5 @@ import com.watermelonfarmers.watermelon.entities.ProjectEntity;
 
 @Repository
 public interface ProjectRepository extends CrudRepository<ProjectEntity, Long> {
-    List<ProjectEntity> findAllByProjectEntityProjectId(long channelId);
+    List<ProjectEntity> findAllByProjectId(long channelId);
 }

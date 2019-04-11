@@ -59,7 +59,7 @@ public class ProjectProcessor {
     }
 
     public ResponseEntity<List<ProjectResponse>> getProjectsByProjectId(long projectId) {
-        Iterable<ProjectEntity> projectEntities = projectRepository.findAllByProjectEntityProjectId(projectId);
+        Iterable<ProjectEntity> projectEntities = projectRepository.findAllByProjectId(projectId);
         return getProjectResponseListFromEntityList(projectEntities);
     }
 
