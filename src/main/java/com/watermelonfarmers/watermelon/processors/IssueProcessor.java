@@ -35,50 +35,47 @@ public class IssueProcessor {
     }
 
     public ResponseEntity<?> getIssueById(Long issueId) {
-        ResponseEntity response;
+        ResponseEntity<?> response;
         Optional<IssueEntity> issueEntity = issueRepository.findById(issueId);
         if (issueEntity.isPresent()) {
             IssueResponse issue = IssueMapper.mapIssueEntityToIssueResponse(issueEntity.get());
             response = new ResponseEntity<>(issue, HttpStatus.OK);
         }
         else {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+            response = new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
         }
         return response;
     }
 
-    public ResponseEntity<?> createIssue(IssueRequest request) {
-        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> createIssue(IssueRequest request) {
+        ResponseEntity<HttpStatus> response = new ResponseEntity<HttpStatus>(HttpStatus.OK);
         IssueEntity issueEntity = IssueMapper.mapIssueRequestToIssueEntity(new IssueEntity(), request);
         issueRepository.save(issueEntity);
         return response;
     }
 
-    public ResponseEntity<?> deleteIssue(Long issueId) {
-        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteIssue(Long issueId) {
+        ResponseEntity<HttpStatus> response = new ResponseEntity<HttpStatus>(HttpStatus.OK);
         Optional<IssueEntity> channelEntity = issueRepository.findById(issueId);
-
         if (channelEntity.isPresent()) {
             issueRepository.delete(channelEntity.get());
         }
         else {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+            response = new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
         }
-
         return response;
     }
 
-    public ResponseEntity updateIssue(IssueRequest request, Long issueId) {
-        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> updateIssue(IssueRequest request, Long issueId) {
+        ResponseEntity<HttpStatus> response = new ResponseEntity<HttpStatus>(HttpStatus.OK);
         Optional<IssueEntity> channelEntity = issueRepository.findById(issueId);
         if (channelEntity.isPresent()) {
             IssueEntity updatedChannel = IssueMapper.mapIssueRequestToIssueEntity(channelEntity.get(), request);
             issueRepository.save(updatedChannel);
         }
         else {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+            response = new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
         }
-
         return response;
     }
 
