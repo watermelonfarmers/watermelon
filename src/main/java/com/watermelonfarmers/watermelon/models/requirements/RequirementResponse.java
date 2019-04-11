@@ -20,11 +20,12 @@ public class RequirementResponse {
     private UserResponse createdByUser;
     private UserResponse assignedToUser;
     private RequirementIssueResponse relatedIssue;
+    private String estimatedTime;
 
     public RequirementResponse() {
     }
 
-    public RequirementResponse(Long id, String title, String description, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String priority, String status, LocalDateTime dueDate, Boolean isArchived, List<CommentResponse> comments, UserResponse createdByUser, UserResponse assignedToUser, RequirementIssueResponse relatedIssue) {
+    public RequirementResponse(Long id, String title, String description, LocalDateTime createdTime, LocalDateTime lastModifiedTime, String priority, String status, LocalDateTime dueDate, Boolean isArchived, List<CommentResponse> comments, UserResponse createdByUser, UserResponse assignedToUser, RequirementIssueResponse relatedIssue, String estimatedTime) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -38,6 +39,7 @@ public class RequirementResponse {
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
         this.relatedIssue = relatedIssue;
+        this.estimatedTime = estimatedTime;
     }
 
     public Long getId() {
@@ -142,5 +144,13 @@ public class RequirementResponse {
 
     public void setRelatedIssue(RequirementIssueResponse relatedIssue) {
         this.relatedIssue = relatedIssue;
+    }
+
+    public String getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(String estimatedTime) {
+        this.estimatedTime = estimatedTime;
     }
 }

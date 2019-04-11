@@ -60,6 +60,10 @@ public class RequirementMapper {
             requirementEntity.setIssueEntity(issue);
         }
 
+        if( null != request.getEstimatedTime()) {
+            requirementEntity.setEstimatedTime(request.getEstimatedTime());
+        }
+
         return requirementEntity;
     }
 
@@ -129,6 +133,10 @@ public class RequirementMapper {
             requirement.setRelatedIssue(issueResponse);
         }
 
+        if(null != requirementEntity.getEstimatedTime()) {
+            requirement.setEstimatedTime(requirementEntity.getEstimatedTime());
+        }
+
         return  requirement;
     }
 
@@ -177,6 +185,9 @@ public class RequirementMapper {
             requirementEntity.setIssueEntity(issue);
         }
 
+        if( null != request.getEstimatedTime()) {
+            requirementEntity.setEstimatedTime(request.getEstimatedTime());
+        }
         return requirementEntity;
     }
 

@@ -14,6 +14,7 @@ public class IssueResponse {
     private String description;
     private Integer priority;
     private String status;
+    private Long estimate;
     private UserResponse createdByUser;
     private UserResponse assignedUser;
     private List<IssueRequirementResponse> relatedRequirements;
@@ -96,5 +97,13 @@ public class IssueResponse {
 
     public void setRelatedRequirements(List<IssueRequirementResponse> relatedRequirements) {
         this.relatedRequirements = relatedRequirements;
+    }
+
+    public Long getEstimate() {
+        return estimate;
+    }
+
+    public void setEstimate(Long estimate) {
+        this.estimate = estimate;
     }
 }

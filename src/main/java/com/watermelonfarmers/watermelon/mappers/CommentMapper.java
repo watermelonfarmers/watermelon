@@ -1,10 +1,13 @@
 package com.watermelonfarmers.watermelon.mappers;
 
 import com.watermelonfarmers.watermelon.entities.CommentEntity;
+import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.models.comment.CommentRequest;
 import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
 
 public class CommentMapper {
     public static CommentResponse mapCommentEntityToCommentResponse(CommentEntity commentEntity) {
+
         CommentResponse commentResponse = new CommentResponse();
 
         if (null != commentEntity.getId()){
@@ -28,5 +31,20 @@ public class CommentMapper {
         }
 
         return commentResponse;
+    }
+
+    public static CommentEntity mapCommentRequestToCommentEntity(CommentRequest commentRequest) {
+        CommentEntity commentEntity = new CommentEntity();
+        if(null != commentRequest.getContent()) {
+            commentEntity.setContent(commentRequest.getContent());
+        }
+
+
+        if(null != commentRequest.getUserId()) {
+            UserEntity user = new UserEntity();
+            user.setId(commentRequest.getUserId());
+            commentEntity.setUser(user);
+        }
+        return commentEntity;
     }
 }
