@@ -28,7 +28,7 @@ public class RequirementEntity {
     @Size(max = 255)
     private String title;
     @Column(name = "Description")
-    @Size(max = 10240)
+    @Size(max = 2000)
     private String description;
     @Column(name = "Priority")//Choose from Normal Urgent VeryUrgent
     private String priority;
@@ -39,7 +39,7 @@ public class RequirementEntity {
     @Column(name = "DueDate")
     private LocalDateTime dueDate;
     @Column(name = "EstimatedTime")
-    private String  estiamtedTime;
+    private String estimatedTime;
 
     @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments = new ArrayList<>();
@@ -58,7 +58,7 @@ public class RequirementEntity {
     public RequirementEntity() {
     }
 
-    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 10240) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser, IssueEntity issueEntity, String estiamtedTime) {
+    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 2000) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser, IssueEntity issueEntity, String estimatedTime) {
         this.id = id;
         this.createdTime = createdTime;
         this.lastModifiedTime = lastModifiedTime;
@@ -72,7 +72,7 @@ public class RequirementEntity {
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
         this.issueEntity = issueEntity;
-        this.estiamtedTime = estiamtedTime;
+        this.estimatedTime = estimatedTime;
     }
 
     public long getId() {
@@ -179,11 +179,11 @@ public class RequirementEntity {
         this.issueEntity = issueEntity;
     }
 
-    public String getEstiamtedTime() {
-        return estiamtedTime;
+    public String getEstimatedTime() {
+        return estimatedTime;
     }
 
-    public void setEstiamtedTime(String estiamtedTime) {
-        this.estiamtedTime = estiamtedTime;
+    public void setEstimatedTime(String estimatedTime) {
+        this.estimatedTime = estimatedTime;
     }
 }

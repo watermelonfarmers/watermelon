@@ -86,7 +86,7 @@ public class UserRequestTest {
     }
 
     @Test
-    public void whenFisrtNameIsFiftyCharactersAndInterfaceIsUpdateValidationPasses() {
+    public void whenFirstNameIsFiftyCharactersAndInterfaceIsUpdateValidationPasses() {
         userRequest.setFirstName(FIFTY_CHARACTERS);
         Set<ConstraintViolation<UserRequest>> violations = validator.validate(userRequest, UserRequest.Update.class);
 
