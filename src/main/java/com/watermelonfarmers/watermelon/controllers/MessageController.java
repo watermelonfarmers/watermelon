@@ -44,8 +44,8 @@ public class MessageController {
         return messageProcessor.deleteMessage(messageId);
     }
 
-    @RequestMapping(value = "/{channel}", method = RequestMethod.GET)
-    public ResponseEntity<List<MessageResponse>> getMessagesByChannel(@PathVariable("channel") Long channel) {
-        return messageProcessor.getMessagesByChannel(channel);
+    @RequestMapping(value = "/{messageId}", method = RequestMethod.GET)
+    public ResponseEntity<List<MessageResponse>> getMessagesByChannel(@PathVariable("messageId") Long messageId) {
+        return messageProcessor.getMessagesByChannelId(messageId);
     }
 }

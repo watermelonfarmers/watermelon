@@ -29,47 +29,42 @@ public class MessageProcessor {
         return getMessageResponseListFromEntityList(messageEntities);
     }
 
-    public ResponseEntity<?> createMessage(MessageRequest request) {
+    public ResponseEntity<HttpStatus> createMessage(MessageRequest request) {
         MessageEntity messageEntity = MessageMapper.mapMessageRequestToMessageEntity(new MessageEntity(), request);
         messageRepository.save(messageEntity);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
     }
 
-    public ResponseEntity<?> updateMessage(MessageRequest request, Long messageId) {
-
-        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> updateMessage(MessageRequest request, Long messageId) {
+        ResponseEntity<HttpStatus> response = new ResponseEntity<HttpStatus>(HttpStatus.OK);
         Optional<MessageEntity> messageEntity = messageRepository.findById(messageId);
         if (messageEntity.isPresent()) {
             MessageEntity updatedMessage = MessageMapper.mapMessageRequestToMessageEntity(messageEntity.get(), request);
             messageRepository.save(updatedMessage);
+        } else {
+            response = new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
         }
-        else {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
         return response;
     }
 
-    public ResponseEntity<?> deleteMessage(Long messageId) {
-        ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity<HttpStatus> deleteMessage(Long messageId) {
+        ResponseEntity<HttpStatus> response = new ResponseEntity<HttpStatus>(HttpStatus.OK);
         Optional<MessageEntity> messageEntity = messageRepository.findById(messageId);
-
         if (messageEntity.isPresent()) {
             messageRepository.delete(messageEntity.get());
+        } else {
+            response = new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
         }
-        else {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
         return response;
     }
-    
-    public ResponseEntity<List<MessageResponse>> getMessagesByChannel(long channelId) {
+
+    public ResponseEntity<List<MessageResponse>> getMessagesByChannelId(long channelId) {
         Iterable<MessageEntity> messageEntities = messageRepository.findAllByChannelEntityChannelId(channelId);
         return getMessageResponseListFromEntityList(messageEntities);
     }
 
-    private ResponseEntity<List<MessageResponse>> getMessageResponseListFromEntityList(Iterable<MessageEntity> messageEntities) {
+    private ResponseEntity<List<MessageResponse>> getMessageResponseListFromEntityList(
+            Iterable<MessageEntity> messageEntities) {
         List<MessageResponse> messages = new ArrayList<>();
         for (MessageEntity messageEntity : messageEntities) {
             MessageResponse message = MessageMapper.mapMessageEntityToMessageResponse(messageEntity);
