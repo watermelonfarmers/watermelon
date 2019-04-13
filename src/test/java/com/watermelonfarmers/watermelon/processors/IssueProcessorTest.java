@@ -50,7 +50,7 @@ public class IssueProcessorTest {
         issueEntities.add(new IssueEntity());
         when(issueRepository.findAll()).thenReturn(issueEntities);
 
-        ResponseEntity<List<IssueResponse>> response = issueProcessor.getIssues();
+        ResponseEntity<List<IssueResponse>> response = issueProcessor.getIssues(null);
 
         assertThat(response.getBody().size()).isEqualTo(2);
     }

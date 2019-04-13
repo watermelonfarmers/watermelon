@@ -24,8 +24,14 @@ public class IssueProcessor {
         this.issueRepository = issueRepository;
     }
 
-    public ResponseEntity<List<IssueResponse>> getIssues() {
-        Iterable<IssueEntity> issueEntities = issueRepository.findAll();
+    public ResponseEntity<List<IssueResponse>> getIssues(Long projectId) {
+        Iterable<IssueEntity> issueEntities;
+        if (null != projectId) {
+            issueEntities = issueRepository.findAllByProjectEntityProjectId(projectId);
+        }
+        else {
+            issueEntities = issueRepository.findAll();
+        }
         List<IssueResponse> issues = new ArrayList<>();
         for (IssueEntity issueEntity : issueEntities) {
             IssueResponse issue = IssueMapper.mapIssueEntityToIssueResponse(issueEntity);
