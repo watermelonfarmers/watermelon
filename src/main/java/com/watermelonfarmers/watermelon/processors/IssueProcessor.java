@@ -62,9 +62,9 @@ public class IssueProcessor {
 
     public ResponseEntity<HttpStatus> deleteIssue(Long issueId) {
         ResponseEntity<HttpStatus> response = new ResponseEntity<HttpStatus>(HttpStatus.OK);
-        Optional<IssueEntity> channelEntity = issueRepository.findById(issueId);
-        if (channelEntity.isPresent()) {
-            issueRepository.delete(channelEntity.get());
+        Optional<IssueEntity> issueEntity = issueRepository.findById(issueId);
+        if (issueEntity.isPresent()) {
+            issueRepository.delete(issueEntity.get());
         }
         else {
             response = new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
@@ -74,9 +74,9 @@ public class IssueProcessor {
 
     public ResponseEntity<HttpStatus> updateIssue(IssueRequest request, Long issueId) {
         ResponseEntity<HttpStatus> response = new ResponseEntity<HttpStatus>(HttpStatus.OK);
-        Optional<IssueEntity> channelEntity = issueRepository.findById(issueId);
-        if (channelEntity.isPresent()) {
-            IssueEntity updatedChannel = IssueMapper.mapIssueRequestToIssueEntity(channelEntity.get(), request);
+        Optional<IssueEntity> issueEntity = issueRepository.findById(issueId);
+        if (issueEntity.isPresent()) {
+            IssueEntity updatedChannel = IssueMapper.mapIssueRequestToIssueEntity(issueEntity.get(), request);
             issueRepository.save(updatedChannel);
         }
         else {
