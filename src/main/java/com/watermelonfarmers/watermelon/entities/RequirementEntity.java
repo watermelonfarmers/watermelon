@@ -44,6 +44,9 @@ public class RequirementEntity {
     @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
+    private List<ActivityEntity> activities = new ArrayList<>();
+
     @OneToOne
     private UserEntity createdByUser;
 
@@ -147,14 +150,6 @@ public class RequirementEntity {
         this.dueDate = dueDate;
     }
 
-    public List<CommentEntity> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentEntity> comments) {
-        this.comments = comments;
-    }
-
     public UserEntity getCreatedByUser() {
         return createdByUser;
     }
@@ -185,5 +180,21 @@ public class RequirementEntity {
 
     public void setEstimatedTime(String estimatedTime) {
         this.estimatedTime = estimatedTime;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
+    }
+
+    public List<ActivityEntity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<ActivityEntity> comments) {
+        this.activities = activities;
     }
 }
