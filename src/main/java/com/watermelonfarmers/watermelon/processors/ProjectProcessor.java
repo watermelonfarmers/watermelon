@@ -58,9 +58,9 @@ public class ProjectProcessor {
         return response;
     }
 
-    public ResponseEntity<List<ProjectResponse>> getProjectsByProjectId(long projectId) {
-        Iterable<ProjectEntity> projectEntities = projectRepository.findAllByProjectId(projectId);
-        return getProjectResponseListFromEntityList(projectEntities);
+    public ResponseEntity<ProjectResponse> getProjectsByProjectId(long projectId) {
+        Optional<ProjectEntity> projectEntity = projectRepository.findById(projectId);
+        return new ResponseEntity<>(ProjectMapper.mapProjectEntityToProjectResponse(projectEntity.get()), HttpStatus.OK);
     }
 
     private ResponseEntity<List<ProjectResponse>> getProjectResponseListFromEntityList(

@@ -42,22 +42,6 @@ public class ProjectMapperTest {
     }
 
     @Test
-    public void whenMapProjectEntityToProjectCreatedShouldBeCreated() {
-        LocalDateTime now = LocalDateTime.now();
-        projectEntity.setCreateTime(now);
-        projectResponse = ProjectMapper.mapProjectEntityToProjectResponse(projectEntity);
-        assertThat(projectResponse.getCreated()).isEqualTo(now);
-    }
-
-    @Test
-    public void whenMapProjectEntityToProjectUpdatedShouldBeUpdated() {
-        LocalDateTime now = LocalDateTime.now();
-        projectEntity.setLastUpdateTime(now);
-        projectResponse = ProjectMapper.mapProjectEntityToProjectResponse(projectEntity);
-        assertThat(projectResponse.getUpdated()).isEqualTo(now);
-    }
-
-    @Test
     public void whenMapProjectRequestToProjectEntityBodyShouldBeMappedToProjectName() {
         projectRequest.setProjectName(PROJECT);
         projectEntity = ProjectMapper.mapProjectRequestToProjectEntity(projectEntity, projectRequest);

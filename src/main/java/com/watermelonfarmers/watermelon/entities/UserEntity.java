@@ -20,20 +20,17 @@ public class UserEntity {
     private String password;
     @Column(name = "EMAIL_ADDRESS")
     private String email;
-    @Column(name = "AVATAR_URL")
-    private String avatarUrl;
 
     public UserEntity() {
     }
 
-    public UserEntity(long id, String firstName, String lastName, String userName, String password, String email, String avatarUrl) {
+    public UserEntity(long id, String firstName, String lastName, String userName, String password, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
         this.password = password;
         this.email = email;
-        this.avatarUrl = avatarUrl;
     }
 
     public long getId() {
@@ -84,11 +81,4 @@ public class UserEntity {
         this.email = email;
     }
 
-    public String getAvatarUrl() {
-        return avatarUrl;
-    }
-
-    public void setAvatarUrl(String avatarUrl) {
-        this.avatarUrl = avatarUrl;
-    }
 }

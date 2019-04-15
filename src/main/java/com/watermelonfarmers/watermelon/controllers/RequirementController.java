@@ -30,8 +30,8 @@ public class RequirementController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<RequirementResponse>> readAllRequirement() {
-        return requirementProcessor.readAllRequirement();
+    public ResponseEntity<List<RequirementResponse>> readAllRequirement(@RequestParam(value = "project", required = false) Long projectId) {
+        return requirementProcessor.readAllRequirement(projectId);
     }
 
     @RequestMapping(value = "/{requirementId}", method = RequestMethod.GET)
