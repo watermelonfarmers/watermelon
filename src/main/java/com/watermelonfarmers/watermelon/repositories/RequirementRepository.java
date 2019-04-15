@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RequirementRepository extends CrudRepository<RequirementEntity, Long> {
+    Iterable<RequirementEntity> findAllByProjectEntityProjectId(Long projectId);
 }

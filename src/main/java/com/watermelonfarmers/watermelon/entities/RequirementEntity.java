@@ -53,6 +53,10 @@ public class RequirementEntity {
     @OneToOne
     private UserEntity assignedToUser;
 
+    @OneToOne
+    @JoinColumn(name = "PROJECT_ID")
+    private ProjectEntity projectEntity;
+
     @ManyToOne
     @JoinColumn(name = "ISSUE_ID")
     @JsonBackReference
@@ -61,7 +65,7 @@ public class RequirementEntity {
     public RequirementEntity() {
     }
 
-    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 2000) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser, IssueEntity issueEntity, String estimatedTime) {
+    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 2000) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, String estimatedTime, List<CommentEntity> comments, List<ActivityEntity> activities, UserEntity createdByUser, UserEntity assignedToUser, ProjectEntity projectEntity, IssueEntity issueEntity) {
         this.id = id;
         this.createdTime = createdTime;
         this.lastModifiedTime = lastModifiedTime;
@@ -71,11 +75,13 @@ public class RequirementEntity {
         this.status = status;
         this.isArchived = isArchived;
         this.dueDate = dueDate;
+        this.estimatedTime = estimatedTime;
         this.comments = comments;
+        this.activities = activities;
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
+        this.projectEntity = projectEntity;
         this.issueEntity = issueEntity;
-        this.estimatedTime = estimatedTime;
     }
 
     public long getId() {
@@ -150,30 +156,6 @@ public class RequirementEntity {
         this.dueDate = dueDate;
     }
 
-    public UserEntity getCreatedByUser() {
-        return createdByUser;
-    }
-
-    public void setCreatedByUser(UserEntity createdByUser) {
-        this.createdByUser = createdByUser;
-    }
-
-    public UserEntity getAssignedToUser() {
-        return assignedToUser;
-    }
-
-    public void setAssignedToUser(UserEntity assignedToUser) {
-        this.assignedToUser = assignedToUser;
-    }
-
-    public IssueEntity getIssueEntity() {
-        return issueEntity;
-    }
-
-    public void setIssueEntity(IssueEntity issueEntity) {
-        this.issueEntity = issueEntity;
-    }
-
     public String getEstimatedTime() {
         return estimatedTime;
     }
@@ -194,7 +176,39 @@ public class RequirementEntity {
         return activities;
     }
 
-    public void setActivities(List<ActivityEntity> comments) {
+    public void setActivities(List<ActivityEntity> activities) {
         this.activities = activities;
+    }
+
+    public UserEntity getCreatedByUser() {
+        return createdByUser;
+    }
+
+    public void setCreatedByUser(UserEntity createdByUser) {
+        this.createdByUser = createdByUser;
+    }
+
+    public UserEntity getAssignedToUser() {
+        return assignedToUser;
+    }
+
+    public void setAssignedToUser(UserEntity assignedToUser) {
+        this.assignedToUser = assignedToUser;
+    }
+
+    public ProjectEntity getProjectEntity() {
+        return projectEntity;
+    }
+
+    public void setProjectEntity(ProjectEntity projectEntity) {
+        this.projectEntity = projectEntity;
+    }
+
+    public IssueEntity getIssueEntity() {
+        return issueEntity;
+    }
+
+    public void setIssueEntity(IssueEntity issueEntity) {
+        this.issueEntity = issueEntity;
     }
 }
