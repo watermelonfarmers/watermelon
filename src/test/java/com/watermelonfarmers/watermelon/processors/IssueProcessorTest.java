@@ -38,7 +38,7 @@ public class IssueProcessorTest {
     public void whenCreateIssueIsCalledIssueIsCreatedAndResponseStatusCodeIsOK() {
         when(issueRepository.save(any())).thenReturn(issueEntity);
 
-        ResponseEntity response = issueProcessor.createIssue(new IssueRequest());
+        ResponseEntity<HttpStatus> response = issueProcessor.createIssue(new IssueRequest());
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
