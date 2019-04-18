@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class IssueEntity {
     private String title;
     @Column(name = "DESCRIPTION")
     private String description;
+    @Size(max = 400)
+    @Column(name = "STEPS")
+    private String steps;
     @Column(name = "PRIORITY")
     private Integer priority;
     @Column(name = "STATUS")
@@ -46,12 +51,13 @@ public class IssueEntity {
     public IssueEntity() {
     }
 
-    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description, Integer priority, String status, Long estimate, UserEntity createdByUser, UserEntity assignedUser, ProjectEntity projectEntity, List<RequirementEntity> requirementEntities) {
+    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description, Long estimate, String steps, Integer priority, String status, UserEntity createdByUser, UserEntity assignedUser, ProjectEntity projectEntity, List<RequirementEntity> requirementEntities) {
         this.issueId = issueId;
         this.created = created;
         this.lastModified = lastModified;
         this.title = title;
         this.description = description;
+        this.steps = steps;
         this.priority = priority;
         this.status = status;
         this.estimate = estimate;
@@ -99,6 +105,14 @@ public class IssueEntity {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getSteps() {
+        return steps;
+    }
+
+    public void setSteps(String steps) {
+        this.steps = steps;
     }
 
     public Integer getPriority() {

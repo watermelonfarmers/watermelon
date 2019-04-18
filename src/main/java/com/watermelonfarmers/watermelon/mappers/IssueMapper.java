@@ -23,6 +23,10 @@ public class IssueMapper {
         if (null != request.getDescription()) {
             issueEntity.setDescription(request.getDescription());
         }
+        
+        if (null != request.getSteps()) {
+            issueEntity.setSteps(request.getSteps());
+        }
 
         if (null != request.getPriority()) {
             issueEntity.setPriority(request.getPriority());

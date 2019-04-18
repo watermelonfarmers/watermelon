@@ -1,5 +1,8 @@
 package com.watermelonfarmers.watermelon.models.issues;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 import io.swagger.annotations.ApiModelProperty;
 
 public class IssueRequest {
@@ -8,6 +11,11 @@ public class IssueRequest {
     private String title;
     @ApiModelProperty(value = "description", example = "This is very important")
     private String description;
+    @NotEmpty(message = "issue steps is a required field", groups = { IssueRequest.Create.class })
+    @Size(max = 4000, message = "issue steps can not be more than 4000 characters", groups = { IssueRequest.Create.class,
+            IssueRequest.Update.class })
+    @ApiModelProperty(value = "steps", example = "Steps to reproduce")
+    private String steps;
     @ApiModelProperty(value = "priority", example = "10")
     private Integer priority;
     @ApiModelProperty(value = "status", example = "IN PROGRESS")
@@ -21,6 +29,11 @@ public class IssueRequest {
     @ApiModelProperty(value = "projectId", example = "1")
     private Long projectId;
 
+    public interface Create {
+    }
+
+    public interface Update {
+    }
 
     public String getTitle() {
         return title;
@@ -36,6 +49,14 @@ public class IssueRequest {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getSteps() {
+        return steps;
+    }
+
+    public void setSteps(String steps) {
+        this.steps = steps;
     }
 
     public Integer getPriority() {

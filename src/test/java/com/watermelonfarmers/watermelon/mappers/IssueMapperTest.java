@@ -2,12 +2,11 @@ package com.watermelonfarmers.watermelon.mappers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
-import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.watermelonfarmers.watermelon.entities.IssueEntity;
+import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
 
 public class IssueMapperTest {
 

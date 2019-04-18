@@ -12,6 +12,7 @@ public class IssueResponse {
     private LocalDateTime lastModified;
     private String title;
     private String description;
+    private String steps;
     private Integer priority;
     private String status;
     private Long estimate;
@@ -57,6 +58,14 @@ public class IssueResponse {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getSteps() {
+        return steps;
+    }
+
+    public void setSteps(String steps) {
+        this.steps = steps;
     }
 
     public Integer getPriority() {
