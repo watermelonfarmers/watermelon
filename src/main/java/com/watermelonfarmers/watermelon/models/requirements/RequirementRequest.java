@@ -42,6 +42,9 @@ public class RequirementRequest {
     @ApiModelProperty(value = "estimatedTime", example = "One week")
     private String estimatedTime;
 
+    @ApiModelProperty(value = "projectId", example = "1")
+    private Long projectId;
+
     public interface Create {
 
     }
@@ -53,7 +56,7 @@ public class RequirementRequest {
     public RequirementRequest() {
     }
 
-    public RequirementRequest(@NotNull(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 2000, message = "Description can not be more than 2000 characters", groups = {Create.class, Update.class}) String description, String priority, String status, LocalDateTime dueDate, Boolean isArchived, Long createdByUser, Long assignedToUser, Long relatedIssueId, String estimatedTime) {
+    public RequirementRequest(@NotEmpty(message = "Title is a required field", groups = {Create.class}) @Size(max = 255, message = "Title can not be more than 255 characters", groups = {Create.class, Update.class}) String title, @Size(max = 2000, message = "Description can not be more than 2000 characters", groups = {Create.class, Update.class}) String description, String priority, String status, LocalDateTime dueDate, Boolean isArchived, Long createdByUser, Long assignedToUser, Long relatedIssueId, String estimatedTime, Long projectId) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -64,6 +67,7 @@ public class RequirementRequest {
         this.assignedToUser = assignedToUser;
         this.relatedIssueId = relatedIssueId;
         this.estimatedTime = estimatedTime;
+        this.projectId = projectId;
     }
 
     public String getTitle() {
@@ -144,5 +148,13 @@ public class RequirementRequest {
 
     public void setEstimatedTime(String estimatedTime) {
         this.estimatedTime = estimatedTime;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }

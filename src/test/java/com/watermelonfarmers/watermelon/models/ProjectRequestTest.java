@@ -82,27 +82,9 @@ public class ProjectRequestTest {
         Set<ConstraintViolation<ProjectRequest>> violations = validator.validate(project, ProjectRequest.Update.class);
         assertThat(violations.size()).isEqualTo(0);
     }
-    
-    @Test
-    public void whenUserIdIsNullAndInterfaceIsCreateValidationFails() {
-        project.setProjectId(null);
-        Set<ConstraintViolation<ProjectRequest>> violations = validator.validate(project, ProjectRequest.Create.class);
-        assertThat(violations.size()).isEqualTo(1);
-        Iterator<ConstraintViolation<ProjectRequest>> iterator = violations.iterator();
-        ConstraintViolation<ProjectRequest> violation = iterator.next();
-        assertThat(violation.getMessage()).isEqualTo("project id is a required field");
-    }
-    
-    @Test
-    public void whenUserIdIsNotNullCharactersAndInterfaceIsCreateValidationPasses() {
-        project.setProjectId(1l);
-        Set<ConstraintViolation<ProjectRequest>> violations = validator.validate(project, ProjectRequest.Create.class);
-        assertThat(violations.size()).isEqualTo(0);
-    }
 
     private void initializeProject() {
         project = new ProjectRequest();
-        project.setProjectId(1l);
         project.setProjectName("Watermelon");
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/issues")
@@ -23,8 +24,8 @@ public class IssueController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<IssueResponse>> getIssues() {
-        return issueProcessor.getIssues();
+    public ResponseEntity<List<IssueResponse>> getIssues(@RequestParam(value = "project", required = false) Long projectId) {
+        return issueProcessor.getIssues(projectId);
     }
 
     @RequestMapping(value = "/{issueId}", method = RequestMethod.GET)

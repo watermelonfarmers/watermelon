@@ -1,9 +1,6 @@
 package com.watermelonfarmers.watermelon.mappers;
 
-import com.watermelonfarmers.watermelon.entities.CommentEntity;
-import com.watermelonfarmers.watermelon.entities.IssueEntity;
-import com.watermelonfarmers.watermelon.entities.RequirementEntity;
-import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.entities.*;
 import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementIssueResponse;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
@@ -62,6 +59,12 @@ public class RequirementMapper {
 
         if( null != request.getEstimatedTime()) {
             requirementEntity.setEstimatedTime(request.getEstimatedTime());
+        }
+
+        if (null != request.getProjectId()) {
+            ProjectEntity projectEntity = new ProjectEntity();
+            projectEntity.setProjectId(request.getProjectId());
+            requirementEntity.setProjectEntity(projectEntity);
         }
 
         return requirementEntity;
@@ -188,6 +191,13 @@ public class RequirementMapper {
         if( null != request.getEstimatedTime()) {
             requirementEntity.setEstimatedTime(request.getEstimatedTime());
         }
+
+        if (null != request.getProjectId()) {
+            ProjectEntity projectEntity = new ProjectEntity();
+            projectEntity.setProjectId(request.getProjectId());
+            requirementEntity.setProjectEntity(projectEntity);
+        }
+
         return requirementEntity;
     }
 

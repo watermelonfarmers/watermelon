@@ -16,8 +16,8 @@ public class RequirementMapperTest {
     public static final String STATUS = "In progress";
     public static final Boolean ISARCHIVED = false;
     public static final String PRIORITY = "Normal";
-    public static final UserEntity CREATEDBYUSER = new UserEntity(1L,"Arya","Stark","North","123", "testemail", "testurl");
-    public static final UserEntity ASSIGNEDTOUSER = new UserEntity(1L,"Arya","Stark","North","123", "testemail", "testurl");
+    public static final UserEntity CREATEDBYUSER = new UserEntity(1L,"Arya","Stark","North","123", "testemail");
+    public static final UserEntity ASSIGNEDTOUSER = new UserEntity(1L,"Arya","Stark","North","123", "testemail");
     public static final String ORIGINAL_VALUE = "ORIGINAL";
 
     private RequirementRequest requirementRequest;

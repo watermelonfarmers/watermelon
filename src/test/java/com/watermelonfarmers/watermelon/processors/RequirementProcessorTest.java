@@ -46,13 +46,25 @@ public class RequirementProcessorTest {
     }
 
     @Test
-    public void whenReadAllRequirementIsCalledAListOfRequirementsIsReturned() {
+    public void whenReadAllRequirementIsCalledAndProjectIdIsNullAListOfRequirementsIsReturned() {
         List<RequirementEntity> requirementEntities = new ArrayList<>();
         requirementEntities.add(new RequirementEntity());
         requirementEntities.add(new RequirementEntity());
         when(requirementRepository.findAll()).thenReturn(requirementEntities);
 
-        ResponseEntity<List<RequirementResponse>> response = requirementProcessor.readAllRequirement();
+        ResponseEntity<List<RequirementResponse>> response = requirementProcessor.readAllRequirement(null);
+
+        assertThat(response.getBody().size()).isEqualTo(2);
+    }
+
+    @Test
+    public void whenReadAllRequirementIsCalledAndProjectIdIsNotNullAListOfRequirementsIsReturned() {
+        List<RequirementEntity> requirementEntities = new ArrayList<>();
+        requirementEntities.add(new RequirementEntity());
+        requirementEntities.add(new RequirementEntity());
+        when(requirementRepository.findAllByProjectEntityProjectId(any())).thenReturn(requirementEntities);
+
+        ResponseEntity<List<RequirementResponse>> response = requirementProcessor.readAllRequirement(1l);
 
         assertThat(response.getBody().size()).isEqualTo(2);
     }

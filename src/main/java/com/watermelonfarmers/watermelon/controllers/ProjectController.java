@@ -46,7 +46,7 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/{projectId}", method = RequestMethod.GET)
-    public ResponseEntity<List<ProjectResponse>> getProjectsByChannel(@PathVariable("projectId") Long projectId) {
+    public ResponseEntity<ProjectResponse> getProjectById(@PathVariable("projectId") Long projectId) {
         return projectProcessor.getProjectsByProjectId(projectId);
     }
 }

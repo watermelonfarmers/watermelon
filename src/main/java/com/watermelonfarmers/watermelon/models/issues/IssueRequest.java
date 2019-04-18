@@ -29,7 +29,6 @@ public class IssueRequest {
     @ApiModelProperty(value = "projectId", example = "1")
     private Long projectId;
 
-
     public interface Create {
     }
 

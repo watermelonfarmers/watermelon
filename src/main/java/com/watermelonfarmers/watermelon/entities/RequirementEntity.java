@@ -44,11 +44,18 @@ public class RequirementEntity {
     @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
     private List<CommentEntity> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "requirement", cascade = CascadeType.REMOVE)
+    private List<ActivityEntity> activities = new ArrayList<>();
+
     @OneToOne
     private UserEntity createdByUser;
 
     @OneToOne
     private UserEntity assignedToUser;
+
+    @OneToOne
+    @JoinColumn(name = "PROJECT_ID")
+    private ProjectEntity projectEntity;
 
     @ManyToOne
     @JoinColumn(name = "ISSUE_ID")
@@ -58,7 +65,7 @@ public class RequirementEntity {
     public RequirementEntity() {
     }
 
-    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 2000) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, List<CommentEntity> comments, UserEntity createdByUser, UserEntity assignedToUser, IssueEntity issueEntity, String estimatedTime) {
+    public RequirementEntity(long id, LocalDateTime createdTime, LocalDateTime lastModifiedTime, @Size(max = 255) String title, @Size(max = 2000) String description, String priority, String status, Boolean isArchived, LocalDateTime dueDate, String estimatedTime, List<CommentEntity> comments, List<ActivityEntity> activities, UserEntity createdByUser, UserEntity assignedToUser, ProjectEntity projectEntity, IssueEntity issueEntity) {
         this.id = id;
         this.createdTime = createdTime;
         this.lastModifiedTime = lastModifiedTime;
@@ -68,11 +75,13 @@ public class RequirementEntity {
         this.status = status;
         this.isArchived = isArchived;
         this.dueDate = dueDate;
+        this.estimatedTime = estimatedTime;
         this.comments = comments;
+        this.activities = activities;
         this.createdByUser = createdByUser;
         this.assignedToUser = assignedToUser;
+        this.projectEntity = projectEntity;
         this.issueEntity = issueEntity;
-        this.estimatedTime = estimatedTime;
     }
 
     public long getId() {
@@ -147,12 +156,28 @@ public class RequirementEntity {
         this.dueDate = dueDate;
     }
 
+    public String getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(String estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
     public List<CommentEntity> getComments() {
         return comments;
     }
 
     public void setComments(List<CommentEntity> comments) {
         this.comments = comments;
+    }
+
+    public List<ActivityEntity> getActivities() {
+        return activities;
+    }
+
+    public void setActivities(List<ActivityEntity> activities) {
+        this.activities = activities;
     }
 
     public UserEntity getCreatedByUser() {
@@ -171,19 +196,19 @@ public class RequirementEntity {
         this.assignedToUser = assignedToUser;
     }
 
+    public ProjectEntity getProjectEntity() {
+        return projectEntity;
+    }
+
+    public void setProjectEntity(ProjectEntity projectEntity) {
+        this.projectEntity = projectEntity;
+    }
+
     public IssueEntity getIssueEntity() {
         return issueEntity;
     }
 
     public void setIssueEntity(IssueEntity issueEntity) {
         this.issueEntity = issueEntity;
-    }
-
-    public String getEstimatedTime() {
-        return estimatedTime;
-    }
-
-    public void setEstimatedTime(String estimatedTime) {
-        this.estimatedTime = estimatedTime;
     }
 }

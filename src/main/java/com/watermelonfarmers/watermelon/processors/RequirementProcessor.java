@@ -2,6 +2,7 @@ package com.watermelonfarmers.watermelon.processors;
 
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.mappers.RequirementMapper;
+import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementRequest;
 import com.watermelonfarmers.watermelon.models.requirements.RequirementResponse;
 import com.watermelonfarmers.watermelon.repositories.RequirementRepository;
@@ -30,8 +31,14 @@ public class RequirementProcessor {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    public ResponseEntity<List<RequirementResponse>> readAllRequirement() {
-        Iterable<RequirementEntity> requirementEntities = requirementRepository.findAll();
+    public ResponseEntity<List<RequirementResponse>> readAllRequirement(Long projectId) {
+        Iterable<RequirementEntity> requirementEntities;
+        if (null != projectId) {
+            requirementEntities = requirementRepository.findAllByProjectEntityProjectId(projectId);
+        }
+        else {
+            requirementEntities = requirementRepository.findAll();
+        }
         List<RequirementResponse> requirements = new ArrayList<>();
         for(RequirementEntity requirementEntity : requirementEntities) {
             RequirementResponse requirement = RequirementMapper.mapRequirementEntityToRequirement(requirementEntity);
