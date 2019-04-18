@@ -26,6 +26,9 @@ public class IssueRequest {
     private Long createdByUserId;
     @ApiModelProperty(value = "assignedUserId", example = "1")
     private Long assignedUserId;
+    @ApiModelProperty(value = "projectId", example = "1")
+    private Long projectId;
+
 
     public interface Create {
     }
@@ -95,5 +98,13 @@ public class IssueRequest {
 
     public void setEstimate(Long estimate) {
         this.estimate = estimate;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }

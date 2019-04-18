@@ -1,6 +1,7 @@
 package com.watermelonfarmers.watermelon.mappers;
 
 import com.watermelonfarmers.watermelon.entities.IssueEntity;
+import com.watermelonfarmers.watermelon.entities.ProjectEntity;
 import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
@@ -49,6 +50,12 @@ public class IssueMapper {
             UserEntity user = new UserEntity();
             user.setId(request.getAssignedUserId());
             issueEntity.setAssignedUser(user);
+        }
+
+        if (null != request.getProjectId()) {
+            ProjectEntity projectEntity = new ProjectEntity();
+            projectEntity.setProjectId(request.getProjectId());
+            issueEntity.setProjectEntity(projectEntity);
         }
 
         return issueEntity;

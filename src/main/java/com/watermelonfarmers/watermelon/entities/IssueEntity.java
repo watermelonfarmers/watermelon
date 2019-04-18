@@ -42,13 +42,16 @@ public class IssueEntity {
     @OneToOne
     @JoinColumn(name = "ASSIGNED_USER_ID")
     private UserEntity assignedUser;
+    @OneToOne
+    @JoinColumn(name = "PROJECT_ID")
+    private ProjectEntity projectEntity;
     @OneToMany(mappedBy = "issueEntity")
     private List<RequirementEntity> requirementEntities;
 
     public IssueEntity() {
     }
 
-    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description, String steps, Integer priority, String status, UserEntity createdByUser, UserEntity assignedUser, List<RequirementEntity> requirementEntities) {
+    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description, Long estimate, String steps, Integer priority, String status, UserEntity createdByUser, UserEntity assignedUser, ProjectEntity projectEntity, List<RequirementEntity> requirementEntities) {
         this.issueId = issueId;
         this.created = created;
         this.lastModified = lastModified;
@@ -57,8 +60,10 @@ public class IssueEntity {
         this.steps = steps;
         this.priority = priority;
         this.status = status;
+        this.estimate = estimate;
         this.createdByUser = createdByUser;
         this.assignedUser = assignedUser;
+        this.projectEntity = projectEntity;
         this.requirementEntities = requirementEntities;
     }
 
@@ -156,5 +161,13 @@ public class IssueEntity {
 
     public void setEstimate(Long estimate) {
         this.estimate = estimate;
+    }
+
+    public ProjectEntity getProjectEntity() {
+        return projectEntity;
+    }
+
+    public void setProjectEntity(ProjectEntity projectEntity) {
+        this.projectEntity = projectEntity;
     }
 }
