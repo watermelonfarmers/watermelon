@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/activities")
@@ -31,11 +29,6 @@ public class ActivityController {
     @RequestMapping(value = "/{activityId}", method = RequestMethod.GET)
     public ResponseEntity<ActivityResponse> getCommentById(@PathVariable Long activityId) {
         return activityProcessor.getActivityById(activityId);
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<ActivityResponse>> reaAllActivities(@RequestParam(value = "project", required = false) Long projectId) {
-        return activityProcessor.readAllActivities(projectId);
     }
 }
 
