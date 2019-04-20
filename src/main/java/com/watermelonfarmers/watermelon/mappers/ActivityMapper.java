@@ -44,9 +44,9 @@ public class ActivityMapper {
             activityResponse.setCreatedTime(activityEntity.getCreatedTime());
         }
 
-        String activityBuild = activityEntity.getUser().getFirstName() + " " + activityEntity.getAction() + " " + activityEntity.getTarget() + " " + activityEntity.getStartPoint() + " " + activityEntity.getEndPoint();
-
-        activityResponse.setActivity(activityBuild);
+        if(null != activityEntity.getActivity()) {
+            activityResponse.setActivity(activityEntity.getActivity());
+        }
 
         return activityResponse;
     }
