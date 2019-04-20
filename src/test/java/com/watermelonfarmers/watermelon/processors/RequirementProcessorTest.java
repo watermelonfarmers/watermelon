@@ -38,14 +38,14 @@ public class RequirementProcessorTest {
         requirementProcessor = new RequirementProcessor(requirementRepository,activityRepository);
     }
 
-    @Test
-    public void whenCreateRequirementIsCalledRequirementIsCreatedAndResponseStatusCodeIsOK() {
-        when(requirementRepository.save(any())).thenReturn(requirementEntity);
-
-        ResponseEntity response = requirementProcessor.createRequirement(new RequirementRequest());
-
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
-    }
+//    @Test
+//    public void whenCreateRequirementIsCalledRequirementIsCreatedAndResponseStatusCodeIsOK() {
+//        when(requirementRepository.save(any())).thenReturn(requirementEntity);
+//
+//        ResponseEntity response = requirementProcessor.createRequirement(new RequirementRequest());
+//
+//        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+//    }
 
     @Test
     public void whenReadAllRequirementIsCalledAndProjectIdIsNullAListOfRequirementsIsReturned() {
