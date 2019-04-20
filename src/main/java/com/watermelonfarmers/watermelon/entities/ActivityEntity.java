@@ -24,8 +24,6 @@ public class ActivityEntity {
     private String startPoint;
     @Column(name = "endPoint")
     private String endPoint;
-    @Column(name = "activity")
-    private String activity;
 
     @OneToOne
     private UserEntity user;
@@ -33,22 +31,16 @@ public class ActivityEntity {
     @ManyToOne
     private RequirementEntity requirement;
 
-    @OneToOne
-    @JoinColumn(name = "PROJECT_ID")
-    private ProjectEntity projectEntity;
-
     public ActivityEntity() {
     }
 
-    public ActivityEntity(String action, String target, String startPoint, String endPoint, UserEntity user, RequirementEntity requirement, String activity, ProjectEntity projectEntity) {
+    public ActivityEntity(String action, String target, String startPoint, String endPoint, UserEntity user, RequirementEntity requirement) {
         this.action = action;
         this.target = target;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.user = user;
         this.requirement = requirement;
-        this.activity = activity;
-        this.projectEntity = projectEntity;
     }
 
     public long getId() {
@@ -113,22 +105,6 @@ public class ActivityEntity {
 
     public void setRequirement(RequirementEntity requirement) {
         this.requirement = requirement;
-    }
-
-    public String getActivity() {
-        return activity;
-    }
-
-    public void setActivity(String activity) {
-        this.activity = activity;
-    }
-
-    public ProjectEntity getProjectEntity() {
-        return projectEntity;
-    }
-
-    public void setProjectEntity(ProjectEntity projectEntity) {
-        this.projectEntity = projectEntity;
     }
 }
 
