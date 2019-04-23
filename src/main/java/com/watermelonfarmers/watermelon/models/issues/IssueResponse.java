@@ -1,5 +1,7 @@
 package com.watermelonfarmers.watermelon.models.issues;
 
+import com.watermelonfarmers.watermelon.entities.CommentEntity;
+import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
 import com.watermelonfarmers.watermelon.models.users.UserResponse;
 
 import java.time.LocalDateTime;
@@ -19,6 +21,7 @@ public class IssueResponse {
     private UserResponse createdByUser;
     private UserResponse assignedUser;
     private List<IssueRequirementResponse> relatedRequirements;
+    private List<CommentResponse> comments;
 
     public Long getIssueId() {
         return issueId;
@@ -114,5 +117,13 @@ public class IssueResponse {
 
     public void setEstimate(Long estimate) {
         this.estimate = estimate;
+    }
+
+    public List<CommentResponse> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentResponse> comments) {
+        this.comments = comments;
     }
 }
