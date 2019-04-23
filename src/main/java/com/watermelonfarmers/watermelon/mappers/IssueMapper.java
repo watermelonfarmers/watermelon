@@ -1,9 +1,7 @@
 package com.watermelonfarmers.watermelon.mappers;
 
-import com.watermelonfarmers.watermelon.entities.IssueEntity;
-import com.watermelonfarmers.watermelon.entities.ProjectEntity;
-import com.watermelonfarmers.watermelon.entities.RequirementEntity;
-import com.watermelonfarmers.watermelon.entities.UserEntity;
+import com.watermelonfarmers.watermelon.entities.*;
+import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
 import com.watermelonfarmers.watermelon.models.issues.IssueRequest;
 import com.watermelonfarmers.watermelon.models.issues.IssueRequirementResponse;
 import com.watermelonfarmers.watermelon.models.issues.IssueResponse;
@@ -116,6 +114,20 @@ public class IssueMapper {
                 requirementResponseList.add(issueRequirement);
             }
             issue.setRelatedRequirements(requirementResponseList);
+        }
+
+        if (null != issueEntity.getComments()) {
+            List<CommentResponse> commentResponseList = new ArrayList<>();
+            for (CommentEntity comment : issueEntity.getComments()) {
+                CommentResponse commentResponse = new CommentResponse();
+                commentResponse.setId(comment.getId());
+                commentResponse.setContent(comment.getContent());
+                commentResponse.setCreateTime(comment.getCreate_time());
+                commentResponse.setLastModifiedTime(comment.getLast_update_time());
+                commentResponse.setUser(UserMapper.mapUserEntityToUserResponse(comment.getUser()));
+                commentResponseList.add(commentResponse);
+            }
+            issue.setComments(commentResponseList);
         }
 
         return issue;

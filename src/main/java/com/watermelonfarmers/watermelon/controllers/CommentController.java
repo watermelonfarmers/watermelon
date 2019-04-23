@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/comments")
@@ -24,6 +26,11 @@ public class CommentController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createComment(@RequestBody CommentRequest request) {
         return commentProcessor.createComment(request);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<CommentResponse>> getComments() {
+        return commentProcessor.getComments();
     }
 
     @RequestMapping(value = "/{commentId}", method = RequestMethod.GET)

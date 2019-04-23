@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,10 +49,13 @@ public class IssueEntity {
     @OneToMany(mappedBy = "issueEntity")
     private List<RequirementEntity> requirementEntities;
 
+    @OneToMany(mappedBy = "issueEntity", cascade = CascadeType.REMOVE)
+    private List<CommentEntity> comments = new ArrayList<>();
+
     public IssueEntity() {
     }
 
-    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description, Long estimate, String steps, Integer priority, String status, UserEntity createdByUser, UserEntity assignedUser, ProjectEntity projectEntity, List<RequirementEntity> requirementEntities) {
+    public IssueEntity(Long issueId, LocalDateTime created, LocalDateTime lastModified, String title, String description, @Size(max = 400) String steps, Integer priority, String status, Long estimate, UserEntity createdByUser, UserEntity assignedUser, ProjectEntity projectEntity, List<RequirementEntity> requirementEntities, List<CommentEntity> comments) {
         this.issueId = issueId;
         this.created = created;
         this.lastModified = lastModified;
@@ -65,6 +69,7 @@ public class IssueEntity {
         this.assignedUser = assignedUser;
         this.projectEntity = projectEntity;
         this.requirementEntities = requirementEntities;
+        this.comments = comments;
     }
 
     public Long getIssueId() {
@@ -106,7 +111,7 @@ public class IssueEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public String getSteps() {
         return steps;
     }
@@ -131,6 +136,14 @@ public class IssueEntity {
         this.status = status;
     }
 
+    public Long getEstimate() {
+        return estimate;
+    }
+
+    public void setEstimate(Long estimate) {
+        this.estimate = estimate;
+    }
+
     public UserEntity getCreatedByUser() {
         return createdByUser;
     }
@@ -147,6 +160,14 @@ public class IssueEntity {
         this.assignedUser = assignedUser;
     }
 
+    public ProjectEntity getProjectEntity() {
+        return projectEntity;
+    }
+
+    public void setProjectEntity(ProjectEntity projectEntity) {
+        this.projectEntity = projectEntity;
+    }
+
     public List<RequirementEntity> getRequirementEntities() {
         return requirementEntities;
     }
@@ -155,19 +176,11 @@ public class IssueEntity {
         this.requirementEntities = requirementEntities;
     }
 
-    public Long getEstimate() {
-        return estimate;
+    public List<CommentEntity> getComments() {
+        return comments;
     }
 
-    public void setEstimate(Long estimate) {
-        this.estimate = estimate;
-    }
-
-    public ProjectEntity getProjectEntity() {
-        return projectEntity;
-    }
-
-    public void setProjectEntity(ProjectEntity projectEntity) {
-        this.projectEntity = projectEntity;
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 }

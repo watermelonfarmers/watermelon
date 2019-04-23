@@ -29,15 +29,20 @@ public class CommentEntity {
     @ManyToOne
     private RequirementEntity requirement;
 
+    @ManyToOne
+    private IssueEntity issueEntity;
+
     public CommentEntity() {
     }
 
-    public CommentEntity(LocalDateTime create_time, LocalDateTime last_update_time, String content, UserEntity user, RequirementEntity requirement) {
+    public CommentEntity(Long id, LocalDateTime create_time, LocalDateTime last_update_time, String content, UserEntity user, RequirementEntity requirement, IssueEntity issueEntity) {
+        this.id = id;
         this.create_time = create_time;
         this.last_update_time = last_update_time;
         this.content = content;
         this.user = user;
         this.requirement = requirement;
+        this.issueEntity = issueEntity;
     }
 
     public Long getId() {
@@ -86,5 +91,13 @@ public class CommentEntity {
 
     public void setRequirement(RequirementEntity requirement) {
         this.requirement = requirement;
+    }
+
+    public IssueEntity getIssueEntity() {
+        return issueEntity;
+    }
+
+    public void setIssueEntity(IssueEntity issueEntity) {
+        this.issueEntity = issueEntity;
     }
 }

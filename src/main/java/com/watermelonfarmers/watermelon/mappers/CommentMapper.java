@@ -1,6 +1,8 @@
 package com.watermelonfarmers.watermelon.mappers;
 
 import com.watermelonfarmers.watermelon.entities.CommentEntity;
+import com.watermelonfarmers.watermelon.entities.IssueEntity;
+import com.watermelonfarmers.watermelon.entities.RequirementEntity;
 import com.watermelonfarmers.watermelon.entities.UserEntity;
 import com.watermelonfarmers.watermelon.models.comment.CommentRequest;
 import com.watermelonfarmers.watermelon.models.comment.CommentResponse;
@@ -45,6 +47,13 @@ public class CommentMapper {
             user.setId(commentRequest.getUserId());
             commentEntity.setUser(user);
         }
+
+        if (null != commentRequest.getIssueId()) {
+            IssueEntity issueEntity = new IssueEntity();
+            issueEntity.setIssueId(commentRequest.getIssueId());
+            commentEntity.setIssueEntity(issueEntity);
+        }
+
         return commentEntity;
     }
 }
