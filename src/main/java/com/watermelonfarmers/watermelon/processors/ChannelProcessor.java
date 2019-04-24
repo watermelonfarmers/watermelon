@@ -1,6 +1,7 @@
 package com.watermelonfarmers.watermelon.processors;
 
 import com.watermelonfarmers.watermelon.entities.ChannelEntity;
+import com.watermelonfarmers.watermelon.entities.IssueEntity;
 import com.watermelonfarmers.watermelon.mappers.ChannelMapper;
 import com.watermelonfarmers.watermelon.models.channels.ChannelRequest;
 import com.watermelonfarmers.watermelon.models.channels.ChannelResponse;
@@ -24,8 +25,14 @@ public class ChannelProcessor {
         this.channelRepository = channelRepository;
     }
 
-    public ResponseEntity<List<ChannelResponse>> getChannels() {
-        Iterable<ChannelEntity> channelEntities = channelRepository.findAll();
+    public ResponseEntity<List<ChannelResponse>> getChannels(Long projectId) {
+        Iterable<ChannelEntity> channelEntities;
+        if (null != projectId) {
+            channelEntities = channelRepository.findAllByProjectEntityProjectId(projectId);
+        }
+        else {
+            channelEntities = channelRepository.findAll();
+        }
         List<ChannelResponse> channels = new ArrayList<>();
         for (ChannelEntity channelEntity : channelEntities) {
             ChannelResponse channel = ChannelMapper.mapChannelEntityToChannelResponse(channelEntity);

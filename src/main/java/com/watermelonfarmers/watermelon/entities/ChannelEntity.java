@@ -33,15 +33,11 @@ public class ChannelEntity {
     @JsonManagedReference
     private List<MessageEntity> messageEntity;
 
-    public ChannelEntity() {
-    }
+    @OneToOne
+    @JoinColumn(name = "PROJECT_ID")
+    private ProjectEntity projectEntity;
 
-    public ChannelEntity(long channelId, @Size(max = 255) String name, LocalDateTime created, LocalDateTime last_modified, List<MessageEntity> messageEntity) {
-        this.channelId = channelId;
-        this.name = name;
-        this.created = created;
-        this.last_modified = last_modified;
-        this.messageEntity = messageEntity;
+    public ChannelEntity() {
     }
 
     public long getChannelId() {
@@ -82,5 +78,13 @@ public class ChannelEntity {
 
     public void setMessageEntity(List<MessageEntity> messageEntity) {
         this.messageEntity = messageEntity;
+    }
+
+    public ProjectEntity getProjectEntity() {
+        return projectEntity;
+    }
+
+    public void setProjectEntity(ProjectEntity projectEntity) {
+        this.projectEntity = projectEntity;
     }
 }

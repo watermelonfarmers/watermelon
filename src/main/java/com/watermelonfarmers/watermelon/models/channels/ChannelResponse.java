@@ -7,6 +7,7 @@ public class ChannelResponse {
     private Long id;
     private String name;
     private LocalDateTime createTime;
+    private Long projectId;
 
     public Long getId() {
         return id;
@@ -30,5 +31,13 @@ public class ChannelResponse {
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }
