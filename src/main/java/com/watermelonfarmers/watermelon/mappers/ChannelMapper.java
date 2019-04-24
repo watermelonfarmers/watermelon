@@ -15,6 +15,7 @@ public class ChannelMapper {
         ChannelResponse channel = new ChannelResponse();
         channel.setId(channelEntity.getChannelId());
         channel.setName(channelEntity.getName());
+        channel.setCreateTime(channelEntity.getCreated());
         return channel;
     }
 
