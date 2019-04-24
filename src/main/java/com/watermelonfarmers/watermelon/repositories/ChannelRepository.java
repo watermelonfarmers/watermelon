@@ -7,4 +7,5 @@ import com.watermelonfarmers.watermelon.entities.ChannelEntity;
 
 @Repository
 public interface ChannelRepository extends CrudRepository<ChannelEntity, Long> {
+    Iterable<ChannelEntity> findAllByProjectEntityProjectId(long projectId);
 }

@@ -24,8 +24,8 @@ public class ChannelController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<ChannelResponse>> getChannels() {
-        return channelProcessor.getChannels();
+    public ResponseEntity<List<ChannelResponse>> getChannels(@RequestParam(value = "project", required = false) Long projectId) {
+        return channelProcessor.getChannels(projectId);
     }
 
     @RequestMapping(method = RequestMethod.POST)

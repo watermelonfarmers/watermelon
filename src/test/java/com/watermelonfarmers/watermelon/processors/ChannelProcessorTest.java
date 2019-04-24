@@ -59,7 +59,7 @@ public class ChannelProcessorTest {
         channelEntities.add(new ChannelEntity());
         when(channelRepository.findAll()).thenReturn(channelEntities);
 
-        ResponseEntity<List<ChannelResponse>> response = channelProcessor.getChannels();
+        ResponseEntity<List<ChannelResponse>> response = channelProcessor.getChannels(null);
 
         assertThat(response.getBody().size()).isEqualTo(2);
     }
